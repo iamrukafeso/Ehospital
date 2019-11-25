@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Ehospital</string>
+    <string name="no_registered">ARE YOU NOT A MEMBER?</string>
+    <string name="register">REGISTER</string>
+
+    <string name="wel">WELCOME!</string>
+    <string name="ehosp">E-HOSPITAL MANAGEMENT SYSTEM</string>
+</resources>
