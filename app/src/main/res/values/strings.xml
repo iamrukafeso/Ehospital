@@ -2,7 +2,16 @@
     <string name="app_name">Ehospital</string>
     <string name="no_registered">ARE YOU NOT A MEMBER?</string>
     <string name="register">REGISTER</string>
+    <string name="no_login">ALREADY A MEMBER?</string>
+    <string name="login">LOGIN</string>
+
 
     <string name="wel">WELCOME!</string>
     <string name="ehosp">E-HOSPITAL MANAGEMENT SYSTEM</string>
+
+    <string-array name="types">
+        <item>Select Account Type</item>
+        <item>Doctor</item>
+        <item>Patient</item>
+    </string-array>
 </resources>

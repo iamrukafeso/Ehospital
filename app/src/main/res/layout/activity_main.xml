@@ -26,7 +26,7 @@
         app:layout_constraintVertical_bias="0.992" />
 
     <TextView
-        android:id="@+id/textView5"
+        android:id="@+id/regTextViewMain"
         android:layout_width="174dp"
         android:layout_height="18dp"
         android:layout_marginStart="4dp"
@@ -40,7 +40,10 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/textView2"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.987" />
+        app:layout_constraintVertical_bias="0.987"
+         android:clickable="true"
+         android:focusable="true"
+        android:onClick="onClick"/>
 
     <TextView
         android:id="@+id/textView3"
@@ -61,15 +64,16 @@
         android:id="@+id/textView4"
         android:layout_width="311dp"
         android:layout_height="161dp"
+        android:layout_marginTop="164dp"
         android:fontFamily="sans-serif-condensed-light"
         android:text="@string/ehosp"
         android:textColor="@color/white"
         android:textSize="45sp"
         app:layout_constraintBottom_toBottomOf="@+id/textView5"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.62"
+        app:layout_constraintHorizontal_bias="0.84"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/textView3"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.215" />
 
     <Button
