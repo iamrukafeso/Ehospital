@@ -131,12 +131,12 @@ public class Registratrion extends AppCompatActivity {
         //if its not  empty insert data into database
         else
         {
+
             String id = myRef.push().getKey();
 
             Members member  = new Members(id,firstName,surname,eml,pwd,dob,acctype);
             // set the value in members table
             myRef.child(id).setValue(member);
-
             Toast.makeText(this,"Your registration was successful",Toast.LENGTH_LONG).show();
         }
     }
