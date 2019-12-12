@@ -4,6 +4,7 @@ package com.ehospital;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
@@ -28,7 +29,7 @@ public class LoginActivity extends AppCompatActivity {
     EditText emEdit;
     EditText passEdit;
     Button loginBt;
-
+    String id;
     FirebaseDatabase database;
     DatabaseReference myRef;
 
@@ -51,7 +52,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                // loginBt.setBackgroundColor(Color.blue(20));
                 //loginProcess();
-                myRef = database.getReference().child("members").child("-Lvpo27yTdgbxQDZ0ACd");
+                myRef = database.getReference().child("members");
                loginProcess();
 
 
@@ -79,25 +80,34 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
-
+    String em;
     public void loginProcess()
     {
+       // id = myRef.child();
 
-        myRef.addValueEventListener(new ValueEventListener() {
+
+
+        myRef.child("-Lvpo27yTdgbxQDZ0ACd").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                String em = emEdit.getText().toString();
+
+                Members member = dataSnapshot.getValue(Members.class);
+
+                 em = emEdit.getText().toString();
                 String pass = passEdit.getText().toString();
-                String emailDb = dataSnapshot.child("email").getValue().toString();
-                String passDb = dataSnapshot.child("pwd").getValue().toString();
+             //   String emailDb = dataSnapshot.getChildren().toString();
+                String emailDb = member.getEmail();
+                String passDb = member.getPwd();
 
                 if(em.equals(emailDb) && pass.equals(passDb)) {
-                    Toast.makeText(LoginActivity.this, "Login successfull ", Toast.LENGTH_LONG).show();
+                    Toast.makeText(LoginActivity.this, "Login successful ", Toast.LENGTH_LONG).show();
+                    Intent intent = new Intent(LoginActivity.this, LoadingActivity.class);
+                    startActivity(intent);
 
                 }
                 else{
-                    Toast.makeText(LoginActivity.this, "Incorrect details", Toast.LENGTH_LONG).show();
+                    Toast.makeText(LoginActivity.this, "Incorrect details,please try again", Toast.LENGTH_LONG).show();
 
                 }
             }

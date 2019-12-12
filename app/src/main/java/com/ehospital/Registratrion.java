@@ -3,6 +3,7 @@ package com.ehospital;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -135,9 +136,12 @@ public class Registratrion extends AppCompatActivity {
             String id = myRef.push().getKey();
 
             Members member  = new Members(id,firstName,surname,eml,pwd,dob,acctype);
-            // set the value in members table
+            // set the value in id node
             myRef.child(id).setValue(member);
             Toast.makeText(this,"Your registration was successful",Toast.LENGTH_LONG).show();
+            Intent intent = new Intent(Registratrion.this, LoginActivity.class);
+            startActivity(intent);
+
         }
     }
 
