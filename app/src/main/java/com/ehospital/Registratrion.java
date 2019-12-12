@@ -125,7 +125,7 @@ public class Registratrion extends AppCompatActivity {
 
         else if(acctype.equals("Select"))
         {
-            Toast.makeText(this,"Please select acount type",Toast.LENGTH_LONG).show();
+            Toast.makeText(this,"Please select account type",Toast.LENGTH_LONG).show();
         }
 
 
