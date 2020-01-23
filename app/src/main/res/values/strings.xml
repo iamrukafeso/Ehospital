@@ -14,4 +14,7 @@
         <item>Doctor</item>
         <item>Patient</item>
     </string-array>
+    
+    <string name="settings">Settings</string>
+    <string name="help">Help</string>
 </resources>
