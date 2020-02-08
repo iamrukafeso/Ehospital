@@ -15,16 +15,21 @@ import java.time.Instant;
 import android.view.Menu;
 import android.widget.Toast;
 
+import com.google.firebase.analytics.FirebaseAnalytics;
+import com.google.firebase.auth.FirebaseAuth;
+
 public class MainActivity extends AppCompatActivity {
 
     Button loginButton;
     TextView regBtn;
 
+  //  FirebaseAuth mFirebaseAuth;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //mFirebaseAuth = FirebaseAuth.getInstance();
         loginButton = findViewById(R.id.loginBtn);
         regBtn = findViewById(R.id.regTextView);
 
