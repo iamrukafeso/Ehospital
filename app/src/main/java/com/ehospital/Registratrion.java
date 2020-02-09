@@ -170,6 +170,7 @@ public class Registratrion extends AppCompatActivity {
 
 
                     if(mAccountType.equals("Doctor")) {
+
                         mDoctorRef = mRef.child("Doctor");
                         mDoctorRef.child(userId).setValue(userMap).addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
