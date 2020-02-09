@@ -4,6 +4,7 @@ package com.ehospital;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -13,36 +14,35 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 
 
 public class LoginActivity extends AppCompatActivity {
 
     ImageView backButton;
 
-    EditText emEdit;
-    EditText passEdit;
-    Button loginBt;
-    String id;
-    FirebaseDatabase database;
-    DatabaseReference myRef;
+    private EditText mEmailEdit,mPassEdit;
+    private Button loginBt;
+    private FirebaseAuth mAuth;
+
+    private ProgressDialog mProgDialog;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        emEdit = findViewById(R.id.emlEditText);
-        passEdit = findViewById(R.id.passTextEdit);
+
+        mProgDialog = new ProgressDialog(this);
+        mAuth = FirebaseAuth.getInstance();
+        mEmailEdit = findViewById(R.id.emlEditText);
+        mPassEdit = findViewById(R.id.passTextEdit);
         loginBt = findViewById(R.id.loginBtn);
-        database = FirebaseDatabase.getInstance();
-       // myRef = database.getReference("members");
 
 
 
@@ -50,10 +50,10 @@ public class LoginActivity extends AppCompatActivity {
         loginBt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               // loginBt.setBackgroundColor(Color.blue(20));
+                // loginBt.setBackgroundColor(Color.blue(20));
                 //loginProcess();
-                myRef = database.getReference().child("members");
-               loginProcess();
+
+                loginProcess();
 
 
             }
@@ -62,61 +62,49 @@ public class LoginActivity extends AppCompatActivity {
 
 
 
-        backButton = findViewById(R.id.backBtn);
-
-//        backButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//
-//                finish();
-//
-//            }
-//        });
-
-
-        //add account listener
 
 
 
     }
 
-    String em;
     public void loginProcess()
     {
-       // id = myRef.child();
+        mProgDialog.setTitle("Registration Process ");
+        mProgDialog.setMessage("Please wait for a moment");
+        mProgDialog.setCanceledOnTouchOutside(false);
+        mProgDialog.show();
 
+        String eml = mEmailEdit.getText().toString();
+        String pass = mPassEdit.getText().toString();
 
+        if(eml.isEmpty())
+        {
+            mProgDialog.hide();
+            mEmailEdit.setError("Please enter email");
+        }
+        else if(pass.isEmpty())
+        {
+            mProgDialog.hide();
+            mPassEdit.setError("Please enter password");
+        }
 
-        myRef.child("-Lvpo27yTdgbxQDZ0ACd").addValueEventListener(new ValueEventListener() {
+        mAuth.signInWithEmailAndPassword(eml,pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-
-                Members member = dataSnapshot.getValue(Members.class);
-
-                 em = emEdit.getText().toString();
-                String pass = passEdit.getText().toString();
-             //   String emailDb = dataSnapshot.getChildren().toString();
-                String emailDb = member.getEmail();
-                String passDb = member.getPwd();
-
-                if(em.equals(emailDb) && pass.equals(passDb)) {
-                    Toast.makeText(LoginActivity.this, "Login successful ", Toast.LENGTH_LONG).show();
-                    Intent intent = new Intent(LoginActivity.this, LoadingActivity.class);
-                    startActivity(intent);
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if(task.isSuccessful())
+                {
+                    mProgDialog.dismiss();
+                    Intent loadIntent =new Intent(LoginActivity.this,LoadingActivity.class);
+                    startActivity(loadIntent);
 
                 }
-                else{
-                    Toast.makeText(LoginActivity.this, "Incorrect details,please try again", Toast.LENGTH_LONG).show();
-
+                else {
+                    mProgDialog.hide();
+                    Toast.makeText(LoginActivity.this, "Please enter valid details", Toast.LENGTH_SHORT).show();
                 }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
             }
         });
+
 
 
     }

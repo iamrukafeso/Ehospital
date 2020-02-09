@@ -14,7 +14,13 @@
         <item>Doctor</item>
         <item>Patient</item>
     </string-array>
-    
+
+    <string-array name="cardTypes">
+        <item>Please an option signing up</item>
+        <item>Medical card</item>
+        <item>Bank card</item>
+    </string-array>
+
     <string name="settings">Settings</string>
     <string name="help">Help</string>
 </resources>

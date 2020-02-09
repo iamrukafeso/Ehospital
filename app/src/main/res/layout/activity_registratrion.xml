@@ -66,7 +66,7 @@
         app:layout_constraintVertical_bias="0.309" />
 
     <EditText
-        android:id="@+id/emailEditText"
+        android:id="@+id/emailEdit"
         android:layout_width="271dp"
         android:layout_height="42dp"
         android:background="@drawable/input_field"
@@ -83,7 +83,7 @@
         app:layout_constraintVertical_bias="0.387" />
 
     <EditText
-        android:id="@+id/pwdTextEdit"
+        android:id="@+id/passEdit"
         android:layout_width="271dp"
         android:layout_height="42dp"
         android:background="@drawable/input_field"
@@ -100,7 +100,7 @@
         app:layout_constraintVertical_bias="0.461" />
 
     <EditText
-        android:id="@+id/dobTextEdit"
+        android:id="@+id/dateOfBirth"
         android:layout_width="271dp"
         android:layout_height="42dp"
         android:background="@drawable/input_field"

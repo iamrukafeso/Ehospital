@@ -1,34 +1,34 @@
 {
   "project_info": {
-    "project_number": "35238710936",
-    "firebase_url": "https://e-hospital-v2.firebaseio.com",
-    "project_id": "e-hospital-v2",
-    "storage_bucket": "e-hospital-v2.appspot.com"
+    "project_number": "77197633977",
+    "firebase_url": "https://healthcare-app-ba374.firebaseio.com",
+    "project_id": "healthcare-app-ba374",
+    "storage_bucket": "healthcare-app-ba374.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:35238710936:android:d305e7952847bd39560aed",
+        "mobilesdk_app_id": "1:77197633977:android:d5f36b1e91b67e1d342e68",
         "android_client_info": {
           "package_name": "com.ehospital"
         }
       },
       "oauth_client": [
         {
-          "client_id": "35238710936-b2huurjc93f8q5co61139bdk18rvmr02.apps.googleusercontent.com",
+          "client_id": "77197633977-3btllge8hgojjbmc4nb85fvkul29bkjt.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBzos5a4csb4CfGTMm8pVM6aSwvDzBR4k8"
+          "current_key": "AIzaSyAzG-8NGJydLUK5yPtV-9xUqdyjYeLyJPk"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "35238710936-b2huurjc93f8q5co61139bdk18rvmr02.apps.googleusercontent.com",
+              "client_id": "77197633977-3btllge8hgojjbmc4nb85fvkul29bkjt.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
