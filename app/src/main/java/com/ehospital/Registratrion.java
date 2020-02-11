@@ -20,8 +20,11 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.Calendar;
 import java.util.HashMap;
@@ -42,7 +45,7 @@ public class Registratrion extends AppCompatActivity {
     private int year,month,day;
 
 
-    private DatabaseReference mRef,mDoctorRef,mPatientRef;
+    private DatabaseReference mRef,mUserRef;
     private FirebaseAuth mAuth;
 
     private ProgressDialog mProgDialog;
@@ -70,6 +73,7 @@ public class Registratrion extends AppCompatActivity {
 
 
         mRef = FirebaseDatabase.getInstance().getReference().child("Users");
+
         mAuth = FirebaseAuth.getInstance();
 
         mProgDialog = new ProgressDialog(this);
@@ -171,8 +175,8 @@ public class Registratrion extends AppCompatActivity {
 
                     if(mAccountType.equals("Doctor")) {
 
-                        mDoctorRef = mRef.child("Doctor");
-                        mDoctorRef.child(userId).setValue(userMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        mUserRef = mRef.child(userId);
+                        mUserRef.setValue(userMap).addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
                                 if (task.isSuccessful()) {
@@ -187,8 +191,8 @@ public class Registratrion extends AppCompatActivity {
                     }
                     else if(mAccountType.equals("Patient"))
                     {
-                        mPatientRef = mRef.child("Patient");
-                        mPatientRef.child(userId).setValue(userMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        mUserRef = mRef.child(userId);
+                        mUserRef.setValue(userMap).addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
                                 if (task.isSuccessful()) {
@@ -205,6 +209,8 @@ public class Registratrion extends AppCompatActivity {
                 }
 
             });
+
+
         }
 
     }

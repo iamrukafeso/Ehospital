@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -34,10 +35,12 @@ public class LoginActivity extends AppCompatActivity {
     private Button loginBt;
     private FirebaseAuth mAuth;
 
-    private DatabaseReference mRef, mPatientRef, mDoctRef;
+    private DatabaseReference mRef, mUserRef, mDoctRef;
     private String patientUserId, doctUserId;
 
     private ProgressDialog mProgDialog;
+
+
 
 
     @Override
@@ -59,10 +62,22 @@ public class LoginActivity extends AppCompatActivity {
                 // loginBt.setBackgroundColor(Color.blue(20));
                 //loginProcess();
 
+//                FirebaseUser mCurrentUser = FirebaseAuth.getInstance().getCurrentUser();
+//                final String userId = mCurrentUser.getUid();
+//
+//                mPatientRef = mRef.child("Patient").child(userId);
+//                mDoctRef = mRef.child("Doctor");
+//
+//
+//                String patientUserId = mPatientRef.getKey();
+//                String doctUserId = mDoctRef.getKey();
+//
+//                if(userId.equals(patientUserId)) {
+
                 loginProcess();
-
-
             }
+
+
         });
 
 
@@ -74,8 +89,9 @@ public class LoginActivity extends AppCompatActivity {
         mProgDialog.setCanceledOnTouchOutside(false);
         mProgDialog.show();
 
-        String eml = mEmailEdit.getText().toString();
-        String pass = mPassEdit.getText().toString();
+        final String eml = mEmailEdit.getText().toString();
+        final String pass = mPassEdit.getText().toString();
+
 
         if (eml.isEmpty()) {
             mProgDialog.hide();
@@ -84,135 +100,68 @@ public class LoginActivity extends AppCompatActivity {
             mProgDialog.hide();
             mPassEdit.setError("Please enter password");
         } else {
-            FirebaseUser mCurrentUser = FirebaseAuth.getInstance().getCurrentUser();
-            final String userId = mCurrentUser.getUid();
 
-            mPatientRef = FirebaseDatabase.getInstance().getReference().child("Users").child("Patient").child(userId);
-            mDoctRef = FirebaseDatabase.getInstance().getReference().child("Users").child("Doctor").child(userId);
+//
+//
 
-            patientUserId = mPatientRef.getKey();
-            doctUserId = mDoctRef.getKey();
-
-
-            if(patientUserId.equals(userId)){
-
-            mAuth.signInWithEmailAndPassword(eml, pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            mAuth.signInWithEmailAndPassword(eml,pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
-                    if (task.isSuccessful()) {
 
+                    if(task.isSuccessful()) {
+                        FirebaseUser mCurrentUser = FirebaseAuth.getInstance().getCurrentUser();
+                        String userId = mCurrentUser.getUid();
 
-                            mProgDialog.dismiss();
-                            Intent loadIntent = new Intent(LoginActivity.this, LoadingActivity.class);
-                            startActivity(loadIntent);
+                        mUserRef = mRef.child(userId).child("accounttype");
 
-                        }
+                        mUserRef.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                                String accountType = dataSnapshot.getValue().toString();
+
+                                if (accountType.equals("Patient"))
+                                {
+                                    mProgDialog.dismiss();
+                                    Intent patientIntent = new Intent(LoginActivity.this, PatientMainActivity.class);
+                                    startActivity(patientIntent);
+                                    finish();
+                                }
+                                else {
+                                    mProgDialog.dismiss();
+                                    Intent patientIntent = new Intent(LoginActivity.this, DoctorMainActivity.class);
+                                    startActivity(patientIntent);
+                                    finish();
+                                }
+
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                            }
+                        });
+                    }
                     else {
-                        mProgDialog.hide();
                         Toast.makeText(LoginActivity.this, "Please enter valid details", Toast.LENGTH_SHORT).show();
                     }
-
-
 
 
 
                 }
             });
         }
-            else {
-                mAuth.signInWithEmailAndPassword(eml, pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
 
 
-                            mProgDialog.dismiss();
-                            Intent loadIntent = new Intent(LoginActivity.this, PatientMainActivity.class);
-                            startActivity(loadIntent);
-
-                        }
-                        else {
-                            mProgDialog.hide();
-                            Toast.makeText(LoginActivity.this, "Please enter valid details", Toast.LENGTH_SHORT).show();
-                        }
-
-
-
-
-
-                    }
-                });
-            }
-        }
-    }
-
-
-
-
-
-
-     private void setPath()
-     {
-         FirebaseUser mCurrentUser = FirebaseAuth.getInstance().getCurrentUser();
-         final String userId = mCurrentUser.getUid();
-
-         mPatientRef = mRef.child("Patient");
-         mDoctRef = mRef.child("Doctor");
-
-
-         String patientUserId = mPatientRef.getKey();
-         String doctUserId = mDoctRef.getKey();
-
-         if(patientUserId.equals("Patient"))
-         {
-             Toast.makeText(this, doctUserId, Toast.LENGTH_SHORT).show();
-             mProgDialog.dismiss();
-             Intent loadIntent = new Intent(LoginActivity.this, PatientMainActivity.class);
-             startActivity(loadIntent);
-
-         }
-         if (doctUserId.equals("Doctor"))
-         {
-             Toast.makeText(this, doctUserId, Toast.LENGTH_SHORT).show();
-            // Intent docIntent = new Intent(LoginActivity.this, LoadingActivity.class);
-             //startActivity(docIntent);
-         }
-
-        // Toast.makeText(this, us, Toast.LENGTH_SHORT).show();
-//         mPatientRef.addListenerForSingleValueEvent(new ValueEventListener() {
-//             @Override
-//             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//
-//                 String us = dataSnapshot.getValue().toString();
-//
-//                 if(us.equals("Patient")) {
-//
-//
-//                     mProgDialog.dismiss();
-//                     Intent loadIntent = new Intent(LoginActivity.this, PatientMainActivity.class);
-//                     startActivity(loadIntent);
-//                 }
-//
-//
-//
-//             }
-//
-//             @Override
-//             public void onCancelled(@NonNull DatabaseError databaseError) {
-//
-//             }
-//         });
-
-
-
-
-
-
-
-     }
-
-
+   }
 }
+
+
+
+
+
+
+
 
 
 
