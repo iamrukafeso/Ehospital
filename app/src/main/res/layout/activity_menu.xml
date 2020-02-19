@@ -6,6 +6,8 @@
     android:layout_height="match_parent"
     tools:context=".menu">
 
+
+
     <ImageView
         android:id="@+id/imageView5"
         android:layout_width="0dp"
@@ -32,18 +34,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.046" />
-
-    <ImageView
-        android:id="@+id/navigation"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        app:layout_constraintEnd_toStartOf="@+id/menu_title"
-        app:layout_constraintHorizontal_bias="0.105"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/menu_title"
-        app:srcCompat="@drawable/navigation" />
 
     <ImageView
         android:id="@+id/notification"

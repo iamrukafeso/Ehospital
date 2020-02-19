@@ -171,7 +171,7 @@ public class Registratrion extends AppCompatActivity {
                     userMap.put("surname", mSurname);
                     userMap.put("dateofbirth", mDob);
                     userMap.put("accounttype", mAccountType);
-
+                    userMap.put("image", "default-image");
 
                     if(mAccountType.equals("Doctor")) {
 
