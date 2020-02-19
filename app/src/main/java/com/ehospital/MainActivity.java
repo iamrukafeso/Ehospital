@@ -134,21 +134,22 @@ public class MainActivity extends AppCompatActivity {
             mUserDatabase.child(userId).child("accounttype").addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    String accType = dataSnapshot.getValue().toString();
+                    if (dataSnapshot.exists()) {
+                        String accType = dataSnapshot.getValue().toString();
 
-                    if (accType.equals("Patient")) {
-                        Intent patientIntent = new Intent(MainActivity.this, PatientMainActivity.class);
-                        startActivity(patientIntent);
-                        finish();
-                    } else if(accType.equals("Doctor")) {
-                        Intent doctPatient = new Intent(MainActivity.this, DoctorMainActivity.class);
-                        startActivity(doctPatient);
-                        finish();
+                        if (accType.equals("Patient")) {
+                            Intent patientIntent = new Intent(MainActivity.this, PatientMainActivity.class);
+                            startActivity(patientIntent);
+                            finish();
+                        } else if (accType.equals("Doctor")) {
+                            Intent doctPatient = new Intent(MainActivity.this, DoctorMainActivity.class);
+                            startActivity(doctPatient);
+                            finish();
+
+                        }
 
                     }
-
                 }
-
 
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {

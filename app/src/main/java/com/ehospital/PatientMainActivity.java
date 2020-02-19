@@ -12,6 +12,7 @@ import com.google.firebase.auth.FirebaseAuth;
 public class PatientMainActivity extends AppCompatActivity {
 
     private Button mBtn;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
