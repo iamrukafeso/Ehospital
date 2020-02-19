@@ -24,20 +24,36 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 
 public class MainActivity extends AppCompatActivity {
+
+//    Timer timer;
 
     Button loginButton;
     TextView regBtn;
 
-   private FirebaseAuth mAuth;
-   private DatabaseReference mRef,mUserDatabase;
-   private ProgressDialog mProgDialog;
+    private FirebaseAuth mAuth;
+    private DatabaseReference mRef, mUserDatabase;
+    private ProgressDialog mProgDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+//        timer = new Timer();
+//        timer.schedule(new TimerTask() {
+//            @Override
+//            public void run() {
+//                Intent homeIntent = new Intent(MainActivity.this, SplashScreenActivity.class);
+//                startActivity(homeIntent);
+//                finish();
+//            }
+//        }, 5000);
+
 
 
         loginButton = findViewById(R.id.loginBtn);
@@ -64,7 +80,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
+
         sendToMainActivities();
+//
+
 
 //        FirebaseUser mCurrentUser = mAuth.getCurrentUser();
 //
@@ -154,18 +173,18 @@ public class MainActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.main_menu, menu);
         return true;
     }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == R.id.settings) {
-            Toast.makeText(this, "You clicked SETTINGS", Toast.LENGTH_SHORT).show();
-        } else if (item.getItemId() == R.id.help) {
-            Toast.makeText(this, "You clicked HELP", Toast.LENGTH_SHORT).show();
-        } else {
-            return super.onOptionsItemSelected(item);
-        }
-        return true;
-    }
+//
+//    @Override
+//    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+//        if (item.getItemId() == R.id.settings) {
+//            Toast.makeText(this, "You clicked SETTINGS", Toast.LENGTH_SHORT).show();
+//        } else if (item.getItemId() == R.id.help) {
+//            Toast.makeText(this, "You clicked HELP", Toast.LENGTH_SHORT).show();
+//        } else {
+//            return super.onOptionsItemSelected(item);
+//        }
+//        return true;
+//    }
 
 
 }

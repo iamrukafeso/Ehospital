@@ -2,12 +2,56 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <item android:id="@+id/settings"
-        android:title="@string/settings"
+    <group android:checkableBehavior="single">
+
+    <item android:id="@+id/nav_home"
+        android:title="Home"
         app:showAsAction="never"/>
 
-    <item
-        android:id="@+id/help"
-        android:title="@string/help"
-        app:showAsAction="never" />
+<!--    <item-->
+<!--        android:id="@+id/help"-->
+<!--        android:title="@string/help"-->
+<!--        app:showAsAction="never" />-->
+
+</group>
+
+    <group android:checkableBehavior="single">
+        <item
+            android:title="Profile">
+
+            <menu>
+
+                <item
+                    android:id="@+id/nav_login"
+                    android:title="Login"
+                    android:icon="@drawable/home_icon"/>
+
+                <item
+                    android:id="@+id/nav_profile"
+                    android:title="Profile"
+                    android:icon="@drawable/profile_icon"/>
+                <item
+                    android:id="@+id/nav_logout"
+                    android:title="Logout"
+                    android:icon="@drawable/logout_icon"/>
+
+            </menu>
+
+        </item>
+        </group>
+
+    <item android:title="E-Hospital">
+
+        <menu>
+            <item
+                android:id="@+id/nav_share"
+                android:title="Share"
+                android:icon="@drawable/share_icon"></item>
+
+            <item
+                android:id="@+id/nav_rate"
+                android:title="Rate us"
+                android:icon="@drawable/home_rate"></item>
+        </menu>
+    </item>
 </menu>
