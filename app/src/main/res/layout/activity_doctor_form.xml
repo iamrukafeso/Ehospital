@@ -15,8 +15,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.291"
-        app:srcCompat="@drawable/docBackground" />
+        app:layout_constraintVertical_bias="0.265"
+        app:srcCompat="@drawable/docbackground" />
 
     <Button
         android:id="@+id/completeRegBtn"
@@ -36,7 +36,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="44dp"
-        android:text="@string/docForm"
+        android:text="enter"
         android:textColor="@color/black"
         android:textSize="25dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -48,31 +48,37 @@
         android:id="@+id/editText3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="148dp"
+        android:layout_marginBottom="448dp"
         android:ems="10"
         android:inputType="textPersonName"
         android:text="Unique ID Number"
-        tools:layout_editor_absoluteX="52dp"
-        tools:layout_editor_absoluteY="157dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <EditText
         android:id="@+id/editText4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="144dp"
+        android:layout_marginBottom="504dp"
         android:ems="10"
         android:inputType="textPersonName"
         android:text="Doctor Specification"
-        tools:layout_editor_absoluteX="50dp"
-        tools:layout_editor_absoluteY="97dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <EditText
         android:id="@+id/editText5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="160dp"
+        android:layout_marginBottom="384dp"
         android:ems="10"
         android:inputType="textPersonName"
         android:text="Years Of Experience"
-        tools:layout_editor_absoluteX="53dp"
-        tools:layout_editor_absoluteY="226dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -37,21 +37,7 @@ public class DoctorFormActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_doctor_form);
 
-        mdoctorID = FirebaseDatabase.getInstance().getReference().child("ID");
-
-        mdoctorSpecification = findViewById(R.id.doctorSpecification);
-        //muniqueID = findViewById(R.id.uniqueID);
-        myearOfExp = findViewById(R.id.yearOfExp);
-
-        mCompleteBtn2 = findViewById(R.id.completeRegBtn);
-
-        mCompleteBtn2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                formProcess();
-            }
-        });
-
+     //
     }
 
     private void formProcess() {
@@ -59,31 +45,15 @@ public class DoctorFormActivity extends AppCompatActivity {
         doctorSpecification = mdoctorSpecification.getText().toString();
 
         //get userId and store as string
-        FirebaseUser mCurrentUser = FirebaseAuth.getInstance().getCurrentUser();
-        String DocId = mCurrentUser.getDocid();
+       // FirebaseUser mCurrentUser = FirebaseAuth.getInstance().getCurrentUser();
+       // String DocId = mCurrentUser.getDocid();
 
         //Used hashmap for string key and value pairs
 
-        if (doctorSpecification.isEmpty()) {
-            mdoctorSpecification.setError("please enter this field");
-        }
 
-//        else if(docID.length() < 16)
-//        {
-//            docID.setError("Card number must be 16 digits");
-//        }
     }
 
-    @Override
-    public void onComplete(@NonNull Task<Void> task) {
 
-        if (task.isSuccessful()) {
-            Intent loadIntent = new Intent(DoctorFormActivity.this, DoctorMainActivity.class);
-            startActivity(loadIntent);
-        } else {
-            Toast.makeText(DoctorFormActivity.this, "Please Enter valid details", Toast.LENGTH_SHORT).show();
-        }
-    }
 }
 
 
