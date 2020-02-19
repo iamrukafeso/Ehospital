@@ -7,17 +7,14 @@
     tools:context=".PatientFormActivity">
 
     <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="498dp"
-        android:layout_height="705dp"
-        android:visibility="invisible"
+        android:id="@+id/imageView8"
+        android:layout_width="467dp"
+        android:layout_height="738dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.505"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.038"
-        app:srcCompat="@drawable/background3" />
+        app:srcCompat="@drawable/docBackground" />
 
     <Spinner
         android:id="@+id/cardTypeSpinner"
@@ -117,7 +114,7 @@
         android:id="@+id/selectOption"
         android:layout_width="172dp"
         android:layout_height="38dp"
-        android:text="Part 2 patient details"
+        android:text="Complete Patient Form."
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.276"
@@ -132,12 +129,10 @@
         android:layout_height="wrap_content"
         android:text="Complete Registration"
         android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.361"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.68" />
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
