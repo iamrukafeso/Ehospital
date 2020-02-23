@@ -2,7 +2,9 @@ package com.ehospital;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.viewpager.widget.ViewPager;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,6 +17,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -31,13 +34,21 @@ public class PatientFormActivity extends AppCompatActivity {
     private String cardHolderName,cardNumber,expireDate,cvvNumber;
 
     private DatabaseReference mRef,mMedCardRef,mBankCardRef;
+    private FirebaseAuth mAuth;
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_patient_form);
 
+
+
+
         mRef = FirebaseDatabase.getInstance().getReference().child("Card");
+        mAuth = FirebaseAuth.getInstance();
 
         mCardHolderName = findViewById(R.id.cardHoldername);
         mCardNumber = findViewById(R.id.cardNumber);
@@ -70,16 +81,7 @@ public class PatientFormActivity extends AppCompatActivity {
                     mCompleteBtn.setVisibility(View.VISIBLE);
                     mCVVNumber.setVisibility(View.VISIBLE);
 
-//                    //set margins for the button
-//                    ConstraintLayout.LayoutParams params = new ConstraintLayout.LayoutParams(
-//                            ConstraintLayout.LayoutParams.WRAP_CONTENT,
-//                            ConstraintLayout.LayoutParams.WRAP_CONTENT
-//                    );
-//                    params.setMargins(800, 100, 0, 0);
-//                    mCompleteBtn.setLayoutParams(params);
-
-
-                  //  setContentView(R.layout.bank_card_form);
+//
                 }
                 else {
                     mCardHolderName.setVisibility(View.INVISIBLE);
@@ -113,6 +115,11 @@ public class PatientFormActivity extends AppCompatActivity {
 
     private void formProcess() {
 
+        // get Current User id
+
+        FirebaseUser mCurrentUser = mAuth.getCurrentUser();
+        String patient_id = mCurrentUser.getUid();
+
         cardHolderName = mCardHolderName.getText().toString();
         cardNumber = mCardNumber.getText().toString();
         expireDate = mExpireDate.getText().toString();
@@ -120,9 +127,6 @@ public class PatientFormActivity extends AppCompatActivity {
 
         String cardSelect = mCardSpinnner.getSelectedItem().toString();
 
-        //get userId and store as string
-        FirebaseUser mCurrentUser = FirebaseAuth.getInstance().getCurrentUser();
-        String userId = mCurrentUser.getUid();
 
         //Used hashmap for string key and value pairs
 
@@ -152,14 +156,14 @@ public class PatientFormActivity extends AppCompatActivity {
                 medicalUser.put("cardnumber", cardNumber);
                 medicalUser.put("expiredate", expireDate);
 
-                mMedCardRef = mRef.child("Medicalcard").child(userId);
+                mMedCardRef = mRef.child("Medicalcard").child(patient_id);
 
                 mMedCardRef.setValue(medicalUser).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
 
                         if (task.isSuccessful()) {
-                            Intent loadIntent = new Intent(PatientFormActivity.this, LoadingActivity.class);
+                            Intent loadIntent = new Intent(PatientFormActivity.this, PatientMainActivity.class);
                             startActivity(loadIntent);
                         } else {
                             Toast.makeText(PatientFormActivity.this, "Please Enter valid details", Toast.LENGTH_SHORT).show();
@@ -186,14 +190,14 @@ public class PatientFormActivity extends AppCompatActivity {
                     bankUser.put("cardnumber", cardNumber);
                     bankUser.put("expiredate", expireDate);
 
-                    mBankCardRef = mRef.child("Bankcard").child(userId);
+                    mBankCardRef = mRef.child("Bankcard").child(patient_id);
 
                     mBankCardRef.setValue(bankUser).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
 
                             if (task.isSuccessful()) {
-                                Intent loadIntent = new Intent(PatientFormActivity.this, LoadingActivity.class);
+                                Intent loadIntent = new Intent(PatientFormActivity.this, PatientMainActivity.class);
                                 startActivity(loadIntent);
                             } else {
                                 Toast.makeText(PatientFormActivity.this, "Please Enter valid details", Toast.LENGTH_SHORT).show();

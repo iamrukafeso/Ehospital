@@ -182,7 +182,7 @@ public class Registratrion extends AppCompatActivity {
                                 if (task.isSuccessful()) {
                                     mProgDialog.dismiss();
                                     Toast.makeText(Registratrion.this, "Your registration was successful", Toast.LENGTH_LONG).show();
-                                    Intent intent = new Intent(Registratrion.this, LoginActivity.class);
+                                    Intent intent = new Intent(Registratrion.this, DoctorFormActivity.class);
                                     startActivity(intent);
                                 }
 

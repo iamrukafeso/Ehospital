@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -24,31 +25,107 @@ import java.util.HashMap;
 
 public class DoctorFormActivity extends AppCompatActivity {
 
-    private EditText mdoctorSpecification, muniqueID, myearOfExp;
+    private EditText mdoctorSpecification, mDoctUniqueNumber, mYearExp;
 
-    private String doctorSpecification, uniqueID, yearOfExp;
 
-    private Button mCompleteBtn2;
+    private Button mDoctCompleteBtn;
 
-//    private DatabaseReference mdoctorID;
+    private DatabaseReference mRef;
+    private FirebaseAuth mAuth;
+
+    private ProgressDialog mDoctorProgDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_doctor_form);
 
-     //
+        mdoctorSpecification = findViewById(R.id.specialistFieldEdit);
+        mDoctUniqueNumber = findViewById(R.id.regNumberEdit);
+        mYearExp = findViewById(R.id.yearOfExpEdit);
+
+        mDoctCompleteBtn = findViewById(R.id.docCompleteBtn);
+
+        mRef = FirebaseDatabase.getInstance().getReference().child("DoctorForm");
+        mAuth = FirebaseAuth.getInstance();
+
+        mDoctorProgDialog = new ProgressDialog(this);
+
+        mDoctCompleteBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                formProcess();
+            }
+        });
     }
 
     private void formProcess() {
 
-        doctorSpecification = mdoctorSpecification.getText().toString();
+        mDoctorProgDialog.setTitle("Process Form ");
+        mDoctorProgDialog.setMessage("Please wait for a moment");
+        mDoctorProgDialog.setCanceledOnTouchOutside(false);
+        mDoctorProgDialog.show();
 
-        //get userId and store as string
-       // FirebaseUser mCurrentUser = FirebaseAuth.getInstance().getCurrentUser();
-       // String DocId = mCurrentUser.getDocid();
 
-        //Used hashmap for string key and value pairs
+        String doctorSpecification = mdoctorSpecification.getText().toString();
+        String doctUniqueNumber = mDoctUniqueNumber.getText().toString();
+        String yearExp = mYearExp.getText().toString();
+
+        if(doctorSpecification.isEmpty())
+        {
+            mDoctorProgDialog.hide();
+            mdoctorSpecification.setError("Please enter this field");
+        }
+
+        else if(doctUniqueNumber.isEmpty())
+        {
+            mDoctorProgDialog.hide();
+            mDoctUniqueNumber.setError("Please enter this field");
+        }
+
+        else if(yearExp.isEmpty())
+        {
+            mDoctorProgDialog.hide();
+            mYearExp.setError("Please enter this field");
+        }
+
+        else{
+
+            // get the id of current Doctor;
+
+            FirebaseUser mCurrentUser = mAuth.getCurrentUser();
+
+            String doctor_id = mCurrentUser.getUid();
+
+            // used the values in hashMap
+
+            HashMap<String,String> doctUser = new HashMap<>();
+
+            doctUser.put("uniquenumber",doctUniqueNumber);
+            doctUser.put("specialistfield",doctorSpecification);
+            doctUser.put("yearExperience",yearExp);
+
+
+            mRef.child(doctor_id).setValue(doctUser).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+
+                    if(task.isSuccessful())
+                    {
+                        mDoctorProgDialog.dismiss();
+                        Intent doctMainIntent = new Intent(DoctorFormActivity.this,DoctorMainActivity.class);
+                        startActivity(doctMainIntent);
+                        finish();
+                    }
+                    else
+                    {
+                        mDoctorProgDialog.hide();
+                        Toast.makeText(DoctorFormActivity.this, "There was some errors please try again", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+
+        }
 
 
     }

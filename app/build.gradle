@@ -29,6 +29,9 @@ dependencies {
 
     implementation 'com.google.firebase:firebase-core:17.2.2'
 
+    implementation 'com.google.android.material:material:1.1.0'
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.0.0'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     testImplementation 'junit:junit:4.12'
     implementation 'com.android.support:multidex:1.0.3'
     androidTestImplementation 'androidx.test.ext:junit:1.1.0'
@@ -38,7 +41,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-auth:19.0.0'
     implementation 'com.google.firebase:firebase-storage:17.0.0'
     implementation 'de.hdodenhof:circleimageview:3.1.0'
-    implementation 'com.firebaseui:firebase-ui-database:4.3.0'
+    implementation 'com.firebaseui:firebase-ui-database:6.0.2'
     api 'com.theartofdev.edmodo:android-image-cropper:2.8.+'
     implementation 'id.zelory:compressor:2.0.0'
     implementation 'com.squareup.picasso:picasso:2.5.2'
