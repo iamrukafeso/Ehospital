@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/user_proifle_image"
+        android:layout_width="111dp"
+        android:layout_height="84dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="15dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="285dp"
+        android:layout_marginBottom="15dp"
+        android:src="@drawable/ic_profile" />
+
+    <TextView
+        android:id="@+id/doctName"
+        android:layout_width="124dp"
+        android:layout_height="42dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginLeft="150dp"
+        android:layout_marginTop="11dp"
+        android:layout_marginEnd="135dp"
+        android:text="Name"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/doctSpecialist"
+        android:layout_width="167dp"
+        android:layout_height="32dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginLeft="150dp"
+        android:layout_marginTop="65dp"
+        android:layout_marginEnd="94dp"
+        android:text="None" />
+
+
+</RelativeLayout>
