@@ -4,6 +4,7 @@ package com.ehospital;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -85,13 +86,13 @@ public class AllDoctorsFragments extends Fragment {
                         @Override
                         protected void onBindViewHolder(@NonNull final DoctorViewHolder holder, int position, @NonNull final Doctor model) {
 
-                            String user_id = getRef(position).getKey();
+                            final String user_id = getRef(position).getKey();
 
                             mDoctRef.child(user_id).addValueEventListener(new ValueEventListener() {
                                 @Override
                                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                    String firstName = dataSnapshot.child("firstname").getValue().toString();
-                                    String surname = dataSnapshot.child("surname").getValue().toString();
+                                    final String firstName = dataSnapshot.child("firstname").getValue().toString();
+                                    final String surname = dataSnapshot.child("surname").getValue().toString();
                                     String image = dataSnapshot.child("image").getValue().toString();
                                     holder.setName(firstName.substring(0, 1).toUpperCase() + firstName.substring(1).toLowerCase() + " " + surname.substring(0, 1).toUpperCase() + surname.substring(1).toLowerCase());
                                     holder.setSpecialist(model.getSpecialistfield());
@@ -119,6 +120,13 @@ public class AllDoctorsFragments extends Fragment {
                                                     }
                                                     else if(pos == 1)
                                                     {
+                                                        String name_user = firstName;
+
+                                                        Intent chatIntent = new Intent(getContext(),ChatAcitivity.class);
+                                                        chatIntent.putExtra("user_id",user_id);
+                                                        chatIntent.putExtra("name",name_user);
+                                                        startActivity(chatIntent);
+
 
                                                     }
                                                 }
@@ -150,14 +158,7 @@ public class AllDoctorsFragments extends Fragment {
                     };
 
 
-               // }
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError databaseError) {
-//
-//            }
-//        });
+
 
 
 

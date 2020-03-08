@@ -17,6 +17,11 @@ import android.widget.Button;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class PatientMainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
@@ -24,6 +29,8 @@ public class PatientMainActivity extends AppCompatActivity implements Navigation
     private DrawerLayout mDrawer;
     private FirebaseAuth mAuth;
 
+    private DatabaseReference mUserRef;
+    private String mCurrentUserId;
     private ViewPager mPager;
     private TabLayout mTabLayout;
     private SectionAdopter mSectionPager;
@@ -49,7 +56,10 @@ public class PatientMainActivity extends AppCompatActivity implements Navigation
 
         mTabLayout.setupWithViewPager(mPager);
 
+        mAuth = FirebaseAuth.getInstance();
+        mCurrentUserId = mAuth.getCurrentUser().getUid();
 
+        mUserRef = FirebaseDatabase.getInstance().getReference().child("Users").child(mCurrentUserId);
         // to tie DrawerLayout
 
         ActionBarDrawerToggle mBarToggle = new ActionBarDrawerToggle(this, mDrawer, mNavBar,
@@ -81,13 +91,17 @@ public class PatientMainActivity extends AppCompatActivity implements Navigation
         switch (menuItem.getItemId())
         {
             case R.id.profile_nav:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_layout, new ProfileFragment()).commit();
-                break;
 
+//
+                            Intent profileIntent = new Intent(getApplicationContext(), PatientProfileActivity.class);
+                            startActivity(profileIntent);
+                            finish();
+                            break;
             case R.id.logout_nav:
                 mAuth.signOut();
                 Intent homeIntent = new Intent(getApplicationContext(),MainActivity.class);
                 startActivity(homeIntent);
+                finish();
 
 
         }

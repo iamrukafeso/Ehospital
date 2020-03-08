@@ -61,9 +61,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        mAuth = FirebaseAuth.getInstance();
-        mRef = FirebaseDatabase.getInstance().getReference();
-        mUserDatabase = mRef.child("Users");
+
 
         //Set a listener that reacts when the login button is been clicked.
         loginButton.setOnClickListener(new View.OnClickListener() {
@@ -81,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
         super.onStart();
 
 
-        sendToMainActivities();
+     //   sendToMainActivities();
 //
 
 
@@ -124,42 +122,42 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void sendToMainActivities()
-    {
-        FirebaseUser mCurrentUser = mAuth.getCurrentUser();
-
-        if (mCurrentUser != null) {
-            String userId = mCurrentUser.getUid();
-
-            mUserDatabase.child(userId).child("accounttype").addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    if (dataSnapshot.exists()) {
-                        String accType = dataSnapshot.getValue().toString();
-
-                        if (accType.equals("Patient")) {
-                            Intent patientIntent = new Intent(MainActivity.this, PatientMainActivity.class);
-                            startActivity(patientIntent);
-                            finish();
-                        } else if (accType.equals("Doctor")) {
-                            Intent doctPatient = new Intent(MainActivity.this, DoctorMainActivity.class);
-                            startActivity(doctPatient);
-                            finish();
-
-                        }
-
-                    }
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                }
-            });
-        }
-
-
-    }
+//    private void sendToMainActivities()
+//    {
+//        FirebaseUser mCurrentUser = mAuth.getCurrentUser();
+//
+//        if (mCurrentUser != null) {
+//            String userId = mCurrentUser.getUid();
+//
+//            mUserDatabase.child(userId).child("accounttype").addValueEventListener(new ValueEventListener() {
+//                @Override
+//                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                    if (dataSnapshot.exists()) {
+//                        String accType = dataSnapshot.getValue().toString();
+//
+//                        if (accType.equals("Patient")) {
+//                            Intent patientIntent = new Intent(MainActivity.this, PatientMainActivity.class);
+//                            startActivity(patientIntent);
+//                            finish();
+//                        } else if (accType.equals("Doctor")) {
+//                            Intent doctPatient = new Intent(MainActivity.this, DoctorMainActivity.class);
+//                            startActivity(doctPatient);
+//                            finish();
+//
+//                        }
+//
+//                    }
+//                }
+//
+//                @Override
+//                public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//                }
+//            });
+//        }
+//
+//
+//    }
 
     public void onClick(View view)
     {

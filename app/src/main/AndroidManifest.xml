@@ -4,6 +4,8 @@
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
 
     <application
         android:allowBackup="true"
@@ -12,6 +14,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".DoctorProfileActivity"
+            android:parentActivityName=".DoctorMainActivity"></activity>
+        <activity android:name=".PatientProfileActivity" />
+        <activity
+            android:name=".ChatAcitivity"
+            android:parentActivityName=".PatientMainActivity" />
         <activity android:name=".SlashScreenActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -27,7 +35,6 @@
         <activity android:name=".PatientFormActivity" />
         <activity android:name=".DoctorFormActivity" />
         <activity android:name=".menu" />
-        <activity android:name=".ChatActivity" />
         <activity android:name=".LoadingActivity" />
         <activity android:name=".Registratrion" />
         <activity android:name=".LoginActivity" />

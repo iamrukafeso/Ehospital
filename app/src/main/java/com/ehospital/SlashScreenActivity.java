@@ -1,8 +1,10 @@
 //spla
 package com.ehospital;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -11,6 +13,14 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class SlashScreenActivity extends AppCompatActivity {
 
@@ -22,34 +32,73 @@ public class SlashScreenActivity extends AppCompatActivity {
     ImageView image;
     TextView logo, slogan;
 
+    private FirebaseAuth mAuth;
+    private DatabaseReference mRef, mUserDatabase;
+    private ProgressDialog mProgDialog;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_slash_screen);
 
-//        //Animation
-//        topAnim = AnimationUtils.loadAnimation(this,R.anim.top_animation);
-//        bottomAnim = AnimationUtils.loadAnimation(this,R.anim.bottom_animation);
-//
-//        //Hooks
-//        image = findViewById(R.id.imageView);
-//        logo = findViewById(R.id.textView);
-//        slogan = findViewById(R.id.textView2);
-//
-//
-//        image.setAnimation(topAnim);
-//        logo.setAnimation(bottomAnim);
-//        slogan.setAnimation(bottomAnim);
+
+        mAuth = FirebaseAuth.getInstance();
+        mRef = FirebaseDatabase.getInstance().getReference();
+        mUserDatabase = mRef.child("Users");
 
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent intent = new Intent(SlashScreenActivity.this, MainActivity.class);
-                startActivity(intent);
-                finish();
+//                Intent intent = new Intent(SlashScreenActivity.this, MainActivity.class);
+////                startActivity(intent);
+////                finish();
+                sendToMainActivities();
             }
         },SPLASH_SCREEN);
+
+    }
+
+    private void sendToMainActivities()
+    {
+        FirebaseUser mCurrentUser = mAuth.getCurrentUser();
+
+        if (mCurrentUser != null) {
+            String userId = mCurrentUser.getUid();
+
+            mUserDatabase.child(userId).child("accounttype").addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.exists()) {
+                        String accType = dataSnapshot.getValue().toString();
+
+                        if (accType.equals("Patient")) {
+                            Intent patientIntent = new Intent(SlashScreenActivity.this, PatientMainActivity.class);
+                            startActivity(patientIntent);
+                            finish();
+                        } else if (accType.equals("Doctor")) {
+                            Intent doctPatient = new Intent(SlashScreenActivity.this, DoctorMainActivity.class);
+                            startActivity(doctPatient);
+                            finish();
+
+                        }
+
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+        }
+        else{
+            Intent intent = new Intent(SlashScreenActivity.this, MainActivity.class);
+            startActivity(intent);
+            finish();
+        }
+
 
     }
 }
