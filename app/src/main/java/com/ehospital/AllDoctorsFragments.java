@@ -117,6 +117,12 @@ public class AllDoctorsFragments extends Fragment {
                                                     if(pos == 0)
                                                     {
 
+                                                        String name_user = firstName;
+
+                                                        Intent profileIntent = new Intent(getContext(),DoctorProfileActivity.class);
+                                                        profileIntent.putExtra("user_id",user_id);
+                                                        profileIntent.putExtra("name",name_user);
+                                                        startActivity(profileIntent);
                                                     }
                                                     else if(pos == 1)
                                                     {

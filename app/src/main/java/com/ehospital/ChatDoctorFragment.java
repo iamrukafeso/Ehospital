@@ -93,6 +93,8 @@ public class ChatDoctorFragment extends Fragment {
                    @Override
                    public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
 
+                        final String messageType = dataSnapshot.child("type").getValue().toString();
+
                       final String data = dataSnapshot.child("message").getValue().toString();
 
                        mUserDatabase.child(list_user_id).addValueEventListener(new ValueEventListener() {
@@ -105,7 +107,9 @@ public class ChatDoctorFragment extends Fragment {
 
 
                                holder.setName("Dr" + firstName.substring(0, 1).toUpperCase() + firstName.substring(1).toLowerCase() + " " + surname.substring(0, 1).toUpperCase() + surname.substring(1).toLowerCase());
-                               holder.setMessage(data,model.isSeen());
+                              if(messageType.equals("text")) {
+                                  holder.setMessage(data, model.isSeen());
+                              }
 
                                holder.mView.setOnClickListener(new View.OnClickListener() {
                                    @Override

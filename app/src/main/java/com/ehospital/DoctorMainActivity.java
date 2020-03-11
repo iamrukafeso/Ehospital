@@ -142,6 +142,7 @@ public class DoctorMainActivity extends AppCompatActivity  implements Navigation
 
                         final String data = dataSnapshot.child("message").getValue().toString();
 
+                        final String messageText = dataSnapshot.child("type").getValue().toString();
                         mUserDatabase.child(list_user_id).addValueEventListener(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -150,7 +151,13 @@ public class DoctorMainActivity extends AppCompatActivity  implements Navigation
                                 final String surname = dataSnapshot.child("surname").getValue().toString();
 
                                 holder.setName(firstName.substring(0, 1).toUpperCase() + firstName.substring(1).toLowerCase() + " " + surname.substring(0, 1).toUpperCase() + surname.substring(1).toLowerCase());
-                                holder.setMessage(data,model.isSeen());
+
+                                if(messageText.equals("text")) {
+                                    holder.setMessage(data, model.isSeen());
+                                }
+                                else {
+                                    holder.setMessage("Audio", model.isSeen());
+                                }
 
                                 holder.mView.setOnClickListener(new View.OnClickListener() {
                                     @Override

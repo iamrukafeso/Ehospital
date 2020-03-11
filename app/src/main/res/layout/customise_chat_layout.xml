@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/chatter_image"
+        android:layout_width="93dp"
+        android:layout_height="56dp"
+        android:layout_marginLeft="210dp"
+        android:layout_marginTop="15dp"
+        android:src="@drawable/ic_profile" />
+
+
+    <TextView
+        android:id="@+id/chatter_name"
+        android:layout_width="195dp"
+        android:layout_height="40dp"
+        android:text="Display Name"
+        android:layout_marginTop="15dp"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+</RelativeLayout>

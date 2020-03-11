@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFEB3B">
+
+
+    <Button
+        android:id="@+id/doct_ChangeImage"
+        android:layout_width="160dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="125dp"
+        android:layout_marginBottom="449dp"
+        android:text="Change Image" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/doct_profile_image"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="89dp"
+        android:layout_marginEnd="6dp"
+        android:layout_marginBottom="497dp"
+        android:src="@drawable/defaultimage"
+        app:civ_border_color="#FF000000"
+        app:civ_border_width="2dp" />
+
+    <TextView
+        android:id="@+id/doct_Email"
+        android:layout_width="143dp"
+        android:layout_height="37dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="297dp"
+        android:layout_marginBottom="305dp"
+        android:text="Email"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/doct_FirstName"
+        android:layout_width="143dp"
+        android:layout_height="38dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="266dp"
+        android:layout_marginBottom="401dp"
+        android:text="First Name"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/doct_Surname"
+        android:layout_width="143dp"
+        android:layout_height="38dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="265dp"
+        android:layout_marginBottom="353dp"
+        android:text="Surname"
+        android:textSize="18sp" />
+
+    <Button
+        android:id="@+id/doctupdateBtn"
+        android:layout_width="156dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="135dp"
+        android:layout_marginBottom="21dp"
+        android:text="Update" />
+
+    <EditText
+        android:id="@+id/doct_FirstNameEdit"
+        android:layout_width="252dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="399dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Name" />
+
+    <EditText
+        android:id="@+id/doct_SurnameEdit"
+        android:layout_width="252dp"
+        android:layout_height="40dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="9dp"
+        android:layout_marginBottom="350dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Name" />
+
+    <EditText
+        android:id="@+id/doct_EmailEdit"
+        android:layout_width="252dp"
+        android:layout_height="40dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="302dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Name" />
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/profileBar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/colorPrimary"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <TextView
+        android:id="@+id/doctYearOfExp"
+        android:layout_width="143dp"
+        android:layout_height="37dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="283dp"
+        android:layout_marginBottom="256dp"
+        android:text="Year of Experience" />
+
+    <EditText
+        android:id="@+id/doctYearOfExpEdit"
+        android:layout_width="176dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="87dp"
+        android:layout_marginBottom="258dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Name" />
+
+    <TextView
+        android:id="@+id/doctSpecialiText"
+        android:layout_width="103dp"
+        android:layout_height="37dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="300dp"
+        android:layout_marginBottom="203dp"
+        android:text="Specialist" />
+
+    <EditText
+        android:id="@+id/doctSpecialiTextEdit"
+        android:layout_width="252dp"
+        android:layout_height="40dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="202dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Name" />
+
+    <TextView
+        android:id="@+id/doctDescription"
+        android:layout_width="103dp"
+        android:layout_height="37dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="293dp"
+        android:layout_marginBottom="149dp"
+        android:text="Description" />
+
+    <EditText
+        android:id="@+id/doctDescriptionEdit"
+        android:layout_width="252dp"
+        android:layout_height="104dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="17dp"
+        android:layout_marginBottom="86dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Name" />
+
+
+</RelativeLayout>
