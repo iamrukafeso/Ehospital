@@ -11,6 +11,8 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.Manifest;
 import android.content.Context;
+import android.graphics.drawable.Drawable;
+import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
 import android.net.Uri;
@@ -58,16 +60,14 @@ import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class ChatAcitivity extends AppCompatActivity {
+public class ChatAcitivity extends AppCompatActivity implements RecycleViewListener{
 
     private Toolbar mChatBar;
 
     private TextView mName;
     private EditText mInputMessage;
-    private ImageButton mSendBtn;
+    private ImageButton mSendBtn,mAudioBtn;
 
-    private Button mRecordBtn,mPlayBtn;
-    private SeekBar mSeekBar;
 
 
     private String audio;
@@ -93,6 +93,7 @@ public class ChatAcitivity extends AppCompatActivity {
     private static String mFileName = null;
 
     private StorageReference mStorage;
+    private int num = 0;
 
     private static final String LOG_TAG = "AudioRecordTest";
 
@@ -104,13 +105,9 @@ public class ChatAcitivity extends AppCompatActivity {
         setContentView(R.layout.activity_chat_acitivity);
 
         mFileName = getExternalCacheDir().getAbsolutePath();
-        mFileName += "/recorded_audio.3gp";
-
-       // mRecordBtn = findViewById(R.id.audioBtn);
-
-        mPlayBtn = findViewById(R.id.playAudioBtn);
-        mSeekBar = findViewById(R.id.seekBarPlay);
-        handler = new Handler();
+        mFileName += "/recorded_audio" + num +".3gp";
+        num++;
+       mAudioBtn = findViewById(R.id.audioBtn);
 
 
 
@@ -118,21 +115,23 @@ public class ChatAcitivity extends AppCompatActivity {
 
 
 
-//        mRecordBtn.setOnTouchListener(new View.OnTouchListener() {
-//            @Override
-//            public boolean onTouch(View v, MotionEvent event) {
-//                if(event.getAction() == MotionEvent.ACTION_DOWN)
-//                {
-//                    startRecording();
-//                }
-//                else if(event.getAction() == MotionEvent.ACTION_UP)
-//                {
-//                    stopRecording();
-//                }
-//
-//                return false;
-//            }
-//        });
+
+
+        mAudioBtn.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if(event.getAction() == MotionEvent.ACTION_DOWN)
+                {
+                    startRecording();
+                }
+                else if(event.getAction() == MotionEvent.ACTION_UP)
+                {
+                    stopRecording();
+                }
+
+                return false;
+            }
+        });
 
         mStorage = FirebaseStorage.getInstance().getReference();
         mAuth = FirebaseAuth.getInstance();
@@ -166,6 +165,8 @@ public class ChatAcitivity extends AppCompatActivity {
 
         mUserProfile = findViewById(R.id.chatter_image);
 
+
+
         mSendBtn = findViewById(R.id.senderBtn);
 
         mInputMessage = findViewById(R.id.sendMessageEdit);
@@ -173,7 +174,7 @@ public class ChatAcitivity extends AppCompatActivity {
         mRefresh = findViewById(R.id.swapMessageLayout);
 
 
-        mAdopter = new MessageAdopter(listMessage);
+        mAdopter = new MessageAdopter(listMessage,this);
 
         mMessageList = findViewById(R.id.chat_list);
         mLineManager = new LinearLayoutManager(this);
@@ -200,6 +201,8 @@ public class ChatAcitivity extends AppCompatActivity {
 
             }
         });
+
+        mPlayer = new MediaPlayer();
 
         mDatabaseRef = FirebaseDatabase.getInstance().getReference();
         mDatabaseRef.child("Conversion").child(mCurrentId).addValueEventListener(new ValueEventListener() {
@@ -414,7 +417,7 @@ public class ChatAcitivity extends AppCompatActivity {
 
     private void uploadToFireBase() {
 
-        final StorageReference filePath = mStorage.child("Audio").child(mCurrentId + ".3gp");
+        final StorageReference filePath = mStorage.child("Audio").child(mCurrentId + num + ".3gp");
 
 
         Uri uri = Uri.fromFile(new File(mFileName));
@@ -474,47 +477,70 @@ public class ChatAcitivity extends AppCompatActivity {
 
     }
 
-    public void play_audio(View view)
-    {
-        mPlayer = new MediaPlayer();
+//    public void play_audio(String audio)
+//    {
+//
+//
+//        mPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+//
+//        try{
+//            mPlayer.reset();
+//            mPlayer.setDataSource(audio);
+//            mPlayer.prepareAsync();
+//            mPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+//                @Override
+//                public void onPrepared(MediaPlayer mp) {
+//                   // mSeekBar.setMax(mPlayer.getDuration());
+//                    mp.start();
+//                  //  changeToSeekBar();
+//
+//                }
+//            });
+////            mSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+////                @Override
+////                public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+////                    if(fromUser) {
+////                        mPlayer.seekTo(progress);
+////                    }
+////                }
+////
+////                @Override
+////                public void onStartTrackingTouch(SeekBar seekBar) {
+////
+////                }
+////
+////                @Override
+////                public void onStopTrackingTouch(SeekBar seekBar) {
+////
+////                }
+////            });
+//
+//           // mPlayer.prepare();
+//        }catch (IOException e)
+//        {
+//            e.printStackTrace();
+//        }
+//
+//    }
 
-        try{
 
-            mPlayer.setDataSource(audio);
-            mPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-                @Override
-                public void onPrepared(MediaPlayer mp) {
-                    mSeekBar.setMax(mPlayer.getDuration());
-                    mp.start();
-                  //  changeToSeekBar();
-                }
-            });
-            mSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-                @Override
-                public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                    if(fromUser) {
-                        mPlayer.seekTo(progress);
-                    }
-                }
+    @Override
+    public void onPlay(int position) {
 
-                @Override
-                public void onStartTrackingTouch(SeekBar seekBar) {
 
-                }
+          if(!mAdopter.mPlayer.isPlaying()) {
+            String audioPlay = listMessage.get(position).getMessage();
+            mAdopter.play_audio(audioPlay);
 
-                @Override
-                public void onStopTrackingTouch(SeekBar seekBar) {
 
-                }
-            });
-
-            mPlayer.prepare();
-        }catch (IOException e)
-        {
-            e.printStackTrace();
         }
-
+        else{
+            mPlayer.stop();
+        }
     }
 
+    @Override
+    public void onPause(int position) {
 
+    }
 }

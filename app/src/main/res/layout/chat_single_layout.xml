@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/messageSingleLayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -16,7 +17,21 @@
         android:layout_width="231dp"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
-        android:layout_marginStart="41dp">
+        android:layout_marginStart="41dp"
+        tools:visibility="visible">
+
+        <ImageView
+            android:id="@+id/playAudioReceiverBtn"
+            android:layout_width="65dp"
+            android:layout_height="40dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="27dp"
+            android:layout_marginTop="5dp"
+            android:background="@color/colorPrimaryDark"
+            android:text=">>"
+            android:visibility="visible"
+            app:srcCompat="@android:drawable/ic_media_play" />
 
         <TextView
             android:id="@+id/receiverText"
@@ -40,6 +55,7 @@
             android:layout_marginTop="35dp"
             android:text="hello"
             android:textSize="12sp" />
+
     </RelativeLayout>
 
     <de.hdodenhof.circleimageview.CircleImageView
@@ -55,6 +71,13 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_marginEnd="49dp">
+
+<!--        <SeekBar-->
+<!--            android:id="@+id/seekBar"-->
+<!--            android:layout_width="87dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_alignParentStart="true"-->
+<!--            android:layout_marginStart="0dp" />-->
 
         <TextView
             android:id="@+id/senderText"
@@ -80,28 +103,22 @@
             android:text="hello"
             android:textSize="12sp" />
 
+        <ImageView
+            android:id="@+id/playAudioSenderBtn"
+            android:layout_width="65dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="102dp"
+            android:layout_marginTop="8dp"
+            android:background="@color/colorPrimaryDark"
+            android:text=">>"
+            android:visibility="visible"
+            app:srcCompat="@android:drawable/ic_media_play" />
+
+
+
     </RelativeLayout>
 
-    <SeekBar
-        android:id="@+id/seekBarPlay"
-        android:layout_width="107dp"
-        android:layout_height="34dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="125dp"
-        android:layout_marginTop="11dp"
-        android:visibility="invisible" />
 
-    <Button
-        android:id="@+id/playAudioBtn"
-        android:layout_width="57dp"
-        android:layout_height="34dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="67dp"
-        android:layout_marginTop="11dp"
-        android:text=">>"
-        android:visibility="invisible" />
 
 
 </RelativeLayout>
