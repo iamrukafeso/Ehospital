@@ -11,7 +11,8 @@
         android:id="@+id/messageProfileImageReceiver"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:src="@drawable/ic_profile" />
+        android:src="@drawable/ic_profile"
+        android:visibility="invisible" />
 
     <RelativeLayout
         android:layout_width="231dp"
@@ -30,7 +31,7 @@
             android:layout_marginTop="5dp"
             android:background="@color/colorPrimaryDark"
             android:text=">>"
-            android:visibility="visible"
+            android:visibility="invisible"
             app:srcCompat="@android:drawable/ic_media_play" />
 
         <TextView
@@ -43,7 +44,7 @@
             android:padding="10dp"
             android:text="hello"
             android:textSize="14dp"
-            android:visibility="visible"
+            android:visibility="invisible"
             app:autoSizeTextType="uniform" />
 
         <TextView
@@ -51,10 +52,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
-            android:layout_marginStart="1dp"
+            android:layout_marginStart="5dp"
             android:layout_marginTop="35dp"
             android:text="hello"
-            android:textSize="12sp" />
+            android:textSize="12sp"
+            android:visibility="invisible" />
 
     </RelativeLayout>
 
@@ -64,7 +66,8 @@
         android:layout_height="40dp"
         android:layout_alignParentEnd="true"
         android:layout_marginEnd="10dp"
-        android:src="@drawable/ic_profile" />
+        android:src="@drawable/ic_profile"
+        android:visibility="invisible" />
 
     <RelativeLayout
         android:layout_width="209dp"
@@ -72,12 +75,18 @@
         android:layout_alignParentEnd="true"
         android:layout_marginEnd="49dp">
 
-<!--        <SeekBar-->
-<!--            android:id="@+id/seekBar"-->
-<!--            android:layout_width="87dp"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_alignParentStart="true"-->
-<!--            android:layout_marginStart="0dp" />-->
+        <ImageView
+            android:id="@+id/playAudioSenderBtn"
+            android:layout_width="59dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="102dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="48dp"
+            android:background="@color/colorPrimaryDark"
+            android:text=">>"
+            android:visibility="invisible"
+            app:srcCompat="@android:drawable/ic_media_play" />
 
         <TextView
             android:id="@+id/senderText"
@@ -89,7 +98,7 @@
             android:padding="10dp"
             android:text="TextView"
             android:textSize="14sp"
-            android:visibility="visible"
+            android:visibility="invisible"
             app:autoSizeTextType="uniform" />
 
         <TextView
@@ -101,24 +110,11 @@
             android:layout_marginTop="35dp"
             android:layout_marginEnd="2dp"
             android:text="hello"
-            android:textSize="12sp" />
-
-        <ImageView
-            android:id="@+id/playAudioSenderBtn"
-            android:layout_width="65dp"
-            android:layout_height="40dp"
-            android:layout_marginStart="102dp"
-            android:layout_marginTop="8dp"
-            android:background="@color/colorPrimaryDark"
-            android:text=">>"
-            android:visibility="visible"
-            app:srcCompat="@android:drawable/ic_media_play" />
-
+            android:textSize="12sp"
+            android:visibility="invisible" />
 
 
     </RelativeLayout>
-
-
 
 
 </RelativeLayout>

@@ -43,7 +43,7 @@ public class MessageAdopter extends RecyclerView.Adapter<MessageAdopter.MessageV
     private Handler handler;
     private Runnable runnable;
     private String audio;
-    private SeekBar seekBar;
+
    // public ImageView mPlayAudioSenderBtn,mPauseSenderBtn,mPlayAudioReceiverBtn,mPauseReceiverBtn;
 
 
@@ -150,31 +150,28 @@ public class MessageAdopter extends RecyclerView.Adapter<MessageAdopter.MessageV
                 if(ms.getType().equals("text")) {
 
                     //mPauseReceiverBtn.setVisibility(View.INVISIBLE);
-                    holder.mPlayAudioSenderBtn.setVisibility(View.INVISIBLE);
-                    holder.mPlayAudioReceiverBtn.setVisibility(View.INVISIBLE);
+//                    holder.mPlayAudioSenderBtn.setVisibility(View.INVISIBLE);
+//                    holder.mPlayAudioReceiverBtn.setVisibility(View.INVISIBLE);
 //                    mPauseSenderBtn.setVisibility(View.INVISIBLE);
 
+                    holder.mSenderText.setVisibility(View.VISIBLE);
+                    holder.mTimeViewSender.setVisibility(View.VISIBLE);
 
 //
                     holder.mSenderText.setText(ms.getMessage());
                     holder.mTimeViewSender.setText(ms.getTime());
-                    holder.mTimeViewReceiver.setVisibility(View.INVISIBLE);
-                    holder.mReceiverText.setVisibility(View.INVISIBLE);
-                    holder.mProifleImageReceiver.setVisibility(View.INVISIBLE);
+
+
+                    holder.mProifleImageSender.setVisibility(View.VISIBLE);
                 }
                 else if(ms.getType().equals("audio")){
+                    holder.mSenderText.setVisibility(View.INVISIBLE);
                     holder.mSenderText.setText(ms.getMessage());
                     holder.mTimeViewSender.setText(ms.getTime());
-                    holder.mSenderText.setVisibility(View.INVISIBLE);
-                    holder.mTimeViewReceiver.setVisibility(View.INVISIBLE);
-                    holder.mTimeViewReceiver.setVisibility(View.INVISIBLE);
-                    holder.mReceiverText.setVisibility(View.INVISIBLE);
-                    holder.mProifleImageReceiver.setVisibility(View.INVISIBLE);
-
+                    holder.mTimeViewSender.setVisibility(View.VISIBLE);
+                    holder.mProifleImageSender.setVisibility(View.VISIBLE);
                    // mPauseSenderBtn.setVisibility(View.VISIBLE);
                     holder.mPlayAudioSenderBtn.setVisibility(View.VISIBLE);
-                   holder.mPlayAudioReceiverBtn.setVisibility(View.INVISIBLE);
-                   /// mPauseReceiverBtn.setVisibility(View.INVISIBLE);
 
 
                 }
@@ -188,29 +185,31 @@ public class MessageAdopter extends RecyclerView.Adapter<MessageAdopter.MessageV
                 if(ms.getType().equals("text")) {
 
                    // mPauseReceiverBtn.setVisibility(View.INVISIBLE);
-                    holder.mPlayAudioSenderBtn.setVisibility(View.INVISIBLE);
-                    holder.mPlayAudioReceiverBtn.setVisibility(View.INVISIBLE);
-                   // mPauseSenderBtn.setVisibility(View.INVISIBLE);
-
-
+//                    holder.mPlayAudioSenderBtn.setVisibility(View.INVISIBLE);
+//                    holder.mPlayAudioReceiverBtn.setVisibility(View.INVISIBLE);
+//                   // mPauseSenderBtn.setVisibility(View.INVISIBLE);
 //
+//
+//
+                    holder.mReceiverText.setText(View.VISIBLE);
+                    holder.mTimeViewReceiver.setText(View.VISIBLE);
                     holder.mReceiverText.setText(ms.getMessage());
                     holder.mTimeViewReceiver.setText(ms.getTime());
-                    holder.mSenderText.setVisibility(View.INVISIBLE);
-                    holder.mTimeViewSender.setVisibility(View.INVISIBLE);
-                    holder.mProifleImageSender.setVisibility(View.INVISIBLE);
+                    holder.mProifleImageReceiver.setVisibility(View.VISIBLE);
+//                    holder.mSenderText.setVisibility(View.INVISIBLE);
+//                    holder.mTimeViewSender.setVisibility(View.INVISIBLE);
+//                    holder.mProifleImageSender.setVisibility(View.INVISIBLE);
                 }
                 else if(ms.getType().equals("audio")){
-                    holder.mSenderText.setText(ms.getMessage());
-                    holder.mTimeViewSender.setText(ms.getTime());
-                    holder.mSenderText.setVisibility(View.INVISIBLE);
-                    holder.mTimeViewReceiver.setVisibility(View.INVISIBLE);
-                    holder.mTimeViewReceiver.setVisibility(View.INVISIBLE);
-                    holder.mReceiverText.setVisibility(View.INVISIBLE);
-                    holder.mProifleImageReceiver.setVisibility(View.INVISIBLE);
-
+//
+                      holder.mTimeViewSender.setText(ms.getTime());
+                      holder.mTimeViewReceiver.setVisibility(View.VISIBLE);
+//                    holder.mTimeViewReceiver.setVisibility(View.INVISIBLE);
+//                    holder.mReceiverText.setVisibility(View.INVISIBLE);
+                      holder.mProifleImageReceiver.setVisibility(View.VISIBLE);
+//
                     holder.mPlayAudioReceiverBtn.setVisibility(View.VISIBLE);
-                    holder.mPlayAudioSenderBtn.setVisibility(View.INVISIBLE);
+//                    holder.mPlayAudioSenderBtn.setVisibility(View.INVISIBLE);
 
                 }
 
@@ -258,24 +257,24 @@ public class MessageAdopter extends RecyclerView.Adapter<MessageAdopter.MessageV
 
                 }
             });
-               seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-                @Override
-                public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                    if(fromUser) {
-                        mPlayer.seekTo(progress);
-                    }
-                }
-
-                @Override
-                public void onStartTrackingTouch(SeekBar seekBar) {
-
-                }
-
-                @Override
-                public void onStopTrackingTouch(SeekBar seekBar) {
-
-                }
-            });
+//               seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+//                @Override
+//                public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+//                    if(fromUser) {
+//                        mPlayer.seekTo(progress);
+//                    }
+//                }
+//
+//                @Override
+//                public void onStartTrackingTouch(SeekBar seekBar) {
+//
+//                }
+//
+//                @Override
+//                public void onStopTrackingTouch(SeekBar seekBar) {
+//
+//                }
+//            });
 
             // mPlayer.prepare();
         }catch (IOException e)

@@ -127,6 +127,8 @@ public class ChatAcitivity extends AppCompatActivity implements RecycleViewListe
                 else if(event.getAction() == MotionEvent.ACTION_UP)
                 {
                     stopRecording();
+                    uploadToFireBase();
+
                 }
 
                 return false;
@@ -280,6 +282,7 @@ public class ChatAcitivity extends AppCompatActivity implements RecycleViewListe
 
 
 
+
                 final Handler handler = new Handler();
 
                 handler.postDelayed(new Runnable() {
@@ -412,7 +415,7 @@ public class ChatAcitivity extends AppCompatActivity implements RecycleViewListe
         mRecorder.release();
         mRecorder = null;
 
-        uploadToFireBase();
+
     }
 
     private void uploadToFireBase() {
