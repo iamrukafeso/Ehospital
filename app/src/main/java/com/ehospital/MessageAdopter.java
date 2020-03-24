@@ -191,8 +191,8 @@ public class MessageAdopter extends RecyclerView.Adapter<MessageAdopter.MessageV
 //
 //
 //
-                    holder.mReceiverText.setText(View.VISIBLE);
-                    holder.mTimeViewReceiver.setText(View.VISIBLE);
+                    holder.mReceiverText.setVisibility(View.VISIBLE);
+                    holder.mTimeViewReceiver.setVisibility(View.VISIBLE);
                     holder.mReceiverText.setText(ms.getMessage());
                     holder.mTimeViewReceiver.setText(ms.getTime());
                     holder.mProifleImageReceiver.setVisibility(View.VISIBLE);
@@ -231,6 +231,24 @@ public class MessageAdopter extends RecyclerView.Adapter<MessageAdopter.MessageV
                 else {
 
                     holder.mPlayAudioSenderBtn.setImageResource(R.drawable.ic_pause_black_24dp);
+                }
+
+            }
+        });
+
+        holder.mPlayAudioReceiverBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                recycleViewListener.onPlay(position);
+
+                if(mPlayer.isPlaying())
+                {
+                    mPlayer.stop();
+                    holder.mPlayAudioReceiverBtn.setImageResource(R.drawable.ic_play_arrow_black_24dp);
+                }
+                else {
+
+                    holder.mPlayAudioReceiverBtn.setImageResource(R.drawable.ic_pause_black_24dp);
                 }
 
             }

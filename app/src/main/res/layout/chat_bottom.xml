@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:weightSum="100"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:layout_weight="20"
+        android:layout_margin="10dp"
+        android:src="@drawable/presence_audio_online"
+        android:id="@+id/audioBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <EditText
+        android:background="@android:color/transparent"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:layout_marginTop="10dp"
+        android:inputType="text|textMultiLine|textCapSentences"
+        android:layout_weight="60"
+        android:hint="Type a message"
+        android:id="@+id/sendMessageEdit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <ImageView
+        android:layout_weight="20"
+        android:layout_margin="10dp"
+        android:src="@drawable/ic_menu_send"
+        android:id="@+id/senderBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+</LinearLayout>

@@ -4,8 +4,6 @@ buildscript {
     repositories {
         google()
         jcenter()
-        mavenCentral()
-        
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.5.3'
@@ -20,10 +18,57 @@ allprojects {
     repositories {
         google()
         jcenter()
-        mavenCentral()
+        maven {
+            url "https://github.com/QuickBlox/quickblox-android-sdk-releases/raw/master/"
+        }
+        maven {
+            url 'https://maven.google.com'
+        }
     }
 }
 
 task clean(type: Delete) {
     delete rootProject.buildDir
+}
+
+ext {
+    compileSdkVersion = 28
+    buildToolsVersion = "28.0.3"
+
+    minSdkVersion = 14
+    targetSdkVersion = 26
+
+    sourceCompatibility = JavaVersion.VERSION_1_7
+    targetCompatibility = JavaVersion.VERSION_1_7
+
+    lintAbortOnError = false
+
+    // QuickBlox SDK version
+    qbChatAdapterVersion = '2.0'
+    qbSdkVersion = '3.8.1'
+
+    versionCode = 381
+    versionName = '3.8.1'
+
+    testRunnerVersion = "1.0.2"
+
+    // Dependency versions
+    playServicesVersion = '11.4.2'
+    supportLibVersion = '28.0.0'
+    supportV4Version = supportLibVersion
+    appcompatV7Version = supportLibVersion
+    recyclerviewV7Version = supportLibVersion
+    supportAnnotationsVersion = supportLibVersion
+    designVersion = supportLibVersion
+    cardViewVersion = supportLibVersion
+
+    glideVersion = '3.6.1'
+    pullToRefreshVersion = '3.2.3'
+    robotoTextViewVersion = '4.0.0'
+    crashlyticsVersion = '2.8.0'
+    fabricToolsVersion = '1.25.4'
+    stickylistheadersVersion = '0.4.2'
+    swipyVersion = '1.2.3'
+
+    dimensionDefault = 'mode'
 }

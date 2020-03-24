@@ -1,32 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AndroidLayouts">
+    <shared>
+      <config />
+    </shared>
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="52ce9eb6-67f0-4b71-99fd-0c2340959c8c" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/google-services.json" beforeDir="false" afterPath="$PROJECT_DIR$/google-services.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ehospital/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ehospital/MainActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/drawable-hdpi/E - Hospital.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/drawable-hdpi/Menu.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/drawable-hdpi/icons8-hospital-64.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/drawable-ldpi/E - Hospital.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/drawable-ldpi/Menu.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/drawable-ldpi/icons8-hospital-64.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/drawable-mdpi/E - Hospital.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/drawable-mdpi/Menu.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/drawable-mdpi/icons8-hospital-64.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/drawable-xhdpi/E - Hospital.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/drawable-xhdpi/Menu.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/drawable-xhdpi/icons8-hospital-64.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/drawable-xxhdpi/E - Hospital.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/drawable-xxhdpi/Menu.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/drawable-xxhdpi/icons8-hospital-64.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/drawable-xxxhdpi/E - Hospital.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/drawable-xxxhdpi/Menu.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/drawable-xxxhdpi/icons8-hospital-64.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/drawable/icons8-hospital-64.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/drawable/hospital.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/layout/activity_main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_main.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ehospital/ChatAcitivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ehospital/ChatAcitivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ehospital/MessageAdopter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ehospital/MessageAdopter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/chat_single_layout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/chat_single_layout.xml" afterDir="false" />
     </list>
-    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -151,43 +137,17 @@
     <option name="width" value="1346" />
     <option name="height" value="698" />
   </component>
+  <component name="ProjectId" id="1ZUV33JwiB3IVgdX60S3wa8K6o2" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
-  <component name="ProjectView">
-    <navigator proportions="" version="1">
-      <foldersAlwaysOnTop value="true" />
-    </navigator>
-    <panes>
-      <pane id="PackagesPane" />
-      <pane id="AndroidView">
-        <subPane>
-          <expand>
-            <path>
-              <item name="Ehospital" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
-      <pane id="ProjectPane" />
-      <pane id="Scope" />
-    </panes>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="android.sdk.path" value="$USER_HOME$/AppData/Local/Android/Sdk" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-  </component>
-  <component name="RunDashboard">
-    <option name="ruleStates">
-      <list>
-        <RuleState>
-          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
-        </RuleState>
-        <RuleState>
-          <option name="name" value="StatusDashboardGroupingRule" />
-        </RuleState>
-      </list>
-    </option>
   </component>
   <component name="RunManager">
     <configuration default="true" type="AndroidJUnit" factoryName="Android JUnit">
@@ -214,31 +174,8 @@
       <option name="TARGET_SELECTION_MODE" value="DEVICE_AND_SNAPSHOT_COMBO_BOX" />
       <option name="USE_LAST_SELECTED_DEVICE" value="false" />
       <option name="PREFERRED_AVD" value="" />
-      <option name="SELECTED_CLOUD_MATRIX_CONFIGURATION_ID" value="-1" />
-      <option name="SELECTED_CLOUD_MATRIX_PROJECT_ID" value="" />
-      <option name="DEBUGGER_TYPE" value="Auto" />
-      <Auto>
-        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
-        <option name="SHOW_STATIC_VARS" value="true" />
-        <option name="WORKING_DIR" value="" />
-        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
-        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
-      </Auto>
-      <Hybrid>
-        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
-        <option name="SHOW_STATIC_VARS" value="true" />
-        <option name="WORKING_DIR" value="" />
-        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
-        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
-      </Hybrid>
+      <option name="DEBUGGER_TYPE" value="Java" />
       <Java />
-      <Native>
-        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
-        <option name="SHOW_STATIC_VARS" value="true" />
-        <option name="WORKING_DIR" value="" />
-        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
-        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
-      </Native>
       <Profilers>
         <option name="ADVANCED_PROFILING_ENABLED" value="false" />
         <option name="STARTUP_CPU_PROFILING_ENABLED" value="false" />
@@ -250,6 +187,18 @@
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
       </method>
     </configuration>
+  </component>
+  <component name="ServiceViewManager">
+    <option name="viewStates">
+      <list>
+        <serviceView>
+          <treeState>
+            <expand />
+            <select />
+          </treeState>
+        </serviceView>
+      </list>
+    </option>
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -264,30 +213,14 @@
     </task>
     <servers />
   </component>
-  <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="754" extended-state="6" />
-    <layout>
-      <window_info active="true" content_ui="combo" id="Project" visible="true" weight="0.32980332" />
-      <window_info id="Structure" side_tool="true" />
-      <window_info id="Build Variants" side_tool="true" />
-      <window_info id="Image Layers" />
-      <window_info id="Designer" />
-      <window_info id="Resources Explorer" />
-      <window_info id="Capture Tool" />
-      <window_info id="Favorites" side_tool="true" />
-      <window_info id="Captures" order="0" side_tool="true" weight="0.25" />
-      <window_info anchor="bottom" id="Logcat" />
-      <window_info anchor="bottom" id="Version Control" />
-      <window_info anchor="bottom" id="TODO" />
-      <window_info anchor="bottom" id="Android Profiler" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Terminal" />
-      <window_info anchor="bottom" id="Event Log" side_tool="true" />
-      <window_info anchor="bottom" id="Build" visible="true" weight="0.32850242" />
-      <window_info anchor="right" id="Device File Explorer" side_tool="true" />
-      <window_info anchor="right" id="Capture Analysis" />
-      <window_info anchor="right" id="Gradle" />
-      <window_info anchor="right" id="Theme Preview" />
-      <window_info anchor="right" id="Palette&#9;" />
-    </layout>
+  <component name="WindowStateProjectService">
+    <state x="463" y="123" key="FileChooserDialogImpl" timestamp="1584899874952">
+      <screen x="0" y="0" width="1366" height="738" />
+    </state>
+    <state x="463" y="123" key="FileChooserDialogImpl/0.0.1366.738@0.0.1366.738" timestamp="1584899874952" />
+    <state x="379" y="192" key="com.intellij.ide.util.TipDialog" timestamp="1584899642446">
+      <screen x="0" y="0" width="1366" height="738" />
+    </state>
+    <state x="379" y="192" key="com.intellij.ide.util.TipDialog/0.0.1366.738@0.0.1366.738" timestamp="1584899642446" />
   </component>
 </project>

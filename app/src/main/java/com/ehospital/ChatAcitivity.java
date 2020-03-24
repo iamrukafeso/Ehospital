@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.media.AudioManager;
@@ -27,6 +28,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -60,15 +62,13 @@ import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class ChatAcitivity extends AppCompatActivity implements RecycleViewListener{
+public class ChatAcitivity extends AppCompatActivity implements RecycleViewListener {
 
     private Toolbar mChatBar;
 
     private TextView mName;
     private EditText mInputMessage;
-    private ImageButton mSendBtn,mAudioBtn;
-
-
+    private ImageView mSendBtn, mAudioBtn;
 
     private String audio;
     private Runnable runnable;
@@ -76,9 +76,9 @@ public class ChatAcitivity extends AppCompatActivity implements RecycleViewListe
 
     private CircleImageView mUserProfile;
 
-    private DatabaseReference mUserRef,mDatabaseRef,mUserRoot,mAudioRef;
+    private DatabaseReference mUserRef, mDatabaseRef, mUserRoot, mAudioRef;
     private FirebaseAuth mAuth;
-    private String mCurrentId,mMessager;
+    private String mCurrentId, mMessager;
 
     private RecyclerView mMessageList;
     private MessageAdopter mAdopter;
@@ -90,7 +90,8 @@ public class ChatAcitivity extends AppCompatActivity implements RecycleViewListe
 
     private MediaRecorder mRecorder;
     private MediaPlayer mPlayer;
-    private static String mFileName = null;
+    //    private static String mFileName = null;
+    private String mFileName = null;
 
     private StorageReference mStorage;
     private int num = 0;
@@ -98,36 +99,32 @@ public class ChatAcitivity extends AppCompatActivity implements RecycleViewListe
     private static final String LOG_TAG = "AudioRecordTest";
 
 
-
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat_acitivity);
 
-        mFileName = getExternalCacheDir().getAbsolutePath();
-        mFileName += "/recorded_audio" + num +".3gp";
+        mStorage =FirebaseStorage.getInstance().getReference();
+
+        mAudioBtn = findViewById(R.id.audioBtn);
+
+        mFileName = Environment.getExternalStorageDirectory().getAbsolutePath();
+        mFileName += mCurrentId + num + ".3gp";
         num++;
-       mAudioBtn = findViewById(R.id.audioBtn);
-
-
-
-
-
-
-
 
 
         mAudioBtn.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                if(event.getAction() == MotionEvent.ACTION_DOWN)
-                {
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
                     startRecording();
-                }
-                else if(event.getAction() == MotionEvent.ACTION_UP)
-                {
+
+                } else if (event.getAction() == MotionEvent.ACTION_UP) {
                     stopRecording();
                     uploadToFireBase();
+                    listMessage.clear();
+                    loadMessage();
 
                 }
 
@@ -135,106 +132,103 @@ public class ChatAcitivity extends AppCompatActivity implements RecycleViewListe
             }
         });
 
-        mStorage = FirebaseStorage.getInstance().getReference();
-        mAuth = FirebaseAuth.getInstance();
-        mCurrentId = mAuth.getCurrentUser().getUid();
-        mUserRef = FirebaseDatabase.getInstance().getReference().child("Users").child(mCurrentId);
-
-        mChatBar = findViewById(R.id.toolBar);
-        setSupportActionBar(mChatBar);
 
 
-        //setting the action  bar like the arrow bar
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setDisplayShowCustomEnabled(true);
+    mAuth =FirebaseAuth.getInstance();
+    mCurrentId =mAuth.getCurrentUser().getUid();
 
-        // get the user details
-        mMessager = getIntent().getStringExtra("user_id");
-        String name = getIntent().getStringExtra("name");
-        getSupportActionBar().setTitle(name);
+    mUserRef =FirebaseDatabase.getInstance().getReference().child("Users").child(mCurrentId);
+//
+//    mChatBar = findViewById(R.id.toolBar);
+//    setSupportActionBar(mChatBar);
 
-        LayoutInflater mInflater = (LayoutInflater)this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+    //setting the action  bar like the arrow bar
+//
+//    actionBar.setDisplayHomeAsUpEnabled(true);
+//    actionBar.setDisplayShowCustomEnabled(true);
 
+    // get the user details
+    mMessager = getIntent().getStringExtra("user_id");
 
-        // get the customise layout chat xml
-        View mActionView = mInflater.inflate(R.layout.customise_chat_layout,null);
+    String name = getIntent().getStringExtra("name");
 
-        // set the bar to customise layout
-        actionBar.setCustomView(mActionView);
+//    getSupportActionBar().setTitle(name);
 
-        mName = findViewById(R.id.chatter_name);
-
-        mUserProfile = findViewById(R.id.chatter_image);
-
+    LayoutInflater mInflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
 
-        mSendBtn = findViewById(R.id.senderBtn);
+    // get the customise layout chat xml
+    View mActionView = mInflater.inflate(R.layout.customise_chat_layout, null);
 
-        mInputMessage = findViewById(R.id.sendMessageEdit);
+    // set the bar to customise layout
+//        actionBar.setCustomView(mActionView);
 
-        mRefresh = findViewById(R.id.swapMessageLayout);
+//    mName = findViewById(R.id.chatter_name);
 
+    mUserProfile = findViewById(R.id.chatter_image);
 
-        mAdopter = new MessageAdopter(listMessage,this);
+    mSendBtn = findViewById(R.id.senderBtn);
+    mInputMessage = findViewById(R.id.sendMessageEdit);
+    mRefresh = findViewById(R.id.swapMessageLayout);
 
-        mMessageList = findViewById(R.id.chat_list);
-        mLineManager = new LinearLayoutManager(this);
+    mAdopter =new MessageAdopter(listMessage,this);
+
+    mMessageList = findViewById(R.id.chat_list);
+    mLineManager =new LinearLayoutManager(this);
         mMessageList.setHasFixedSize(true);
         mMessageList.setLayoutManager(mLineManager);
-
-
         mMessageList.setAdapter(mAdopter);
 
-
-
-        mName.setText(name);
-
+//        mName.setText(name);
         loadMessage();
 
-        mUserRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+        mUserRef.addValueEventListener(new
 
+    ValueEventListener() {
+        @Override
+        public void onDataChange (@NonNull DataSnapshot dataSnapshot){
+
+        }
+
+        @Override
+        public void onCancelled (@NonNull DatabaseError databaseError){
+
+        }
+    });
+
+    mPlayer =new MediaPlayer();
+
+    mDatabaseRef =FirebaseDatabase.getInstance().getReference();
+    mDatabaseRef.child("Conversion").child(mCurrentId).
+
+    addValueEventListener(new ValueEventListener() {
+        @Override
+        public void onDataChange (@NonNull DataSnapshot dataSnapshot){
+
+            if (!dataSnapshot.hasChild(mMessager)) {
+                Map convMap = new HashMap();
+                convMap.put("seen", false);
+                convMap.put("timestamp", ServerValue.TIMESTAMP);
+
+                Map convUserMap = new HashMap();
+                convUserMap.put("Conversion/" + mCurrentId + "/" + mMessager, convMap);
+                convUserMap.put("Conversion/" + mMessager + "/" + mCurrentId, convMap);
+
+
+                mDatabaseRef.updateChildren(convUserMap, new DatabaseReference.CompletionListener() {
+                    @Override
+                    public void onComplete(@Nullable DatabaseError databaseError, @NonNull DatabaseReference databaseReference) {
+
+                    }
+                });
             }
+        }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
+        @Override
+        public void onCancelled (@NonNull DatabaseError databaseError){
 
-            }
-        });
-
-        mPlayer = new MediaPlayer();
-
-        mDatabaseRef = FirebaseDatabase.getInstance().getReference();
-        mDatabaseRef.child("Conversion").child(mCurrentId).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-                if(!dataSnapshot.hasChild(mMessager)) {
-                    Map convMap = new HashMap();
-                    convMap.put("seen",false);
-                    convMap.put("timestamp",ServerValue.TIMESTAMP);
-
-                    Map convUserMap = new HashMap();
-                    convUserMap.put("Conversion/" + mCurrentId + "/" + mMessager,convMap);
-                    convUserMap.put("Conversion/" + mMessager + "/" + mCurrentId,convMap);
-
-
-                    mDatabaseRef.updateChildren(convUserMap, new DatabaseReference.CompletionListener() {
-                        @Override
-                        public void onComplete(@Nullable DatabaseError databaseError, @NonNull DatabaseReference databaseReference) {
-
-                        }
-                    });
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
+        }
+    });
 //        mAudioRef = FirebaseDatabase.getInstance().getReference().child("messages").child(mCurrentId).child(mMessager);
 //
 //
@@ -263,43 +257,43 @@ public class ChatAcitivity extends AppCompatActivity implements RecycleViewListe
 //            }
 //        });
 //
-        mSendBtn.setOnClickListener(new View.OnClickListener() {
+        mSendBtn.setOnClickListener(new View.OnClickListener()
+
+    {
+        @Override
+        public void onClick (View v){
+        sendMessage();
+        mInputMessage.getText().clear();
+    }
+    });
+
+        mRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener()
+
+    {
+        @Override
+        public void onRefresh () {
+
+        mRefresh.setColorSchemeResources(android.R.color.holo_blue_bright,
+                android.R.color.holo_green_light,
+                android.R.color.holo_orange_light,
+                android.R.color.holo_red_light);
+
+
+        final Handler handler = new Handler();
+
+        handler.postDelayed(new Runnable() {
             @Override
-            public void onClick(View v) {
-                sendMessage();
-                mInputMessage.getText().clear();
-            }
-        });
-
-        mRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-
-                mRefresh.setColorSchemeResources(android.R.color.holo_blue_bright,
-                        android.R.color.holo_green_light,
-                        android.R.color.holo_orange_light,
-                        android.R.color.holo_red_light);
-
-
-
-
-                final Handler handler = new Handler();
-
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        if(mRefresh.isRefreshing())
-                        {
-                            mRefresh.setRefreshing(false);
-                        }
-
-                    }
-                },1000);
+            public void run() {
+                if (mRefresh.isRefreshing()) {
+                    mRefresh.setRefreshing(false);
+                }
 
             }
+        }, 1000);
 
-        });
+    }
 
+    });
 
     }
 
@@ -398,7 +392,7 @@ public class ChatAcitivity extends AppCompatActivity implements RecycleViewListe
         mRecorder = new MediaRecorder();
         mRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
         mRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
-        mRecorder.setOutputFile(mFileName);
+//        mRecorder.setOutputFile(mFileName);
         mRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
 
         try {
@@ -414,8 +408,6 @@ public class ChatAcitivity extends AppCompatActivity implements RecycleViewListe
         mRecorder.stop();
         mRecorder.release();
         mRecorder = null;
-
-
     }
 
     private void uploadToFireBase() {
