@@ -75,14 +75,14 @@
         android:layout_alignParentEnd="true"
         android:layout_marginEnd="49dp">
 
+
         <ImageView
             android:id="@+id/playAudioSenderBtn"
-            android:layout_width="59dp"
+            android:layout_width="61dp"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_marginStart="102dp"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="11dp"
             android:layout_marginTop="8dp"
-            android:layout_marginEnd="48dp"
             android:background="@color/colorPrimaryDark"
             android:text=">>"
             android:visibility="invisible"

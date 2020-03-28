@@ -165,13 +165,13 @@ public class MessageAdopter extends RecyclerView.Adapter<MessageAdopter.MessageV
                     holder.mProifleImageSender.setVisibility(View.VISIBLE);
                 }
                 else if(ms.getType().equals("audio")){
-                    holder.mSenderText.setVisibility(View.INVISIBLE);
+                    holder.mSenderText.setVisibility(View.VISIBLE);
                     holder.mSenderText.setText(ms.getMessage());
                     holder.mTimeViewSender.setText(ms.getTime());
                     holder.mTimeViewSender.setVisibility(View.VISIBLE);
                     holder.mProifleImageSender.setVisibility(View.VISIBLE);
                    // mPauseSenderBtn.setVisibility(View.VISIBLE);
-                    holder.mPlayAudioSenderBtn.setVisibility(View.VISIBLE);
+                   // holder.mPlayAudioSenderBtn.setVisibility(View.VISIBLE);
 
 
                 }
@@ -184,15 +184,10 @@ public class MessageAdopter extends RecyclerView.Adapter<MessageAdopter.MessageV
 
                 if(ms.getType().equals("text")) {
 
-                   // mPauseReceiverBtn.setVisibility(View.INVISIBLE);
-//                    holder.mPlayAudioSenderBtn.setVisibility(View.INVISIBLE);
-//                    holder.mPlayAudioReceiverBtn.setVisibility(View.INVISIBLE);
-//                   // mPauseSenderBtn.setVisibility(View.INVISIBLE);
+
 //
-//
-//
-                    holder.mReceiverText.setText(View.VISIBLE);
-                    holder.mTimeViewReceiver.setText(View.VISIBLE);
+                    holder.mReceiverText.setVisibility(View.VISIBLE);
+                    holder.mTimeViewReceiver.setVisibility(View.VISIBLE);
                     holder.mReceiverText.setText(ms.getMessage());
                     holder.mTimeViewReceiver.setText(ms.getTime());
                     holder.mProifleImageReceiver.setVisibility(View.VISIBLE);
@@ -235,6 +230,25 @@ public class MessageAdopter extends RecyclerView.Adapter<MessageAdopter.MessageV
 
             }
         });
+        holder.mPlayAudioReceiverBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                recycleViewListener.onPlay(position);
+
+                if(mPlayer.isPlaying())
+                {
+                    mPlayer.stop();
+                    holder.mPlayAudioReceiverBtn.setImageResource(R.drawable.ic_play_arrow_black_24dp);
+                }
+                else {
+
+                    holder.mPlayAudioReceiverBtn.setImageResource(R.drawable.ic_pause_black_24dp);
+                }
+
+            }
+        });
+
+
 
     }
 

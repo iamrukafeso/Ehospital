@@ -27,6 +27,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -57,6 +58,7 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -92,28 +94,28 @@ public class ChatAcitivity extends AppCompatActivity implements RecycleViewListe
     private MediaPlayer mPlayer;
     private static String mFileName = null;
 
+    private ImageView mVideoBtn;
+
     private StorageReference mStorage;
     private int num = 0;
 
     private static final String LOG_TAG = "AudioRecordTest";
 
-
+    private static final int MAX_LEGTH = 10;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat_acitivity);
 
+        //mFileName = get
         mFileName = getExternalCacheDir().getAbsolutePath();
-        mFileName += "/recorded_audio" + num +".3gp";
-        num++;
+
+
        mAudioBtn = findViewById(R.id.audioBtn);
 
 
-
-
-
-
+        mFileName += "/recorded_audio" + generateRandomString() +".3gp";
 
 
 
@@ -123,6 +125,7 @@ public class ChatAcitivity extends AppCompatActivity implements RecycleViewListe
                 if(event.getAction() == MotionEvent.ACTION_DOWN)
                 {
                     startRecording();
+
                 }
                 else if(event.getAction() == MotionEvent.ACTION_UP)
                 {
@@ -160,14 +163,22 @@ public class ChatAcitivity extends AppCompatActivity implements RecycleViewListe
         // get the customise layout chat xml
         View mActionView = mInflater.inflate(R.layout.customise_chat_layout,null);
 
+
         // set the bar to customise layout
         actionBar.setCustomView(mActionView);
 
         mName = findViewById(R.id.chatter_name);
 
-        mUserProfile = findViewById(R.id.chatter_image);
+       // mUserProfile = findViewById(R.id.chatter_image);
 
 
+        mVideoBtn = findViewById(R.id.videoBtn);
+        mVideoBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(ChatAcitivity.this, "hello", Toast.LENGTH_SHORT).show();
+            }
+        });
 
         mSendBtn = findViewById(R.id.senderBtn);
 
@@ -395,6 +406,7 @@ public class ChatAcitivity extends AppCompatActivity implements RecycleViewListe
 
     //Audio recorder
     private void startRecording() {
+
         mRecorder = new MediaRecorder();
         mRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
         mRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
@@ -420,7 +432,7 @@ public class ChatAcitivity extends AppCompatActivity implements RecycleViewListe
 
     private void uploadToFireBase() {
 
-        final StorageReference filePath = mStorage.child("Audio").child(mCurrentId + num + ".3gp");
+        final StorageReference filePath = mStorage.child("Audio").child(mCurrentId + generateRandomString() + ".3gp");
 
 
         Uri uri = Uri.fromFile(new File(mFileName));
@@ -530,20 +542,41 @@ public class ChatAcitivity extends AppCompatActivity implements RecycleViewListe
     @Override
     public void onPlay(int position) {
 
-
           if(!mAdopter.mPlayer.isPlaying()) {
             String audioPlay = listMessage.get(position).getMessage();
             mAdopter.play_audio(audioPlay);
 
 
-        }
-        else{
-            mPlayer.stop();
+
+          }
+          else{
+             mPlayer.stop();
         }
     }
 
     @Override
     public void onPause(int position) {
+
+    }
+
+
+    public String generateRandomString()
+    {
+        Random generator = new Random();
+        StringBuilder randomStringBuilder = new StringBuilder();
+
+        int randLength = generator.nextInt(MAX_LEGTH);
+
+        char tempChar;
+
+        for(int i =0; i< randLength;i++)
+        {
+            tempChar =(char) (generator.nextInt(96) + 32);
+
+            randomStringBuilder.append(tempChar);
+
+        }
+        return randomStringBuilder.toString();
 
     }
 }
