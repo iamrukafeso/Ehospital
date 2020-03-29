@@ -32,7 +32,7 @@ import pub.devrel.easypermissions.EasyPermissions;
 
 public class VideoActivity extends AppCompatActivity implements Session.SessionListener, PublisherKit.PublisherListener  {
 
-    private static String api_key = "46624612";
+    private static String API_Key = "46624612";
     private static String SESSION_ID = "2_MX40NjYyNDYxMn5-MTU4NTUwNjUzNzU1MH5INEcrSE9GbGJKQkRUTkZCTWMxV2t6MXV-fg";
     private static String TOKEN = "T1==cGFydG5lcl9pZD00NjYyNDYxMiZzaWc9MzM1MGExNjU0YmQ2YzRhOTQ0OTM4MDQwYmEzY2EyYWY5NTNkZDI4NDpzZXNzaW9uX2lkPTJfTVg0ME5qWXlORFl4TW41LU1UVTROVFV3TmpVek56VTFNSDVJTkVjclNFOUdiR0pLUWtSVVRrWkNUV014VjJ0Nk1YVi1mZyZjcmVhdGVfdGltZT0xNTg1NTA2NjEwJm5vbmNlPTAuNzMyNzQ2NDg0MTYxMDAyNSZyb2xlPXB1Ymxpc2hlciZleHBpcmVfdGltZT0xNTg4MDk4NjEwJmluaXRpYWxfbGF5b3V0X2NsYXNzX2xpc3Q9";
     private static final String LOG_TAG = VideoActivity.class.getSimpleName();
@@ -120,7 +120,7 @@ public class VideoActivity extends AppCompatActivity implements Session.SessionL
             }
         });
 
-        requestPermission();
+        requestPermissions();
 
 
     }
@@ -136,9 +136,9 @@ public class VideoActivity extends AppCompatActivity implements Session.SessionL
 
     @AfterPermissionGranted(RC_VIDEO_APP_PERM)
 
-    private void requestPermission()
+    private void requestPermissions()
     {
-        String [] perm = {Manifest.permission.INTERNET,Manifest.permission.RECORD_AUDIO,Manifest.permission.CAMERA};
+        String [] perm = {Manifest.permission.INTERNET,Manifest.permission.CAMERA,Manifest.permission.RECORD_AUDIO};
 
         if(EasyPermissions.hasPermissions(this,perm))
         {
@@ -147,12 +147,12 @@ public class VideoActivity extends AppCompatActivity implements Session.SessionL
 
             // connect to the Session
 
-            mSession = new Session.Builder(this,api_key,SESSION_ID).build();
+            mSession = new Session.Builder(this,API_Key,SESSION_ID).build();
             mSession.setSessionListener(VideoActivity.this);
             mSession.connect(TOKEN);
         }
         else{
-            EasyPermissions.requestPermissions(this,"App needs to access the camera and audio, please allow it",RC_VIDEO_APP_PERM);
+            EasyPermissions.requestPermissions(this,"App needs to access the camera and audio, please allow it",RC_VIDEO_APP_PERM, perm);
         }
     }
 
@@ -210,8 +210,21 @@ public class VideoActivity extends AppCompatActivity implements Session.SessionL
 
     @Override
     public void onError(Session session, OpentokError opentokError) {
-
+        Log.i(LOG_TAG,"Stream error");
     }
+
+    @Override
+    public void onError(PublisherKit publisherKit, OpentokError opentokError) {
+
+        Log.i(LOG_TAG,"Stream error");
+    }
+
+
+
+//    @Override
+//    public void onError(Session session, OpentokError opentokError) {
+//
+//    }
 
     @Override
     public void onStreamCreated(PublisherKit publisherKit, Stream stream) {
@@ -223,10 +236,9 @@ public class VideoActivity extends AppCompatActivity implements Session.SessionL
 
     }
 
-    @Override
-    public void onError(PublisherKit publisherKit, OpentokError opentokError) {
-
-        Log.i(LOG_TAG,"Stream error");
-    }
+//    @Override
+//    public void onError(PublisherKit publisherKit, OpentokError opentokError) {
+//
+//    }
 
 }
