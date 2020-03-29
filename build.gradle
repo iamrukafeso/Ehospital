@@ -5,9 +5,7 @@ buildscript {
         google()
         jcenter()
         mavenCentral()
-        maven {
-            url "https://github.com/QuickBlox/quickblox-android-sdk-releases/raw/master/"
-        }
+
         
     }
     dependencies {
@@ -23,7 +21,8 @@ allprojects {
     repositories {
         google()
         jcenter()
-        mavenCentral()
+        maven {url 'https://maven.google.com'}
+        maven {url 'https://tokbox.bintray.com/maven'}
     }
 }
 ext {

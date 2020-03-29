@@ -106,7 +106,7 @@ public class ChatAcitivity extends AppCompatActivity implements RecycleViewListe
 
     private static final int MAX_LEGTH = 10;
 
-    private MediaPlayer mMediaPlayer;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -180,7 +180,7 @@ public class ChatAcitivity extends AppCompatActivity implements RecycleViewListe
 
 
 
-        mMediaPlayer = MediaPlayer.create(this,R.raw.ringing);
+
         mVideoBtn = findViewById(R.id.videoBtn);
         mVideoBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -189,7 +189,7 @@ public class ChatAcitivity extends AppCompatActivity implements RecycleViewListe
                 callingActivity.putExtra("user_id",mMessager);
                 startActivity(callingActivity);
                 //Toast.makeText(ChatActivity.this, "hello", Toast.LENGTH_SHORT).show();
-                mMediaPlayer.start();
+
 
                 Toast.makeText(ChatAcitivity.this, "hello", Toast.LENGTH_SHORT).show();
             }

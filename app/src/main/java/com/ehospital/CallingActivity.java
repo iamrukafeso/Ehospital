@@ -3,7 +3,10 @@ package com.ehospital;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -23,24 +26,27 @@ import java.util.HashMap;
 public class CallingActivity extends AppCompatActivity {
 
     private TextView nameUser;
-    private ImageView makeCallBtn,profileImage,cancelBtn;
+    private ImageView acceptCallBtn,profileImage,cancelBtn;
 
     private String userIdReceiver,userProfileImage,userName;
-    private String userIdSender,userProfileImageSender,userNameSender;
+    private String userIdSender,userProfileImageSender,userNameSender,checker = "",callingID,ringingId;
 
     private DatabaseReference mUserRef,mCallingRef;
+
+    private MediaPlayer mMediaPlayer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calling);
 
-        makeCallBtn = findViewById(R.id.make_video);
+        acceptCallBtn = findViewById(R.id.make_video);
         profileImage = findViewById(R.id.profileCallng);
         cancelBtn = findViewById(R.id.cancel_call);
         nameUser = findViewById(R.id.name_calling);
 
 
+        mMediaPlayer = MediaPlayer.create(this,R.raw.ringing);
 //        String data = getIntent().getStringExtra("user_id");
 //        if(data == null)
 //        {
@@ -56,6 +62,41 @@ public class CallingActivity extends AppCompatActivity {
         mCallingRef = FirebaseDatabase.getInstance().getReference().child("Users");
         userIdSender = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
+        cancelBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                mMediaPlayer.stop();
+                checker = "clicked";
+
+                cancelCallingUser();
+            }
+
+
+        });
+
+        acceptCallBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                mMediaPlayer.stop();
+
+                final HashMap<String,Object> callingPickUp = new HashMap<>();
+                callingPickUp.put("picked","picked");
+
+                mCallingRef.child(userIdSender).child("Ringing").updateChildren(callingPickUp).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+
+                        if(task.isSuccessful())
+                        {
+                            Intent videoIntent = new Intent(CallingActivity.this,VideoActivity.class);
+                            startActivity(videoIntent);
+                        }
+                    }
+                });
+            }
+        });
 
         getAndUserInfo();
     }
@@ -100,14 +141,16 @@ public class CallingActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Users");
+
+        mMediaPlayer.start();
 
         mCallingRef.child(userIdReceiver).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                if(!dataSnapshot.hasChild("Calling") && !dataSnapshot.hasChild("Ringing"))
+                if(!checker.equals("clicked")&& !dataSnapshot.hasChild("Calling") && !dataSnapshot.hasChild("Ringing"))
                 {
+
                     final HashMap<String,Object> callInfo = new HashMap<>();
 
                     callInfo.put("calling",userIdReceiver);
@@ -137,6 +180,8 @@ public class CallingActivity extends AppCompatActivity {
                             }
                         }
                     });
+
+
                 }
             }
 
@@ -145,6 +190,108 @@ public class CallingActivity extends AppCompatActivity {
 
             }
         });
+
+
+        mCallingRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(dataSnapshot.child(userIdSender).hasChild("Ringing") && !dataSnapshot.child(userIdSender).hasChild("Calling"))
+                {
+                    acceptCallBtn.setVisibility(View.VISIBLE);
+                }
+
+                if (dataSnapshot.child(userIdReceiver).child("Ringing").hasChild("picked"))
+                {
+                    mMediaPlayer.stop();
+                    Intent videoIntent = new Intent(CallingActivity.this,VideoActivity.class);
+                    startActivity(videoIntent);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void cancelCallingUser() {
+
+        // from sender side
+        mCallingRef.child(userIdSender).child("Calling").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists() && dataSnapshot.hasChild("calling"))
+                {
+                    callingID = dataSnapshot.child("calling").getValue().toString();
+
+                    mCallingRef.child(callingID).child("Ringing").removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+
+                            if(task.isSuccessful()) {
+                                mCallingRef.child(userIdSender).child("Calling").removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+
+                                        startActivity(new Intent(CallingActivity.this,SlashScreenActivity.class));
+                                        finish();
+                                    }
+                                });
+                            }
+                        }
+                    });
+                }
+                else{
+                    startActivity(new Intent(CallingActivity.this,SlashScreenActivity.class));
+                    finish();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+        // from receiver side
+
+        mCallingRef.child(userIdSender).child("Ringing").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists() && dataSnapshot.hasChild("ringing"))
+                {
+                    ringingId = dataSnapshot.child("ringing").getValue().toString();
+
+                    mCallingRef.child(ringingId).child("Calling").removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+
+                            if(task.isSuccessful()) {
+                                mCallingRef.child(userIdSender).child("Ringing").removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+
+                                        startActivity(new Intent(CallingActivity.this,SlashScreenActivity.class));
+                                        finish();
+                                    }
+                                });
+                            }
+                        }
+                    });
+                }
+                else{
+                    startActivity(new Intent(CallingActivity.this,SlashScreenActivity.class));
+                    finish();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
     }
 
 }
