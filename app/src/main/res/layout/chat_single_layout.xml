@@ -101,6 +101,8 @@
             android:visibility="invisible"
             app:autoSizeTextType="uniform" />
 
+
+
         <TextView
             android:id="@+id/timeViewSender"
             android:layout_width="wrap_content"

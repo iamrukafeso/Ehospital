@@ -70,7 +70,7 @@ public class MessageAdopter extends RecyclerView.Adapter<MessageAdopter.MessageV
     public  class  MessageViewHolder extends RecyclerView.ViewHolder
     {
 
-        private TextView mReceiverText,mSenderText,mTimeViewSender,mTimeViewReceiver;
+        private TextView mReceiverText,mSenderText,mTimeViewSender,mTimeViewReceiver,mAudioText;
         private CircleImageView mProifleImageSender,mProifleImageReceiver;
         private ImageView mPlayAudioSenderBtn,mPauseSenderBtn,mPlayAudioReceiverBtn,mPauseReceiverBtn;
 
@@ -91,32 +91,32 @@ public class MessageAdopter extends RecyclerView.Adapter<MessageAdopter.MessageV
             mProifleImageSender = view.findViewById(R.id.messageProfileImageSender);
             mPlayAudioSenderBtn = view.findViewById(R.id.playAudioSenderBtn);
             mPlayAudioReceiverBtn = view.findViewById(R.id.playAudioReceiverBtn);
-           
+
            // mPauseReceiverBtn = view.findViewById(R.id.pauseAudioReceiverBtn);
            // mPauseSenderBtn = view.findViewById(R.id.pauseAudioSenderBtn);
 
 //            mPlayAudioSenderBtn.setOnClickListener(new View.OnClickListener() {
 //                @Override
-//                public void onClick(View v) {
-//                    recycleViewListener.onPlay(getAdapterPosition());
+//                    public void onClick(View v) {
+//                        recycleViewListener.onPlay(getAdapterPosition());
 //
-//                }
-//            });
+//                    }
+//                });
 //            mPauseSenderBtn.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    recycleViewListener.onPause(getAdapterPosition());
-//                }
-//            });
+//                    @Override
+//                    public void onClick(View v) {
+//                        recycleViewListener.onPause(getAdapterPosition());
+//                    }
+//                });
 //            mPlayAudioReceiverBtn.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    recycleViewListener.onPlay(getAdapterPosition());
-//                }
-//            });
+//                    @Override
+//                    public void onClick(View v) {
+//                        recycleViewListener.onPlay(getAdapterPosition());
+//                    }
+//                });
 //            mPauseReceiverBtn.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
+//                    @Override
+//                    public void onClick(View v) {
 //                    recycleViewListener.onPause(getAdapterPosition());
 //                }
 //            });
@@ -165,13 +165,15 @@ public class MessageAdopter extends RecyclerView.Adapter<MessageAdopter.MessageV
                     holder.mProifleImageSender.setVisibility(View.VISIBLE);
                 }
                 else if(ms.getType().equals("audio")){
-                    holder.mSenderText.setVisibility(View.VISIBLE);
+                   // holder.mSenderText.setVisibility(View.VISIBLE);
                     holder.mSenderText.setText(ms.getMessage());
                     holder.mTimeViewSender.setText(ms.getTime());
                     holder.mTimeViewSender.setVisibility(View.VISIBLE);
                     holder.mProifleImageSender.setVisibility(View.VISIBLE);
+//                    holder.mAudioText.setVisibility(View.VISIBLE);
+                   // holder.mAudioText.setText("Audio");
                    // mPauseSenderBtn.setVisibility(View.VISIBLE);
-                   // holder.mPlayAudioSenderBtn.setVisibility(View.VISIBLE);
+                    holder.mPlayAudioSenderBtn.setVisibility(View.VISIBLE);
 
 
                 }

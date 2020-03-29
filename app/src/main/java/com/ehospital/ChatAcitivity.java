@@ -11,6 +11,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
@@ -78,7 +79,7 @@ public class ChatAcitivity extends AppCompatActivity implements RecycleViewListe
 
     private CircleImageView mUserProfile;
 
-    private DatabaseReference mUserRef,mDatabaseRef,mUserRoot,mAudioRef;
+    private DatabaseReference mUserRef,mDatabaseRef,mUserRoot,mCallingRef;
     private FirebaseAuth mAuth;
     private String mCurrentId,mMessager;
 
@@ -89,6 +90,8 @@ public class ChatAcitivity extends AppCompatActivity implements RecycleViewListe
     private final List<Message> listMessage = new ArrayList<>();
     private LinearLayoutManager mLineManager;
 
+
+    private String call;
 
     private MediaRecorder mRecorder;
     private MediaPlayer mPlayer;
@@ -102,6 +105,8 @@ public class ChatAcitivity extends AppCompatActivity implements RecycleViewListe
     private static final String LOG_TAG = "AudioRecordTest";
 
     private static final int MAX_LEGTH = 10;
+
+    private MediaPlayer mMediaPlayer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -143,6 +148,8 @@ public class ChatAcitivity extends AppCompatActivity implements RecycleViewListe
         mCurrentId = mAuth.getCurrentUser().getUid();
         mUserRef = FirebaseDatabase.getInstance().getReference().child("Users").child(mCurrentId);
 
+        mCallingRef = FirebaseDatabase.getInstance().getReference().child("Users");
+
         mChatBar = findViewById(R.id.toolBar);
         setSupportActionBar(mChatBar);
 
@@ -172,10 +179,18 @@ public class ChatAcitivity extends AppCompatActivity implements RecycleViewListe
        // mUserProfile = findViewById(R.id.chatter_image);
 
 
+
+        mMediaPlayer = MediaPlayer.create(this,R.raw.ringing);
         mVideoBtn = findViewById(R.id.videoBtn);
         mVideoBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent callingActivity = new Intent(ChatAcitivity.this, CallingActivity.class);
+                callingActivity.putExtra("user_id",mMessager);
+                startActivity(callingActivity);
+                //Toast.makeText(ChatActivity.this, "hello", Toast.LENGTH_SHORT).show();
+                mMediaPlayer.start();
+
                 Toast.makeText(ChatAcitivity.this, "hello", Toast.LENGTH_SHORT).show();
             }
         });
@@ -559,6 +574,37 @@ public class ChatAcitivity extends AppCompatActivity implements RecycleViewListe
 
     }
 
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        checkForReceivingCall();
+    }
+
+    private void checkForReceivingCall() {
+
+        mCallingRef.child(mCurrentId).child("Ringing").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                if(dataSnapshot.hasChild("ringing"))
+                {
+                    call = dataSnapshot.child("ringing").getValue().toString();
+
+                    Intent callIntent = new Intent(ChatAcitivity.this,CallingActivity.class);
+
+                    callIntent.putExtra("user_id",call);
+                    startActivity(callIntent);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
 
     public String generateRandomString()
     {
