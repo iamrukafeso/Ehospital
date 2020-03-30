@@ -19,4 +19,25 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+    <style name="AppTheme." parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <!--  <style name="BotttomNavigationView">-->
+    <!--      <item name="android:fontFamily"></item>-->
+    <!--      <item name="android:textSize">10sp</item>-->
+    <!--      <item name="android:textColor">#fff</item>-->
+    <!--  </style>-->
+
+    <!--    <style name="labelFontStyle">-->
+    <!--      <item name="android:fontFamily"></item>-->
+    <!--      <item name="android:textSize">10sp</item>-->
+    <!--  </style>-->
+
+    <!--    <style name="TotalFontStyle">-->
+    <!--      <item name="android:fontFamily"></item>-->
+    <!--      <item name="android:textSize">36sp</item>-->
+
 </resources>

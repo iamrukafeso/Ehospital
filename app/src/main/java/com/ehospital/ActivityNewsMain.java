@@ -1,23 +1,16 @@
 package com.ehospital;
 
 import android.app.Dialog;
-import android.content.Context;
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.ehospital.Model.Articles;
 import com.ehospital.Model.Headlines;
@@ -31,9 +24,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
-public class OnlineDoctorFragment extends Fragment {
-
-    private View mView;
+public class ActivityNewsMain extends AppCompatActivity {
 
     RecyclerView recyclerView;
     SwipeRefreshLayout swipeRefreshLayout;
@@ -42,27 +33,22 @@ public class OnlineDoctorFragment extends Fragment {
     Dialog dialog;
     final String API_KEY = "18d114beca1741729dde87ede4469f28";
     Adapter adapter;
-    List<Articles> articles = new ArrayList<>();
-
-    public OnlineDoctorFragment() {
-        // Required empty public constructor
-    }
+    List<Articles>  articles = new ArrayList<>();
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        mView =  inflater.inflate(R.layout.fragment_online_doctor, container, false);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_news_main);
 
-        swipeRefreshLayout = mView.findViewById(R.id.swipeRefresh);
-        recyclerView = mView.findViewById(R.id.recyclerView);
+        swipeRefreshLayout = findViewById(R.id.swipeRefresh);
+        recyclerView = findViewById(R.id.recyclerView);
 
-        etQuery = mView.findViewById(R.id.etQuery);
-        btnSearch = mView.findViewById(R.id.btnSearch);
-        btnAboutUs = mView.findViewById(R.id.aboutUs);
-        dialog = new Dialog(getActivity());
+        etQuery = findViewById(R.id.etQuery);
+        btnSearch = findViewById(R.id.btnSearch);
+        btnAboutUs = findViewById(R.id.aboutUs);
+        dialog = new Dialog(ActivityNewsMain.this);
 
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
         final String country = getCountry();
 
 
@@ -107,7 +93,6 @@ public class OnlineDoctorFragment extends Fragment {
 
 
 
-        return mView;
 
 
     }
@@ -130,7 +115,7 @@ public class OnlineDoctorFragment extends Fragment {
                     swipeRefreshLayout.setRefreshing(false);
                     articles.clear();
                     articles = response.body().getArticles();
-                    adapter = new Adapter(getContext(),articles);
+                    adapter = new Adapter(ActivityNewsMain.this,articles);
                     recyclerView.setAdapter(adapter);
                 }
             }
@@ -138,19 +123,10 @@ public class OnlineDoctorFragment extends Fragment {
             @Override
             public void onFailure(Call<Headlines> call, Throwable t) {
                 swipeRefreshLayout.setRefreshing(false);
-                Toast.makeText(getContext(), t.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(ActivityNewsMain.this, t.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
             }
         });
-
-
-
     }
-//
-//    @Override
-//    public void onCreate(View v){
-////        Intent i = new Intent(OnlineDoctorFragment.this, ActivityNewsMain.class);
-////        startActivity(i);
-//    }
 
     public String getCountry(){
         Locale locale = Locale.getDefault();

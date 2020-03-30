@@ -6,9 +6,19 @@
 
     <color name="blue">#305168</color>
     <color name="light_grey">#B9B9B9</color>
-    <color name="black">#000000</color>
-    <color name="grey">#707070</color>
-    <color name="red">#FF069B</color>
-    <color name="white">#FFFFFF </color>
-    <color name="yellow">#FECE2F</color>
+    <!--    <color name="black">#000000</color>-->
+    <!--    <color name="grey">#707070</color>-->
+    <!--    <color name="red">#FF069B</color>-->
+    <!--    <color name="white">#FFFFFF </color>-->
+
+    <color name="colorTotalConfirmed">#e60000</color>
+    <color name="colorTotalDeaths">#999999</color>
+    <color name="colorTotalRecovered">#7bb974</color>
+
+    <color name="grey">#eeefee</color>
+    <color name="red">#CE0700</color>
+    <color name="black">#191819</color>
+    <color name="white">#f7f6f9</color>
+
+
 </resources>
