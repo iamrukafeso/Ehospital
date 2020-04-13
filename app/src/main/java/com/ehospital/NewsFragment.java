@@ -1,12 +1,8 @@
 package com.ehospital;
 
 import android.app.Dialog;
-import android.content.Context;
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -31,7 +27,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
-public class OnlineDoctorFragment extends Fragment {
+public class NewsFragment extends Fragment {
 
     private View mView;
 
@@ -44,7 +40,7 @@ public class OnlineDoctorFragment extends Fragment {
     Adapter adapter;
     List<Articles> articles = new ArrayList<>();
 
-    public OnlineDoctorFragment() {
+    public NewsFragment() {
         // Required empty public constructor
     }
 
@@ -52,7 +48,7 @@ public class OnlineDoctorFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        mView =  inflater.inflate(R.layout.fragment_online_doctor, container, false);
+        mView =  inflater.inflate(R.layout.fragment_news, container, false);
 
         swipeRefreshLayout = mView.findViewById(R.id.swipeRefresh);
         recyclerView = mView.findViewById(R.id.recyclerView);
@@ -148,7 +144,7 @@ public class OnlineDoctorFragment extends Fragment {
 //
 //    @Override
 //    public void onCreate(View v){
-////        Intent i = new Intent(OnlineDoctorFragment.this, ActivityNewsMain.class);
+////        Intent i = new Intent(NewsFragment.this, ActivityNewsMain.class);
 ////        startActivity(i);
 //    }
 

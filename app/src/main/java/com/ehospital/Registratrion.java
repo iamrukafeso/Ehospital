@@ -171,6 +171,7 @@ public class Registratrion extends AppCompatActivity {
                     userMap.put("surname", mSurname);
                     userMap.put("dateofbirth", mDob);
                     userMap.put("accounttype", mAccountType);
+                    userMap.put("fillForm", "false");
                     userMap.put("image", "default-image");
 
                     if(mAccountType.equals("Doctor")) {
@@ -180,10 +181,31 @@ public class Registratrion extends AppCompatActivity {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
                                 if (task.isSuccessful()) {
-                                    mProgDialog.dismiss();
-                                    Toast.makeText(Registratrion.this, "Your registration was successful", Toast.LENGTH_LONG).show();
-                                    Intent intent = new Intent(Registratrion.this, DoctorFormActivity.class);
-                                    startActivity(intent);
+
+                                    final FirebaseUser user = mAuth.getCurrentUser();
+                                    user.sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
+                                            if (task.isSuccessful()) {
+                                                mProgDialog.dismiss();
+                                                Toast.makeText(Registratrion.this,
+                                                        "Verification email sent to " + user.getEmail(),
+                                                        Toast.LENGTH_SHORT).show();
+                                                //Toast.makeText(Registratrion.this, "Your registration was successful", Toast.LENGTH_LONG).show();
+                                                Toast.makeText(Registratrion.this, "Your registration was successful", Toast.LENGTH_LONG).show();
+                                                Intent intent = new Intent(Registratrion.this, LoginActivity.class);
+                                                startActivity(intent);
+                                            } else {
+                                                mProgDialog.dismiss();
+                                                // Log.e(TAG, "sendEmailVerification", task.getException());
+                                                Toast.makeText(Registratrion.this,
+                                                        "Failed to send verification email.",
+                                                        Toast.LENGTH_SHORT).show();
+                                            }
+                                        }
+                                    });
+
+
                                 }
 
                             }
@@ -196,10 +218,30 @@ public class Registratrion extends AppCompatActivity {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
                                 if (task.isSuccessful()) {
-                                    mProgDialog.hide();
-                                    Toast.makeText(Registratrion.this, "Your registration was successful", Toast.LENGTH_LONG).show();
-                                    Intent formIntent = new Intent(Registratrion.this, PatientFormActivity.class);
-                                    startActivity(formIntent);
+
+//
+                                    final FirebaseUser user = mAuth.getCurrentUser();
+                                    user.sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
+                                            if (task.isSuccessful()) {
+                                                mProgDialog.dismiss();
+                                                Toast.makeText(Registratrion.this,
+                                                        "Verification email sent to " + user.getEmail(),
+                                                        Toast.LENGTH_SHORT).show();
+                                                //Toast.makeText(Registratrion.this, "Your registration was successful", Toast.LENGTH_LONG).show();
+                                                Intent formIntent = new Intent(Registratrion.this, LoginActivity.class);
+                                                startActivity(formIntent);
+                                            } else {
+                                                mProgDialog.dismiss();
+                                               // Log.e(TAG, "sendEmailVerification", task.getException());
+                                                Toast.makeText(Registratrion.this,
+                                                        "Failed to send verification email.",
+                                                        Toast.LENGTH_SHORT).show();
+                                            }
+                                        }
+                                    });
+
                                 }
 
                             }

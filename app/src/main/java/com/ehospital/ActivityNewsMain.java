@@ -102,11 +102,12 @@ public class ActivityNewsMain extends AppCompatActivity {
 
         swipeRefreshLayout.setRefreshing(true);
         Call<Headlines> call;
-        if (!etQuery.getText().toString().equals("")){
+       // if (!etQuery.getText().toString().equals("")){
             call= ApiClient.getInstance().getApi().getSpecificData(query,apiKey);
-        }else{
-            call= ApiClient.getInstance().getApi().getHeadlines(country,apiKey);
-        }
+       // }
+      //  else{
+          //  call= ApiClient.getInstance().getApi().getHeadlines(country,apiKey);
+        //}
 
         call.enqueue(new Callback<Headlines>() {
             @Override

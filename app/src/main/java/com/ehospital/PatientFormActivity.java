@@ -33,7 +33,7 @@ public class PatientFormActivity extends AppCompatActivity {
 
     private String cardHolderName,cardNumber,expireDate,cvvNumber;
 
-    private DatabaseReference mRef,mMedCardRef,mBankCardRef;
+    private DatabaseReference mRef,mMedCardRef,mBankCardRef,mUserRef;
     private FirebaseAuth mAuth;
 
 
@@ -48,6 +48,7 @@ public class PatientFormActivity extends AppCompatActivity {
 
 
         mRef = FirebaseDatabase.getInstance().getReference().child("Card");
+        mUserRef = FirebaseDatabase.getInstance().getReference().child("Users");
         mAuth = FirebaseAuth.getInstance();
 
         mCardHolderName = findViewById(R.id.cardHoldername);
@@ -118,7 +119,7 @@ public class PatientFormActivity extends AppCompatActivity {
         // get Current User id
 
         FirebaseUser mCurrentUser = mAuth.getCurrentUser();
-        String patient_id = mCurrentUser.getUid();
+        final String patient_id = mCurrentUser.getUid();
 
         cardHolderName = mCardHolderName.getText().toString();
         cardNumber = mCardNumber.getText().toString();
@@ -163,8 +164,18 @@ public class PatientFormActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<Void> task) {
 
                         if (task.isSuccessful()) {
-                            Intent loadIntent = new Intent(PatientFormActivity.this, PatientMainActivity.class);
-                            startActivity(loadIntent);
+                           // HashMap<String,Object> patientForm = new HashMap<>();
+                           // patientForm.put("fillForm", "true");
+
+                            mUserRef.child(patient_id).child("fillForm").setValue("true").addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    Intent loadIntent = new Intent(PatientFormActivity.this, PatientMainActivity.class);
+                                    startActivity(loadIntent);
+                                }
+                            });
+//                            Intent loadIntent = new Intent(PatientFormActivity.this, PatientMainActivity.class);
+//                            startActivity(loadIntent);
                         } else {
                             Toast.makeText(PatientFormActivity.this, "Please Enter valid details", Toast.LENGTH_SHORT).show();
                         }
@@ -197,8 +208,16 @@ public class PatientFormActivity extends AppCompatActivity {
                         public void onComplete(@NonNull Task<Void> task) {
 
                             if (task.isSuccessful()) {
-                                Intent loadIntent = new Intent(PatientFormActivity.this, PatientMainActivity.class);
-                                startActivity(loadIntent);
+
+
+                                mUserRef.child(patient_id).child("fillForm").setValue("true").addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        Intent loadIntent = new Intent(PatientFormActivity.this, PatientMainActivity.class);
+                                        startActivity(loadIntent);
+                                    }
+                                });
+
                             } else {
                                 Toast.makeText(PatientFormActivity.this, "Please Enter valid details", Toast.LENGTH_SHORT).show();
                             }

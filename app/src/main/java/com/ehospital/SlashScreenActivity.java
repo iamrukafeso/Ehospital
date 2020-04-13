@@ -52,36 +52,47 @@ public class SlashScreenActivity extends AppCompatActivity {
             @Override
             public void run() {
 //                Intent intent = new Intent(SlashScreenActivity.this, MainActivity.class);
-////                startActivity(intent);
-////                finish();
+//                startActivity(intent);
+//                finish();
                 sendToMainActivities();
             }
         },SPLASH_SCREEN);
 
     }
 
-    private void sendToMainActivities()
-    {
+    private void sendToMainActivities() {
         FirebaseUser mCurrentUser = mAuth.getCurrentUser();
 
-        if (mCurrentUser != null) {
+
+         if(mCurrentUser == null) {
+            Intent intent = new Intent(SlashScreenActivity.this, MainActivity.class);
+            startActivity(intent);
+            finish();
+        }
+        else if (mCurrentUser != null) {
             String userId = mCurrentUser.getUid();
 
-            mUserDatabase.child(userId).child("accounttype").addValueEventListener(new ValueEventListener() {
+            mUserDatabase.child(userId).addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     if (dataSnapshot.exists()) {
-                        String accType = dataSnapshot.getValue().toString();
+                        String accType = dataSnapshot.child("accounttype").getValue().toString();
+                        String fillForm = dataSnapshot.child("fillForm").getValue().toString();
 
-                        if (accType.equals("Patient")) {
+                        if (accType.equals("Patient") && fillForm.equals("true")) {
                             Intent patientIntent = new Intent(SlashScreenActivity.this, PatientMainActivity.class);
                             startActivity(patientIntent);
                             finish();
-                        } else if (accType.equals("Doctor")) {
+                        } else if (accType.equals("Doctor") && fillForm.equals("true")) {
                             Intent doctPatient = new Intent(SlashScreenActivity.this, DoctorMainActivity.class);
                             startActivity(doctPatient);
                             finish();
 
+                        }
+                        else{
+                            Intent loginIntent = new Intent(SlashScreenActivity.this, LoginActivity.class);
+                            startActivity(loginIntent);
+                            finish();
                         }
 
                     }
@@ -92,11 +103,6 @@ public class SlashScreenActivity extends AppCompatActivity {
 
                 }
             });
-        }
-        else{
-            Intent intent = new Intent(SlashScreenActivity.this, MainActivity.class);
-            startActivity(intent);
-            finish();
         }
 
 

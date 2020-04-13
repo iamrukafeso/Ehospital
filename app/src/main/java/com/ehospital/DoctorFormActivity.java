@@ -30,7 +30,7 @@ public class DoctorFormActivity extends AppCompatActivity {
 
     private Button mDoctCompleteBtn;
 
-    private DatabaseReference mRef;
+    private DatabaseReference mRef,mUserRef;
     private FirebaseAuth mAuth;
 
     private ProgressDialog mDoctorProgDialog;
@@ -47,6 +47,7 @@ public class DoctorFormActivity extends AppCompatActivity {
         mDoctCompleteBtn = findViewById(R.id.docCompleteBtn);
 
         mRef = FirebaseDatabase.getInstance().getReference().child("DoctorForm");
+        mUserRef = FirebaseDatabase.getInstance().getReference().child("Users");
         mAuth = FirebaseAuth.getInstance();
 
         mDoctorProgDialog = new ProgressDialog(this);
@@ -95,7 +96,7 @@ public class DoctorFormActivity extends AppCompatActivity {
 
             FirebaseUser mCurrentUser = mAuth.getCurrentUser();
 
-            String doctor_id = mCurrentUser.getUid();
+            final String doctor_id = mCurrentUser.getUid();
 
             // used the values in hashMap
 
@@ -112,10 +113,21 @@ public class DoctorFormActivity extends AppCompatActivity {
 
                     if(task.isSuccessful())
                     {
-                        mDoctorProgDialog.dismiss();
-                        Intent doctMainIntent = new Intent(DoctorFormActivity.this,DoctorMainActivity.class);
-                        startActivity(doctMainIntent);
-                        finish();
+
+                        mUserRef.child(doctor_id).child("fillForm").setValue("true").addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+
+                                if(task.isSuccessful()) {
+                                    mDoctorProgDialog.dismiss();
+                                    Intent doctMainIntent = new Intent(DoctorFormActivity.this, DoctorMainActivity.class);
+                                    startActivity(doctMainIntent);
+                                    finish();
+                                }
+                            }
+                        });
+
+
                     }
                     else
                     {

@@ -117,31 +117,31 @@ public class ChatAcitivity extends AppCompatActivity implements RecycleViewListe
         mFileName = getExternalCacheDir().getAbsolutePath();
 
 
-       mAudioBtn = findViewById(R.id.audioBtn);
+      // mAudioBtn = findViewById(R.id.audioBtn);
 
 
-        mFileName += "/recorded_audio" + generateRandomString() +".3gp";
+       // mFileName += "/recorded_audio" + generateRandomString() +".3gp";
 
 
 
-        mAudioBtn.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                if(event.getAction() == MotionEvent.ACTION_DOWN)
-                {
-                    startRecording();
-
-                }
-                else if(event.getAction() == MotionEvent.ACTION_UP)
-                {
-                    stopRecording();
-                    uploadToFireBase();
-
-                }
-
-                return false;
-            }
-        });
+//        mAudioBtn.setOnTouchListener(new View.OnTouchListener() {
+//            @Override
+//            public boolean onTouch(View v, MotionEvent event) {
+//                if(event.getAction() == MotionEvent.ACTION_DOWN)
+//                {
+//                    startRecording();
+//
+//                }
+//                else if(event.getAction() == MotionEvent.ACTION_UP)
+//                {
+//                    stopRecording();
+//                    uploadToFireBase();
+//
+//                }
+//
+//                return false;
+//            }
+//        });
 
         mStorage = FirebaseStorage.getInstance().getReference();
         mAuth = FirebaseAuth.getInstance();
@@ -420,92 +420,92 @@ public class ChatAcitivity extends AppCompatActivity implements RecycleViewListe
 
 
     //Audio recorder
-    private void startRecording() {
+//    private void startRecording() {
+//
+//        mRecorder = new MediaRecorder();
+//        mRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
+//        mRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
+//        mRecorder.setOutputFile(mFileName);
+//        mRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
+//
+//        try {
+//            mRecorder.prepare();
+//        } catch (IOException e) {
+//            Log.e(LOG_TAG, "prepare() failed");
+//        }
+//
+//        mRecorder.start();
+//    }
+//
+//    private void stopRecording() {
+//        mRecorder.stop();
+//        mRecorder.release();
+//        mRecorder = null;
+//
+//
+//    }
 
-        mRecorder = new MediaRecorder();
-        mRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
-        mRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
-        mRecorder.setOutputFile(mFileName);
-        mRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
-
-        try {
-            mRecorder.prepare();
-        } catch (IOException e) {
-            Log.e(LOG_TAG, "prepare() failed");
-        }
-
-        mRecorder.start();
-    }
-
-    private void stopRecording() {
-        mRecorder.stop();
-        mRecorder.release();
-        mRecorder = null;
-
-
-    }
-
-    private void uploadToFireBase() {
-
-        final StorageReference filePath = mStorage.child("Audio").child(mCurrentId + generateRandomString() + ".3gp");
-
-
-        Uri uri = Uri.fromFile(new File(mFileName));
-
-        filePath.putFile(uri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
-
-                if(task.isSuccessful())
-                {
-                    filePath.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                        @Override
-                        public void onSuccess(Uri uri) {
-
-
-                            String current_userId = "messages/" + mCurrentId + "/" + mMessager;
-                            String from_userId = "messages/" + mMessager + "/" + mCurrentId;
-
-                            DatabaseReference path_message = mDatabaseRef.child("messages").child(mCurrentId).child(mMessager)
-                                    .push();
-                            String key_id_push = path_message.getKey();
-
-                            Map messageMap = new HashMap();
-
-
-                            Calendar calendar = Calendar.getInstance();
-                            SimpleDateFormat format = new SimpleDateFormat("HH:mm");
-                            String time = format.format(calendar.getTime());
-
-                            String downloadUrl = uri.toString();
-
-                            messageMap.put("message",downloadUrl);
-                            messageMap.put("type","audio");
-                            messageMap.put("from",mCurrentId);
-                            messageMap.put("time", time);
-                            messageMap.put("seen",false);
-
-                            Map userMap = new HashMap();
-                            userMap.put(current_userId + "/" + key_id_push,messageMap);
-                            userMap.put(from_userId + "/" + key_id_push,messageMap);
-
-                            mDatabaseRef.updateChildren(userMap, new DatabaseReference.CompletionListener() {
-                                @Override
-                                public void onComplete(@Nullable DatabaseError databaseError, @NonNull DatabaseReference databaseReference) {
-                                    Toast.makeText(ChatAcitivity.this, "Upload Successful", Toast.LENGTH_SHORT).show();
-                                }
-                            });
-
-
-                        }
-                    });
-
-                }
-
-            }
-        });
-
-    }
+//    private void uploadToFireBase() {
+//
+//        final StorageReference filePath = mStorage.child("Audio").child(mCurrentId + generateRandomString() + ".3gp");
+//
+//
+//        Uri uri = Uri.fromFile(new File(mFileName));
+//
+//        filePath.putFile(uri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+//            @Override
+//            public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+//
+//                if(task.isSuccessful())
+//                {
+//                    filePath.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+//                        @Override
+//                        public void onSuccess(Uri uri) {
+//
+//
+//                            String current_userId = "messages/" + mCurrentId + "/" + mMessager;
+//                            String from_userId = "messages/" + mMessager + "/" + mCurrentId;
+//
+//                            DatabaseReference path_message = mDatabaseRef.child("messages").child(mCurrentId).child(mMessager)
+//                                    .push();
+//                            String key_id_push = path_message.getKey();
+//
+//                            Map messageMap = new HashMap();
+//
+//
+//                            Calendar calendar = Calendar.getInstance();
+//                            SimpleDateFormat format = new SimpleDateFormat("HH:mm");
+//                            String time = format.format(calendar.getTime());
+//
+//                            String downloadUrl = uri.toString();
+//
+//                            messageMap.put("message",downloadUrl);
+//                            messageMap.put("type","audio");
+//                            messageMap.put("from",mCurrentId);
+//                            messageMap.put("time", time);
+//                            messageMap.put("seen",false);
+//
+//                            Map userMap = new HashMap();
+//                            userMap.put(current_userId + "/" + key_id_push,messageMap);
+//                            userMap.put(from_userId + "/" + key_id_push,messageMap);
+//
+//                            mDatabaseRef.updateChildren(userMap, new DatabaseReference.CompletionListener() {
+//                                @Override
+//                                public void onComplete(@Nullable DatabaseError databaseError, @NonNull DatabaseReference databaseReference) {
+//                                    Toast.makeText(ChatAcitivity.this, "Upload Successful", Toast.LENGTH_SHORT).show();
+//                                }
+//                            });
+//
+//
+//                        }
+//                    });
+//
+//                }
+//
+//            }
+//        });
+//
+//    }
 
 //    public void play_audio(String audio)
 //    {
@@ -557,16 +557,16 @@ public class ChatAcitivity extends AppCompatActivity implements RecycleViewListe
     @Override
     public void onPlay(int position) {
 
-          if(!mAdopter.mPlayer.isPlaying()) {
-            String audioPlay = listMessage.get(position).getMessage();
-            mAdopter.play_audio(audioPlay);
-
-
-
-          }
-          else{
-             mPlayer.stop();
-        }
+//          if(!mAdopter.mPlayer.isPlaying()) {
+//            String audioPlay = listMessage.get(position).getMessage();
+//            mAdopter.play_audio(audioPlay);
+//
+//
+//
+//          }
+//          else{
+//             mPlayer.stop();
+//        }
     }
 
     @Override
@@ -606,23 +606,23 @@ public class ChatAcitivity extends AppCompatActivity implements RecycleViewListe
         });
     }
 
-    public String generateRandomString()
-    {
-        Random generator = new Random();
-        StringBuilder randomStringBuilder = new StringBuilder();
-
-        int randLength = generator.nextInt(MAX_LEGTH);
-
-        char tempChar;
-
-        for(int i =0; i< randLength;i++)
-        {
-            tempChar =(char) (generator.nextInt(96) + 32);
-
-            randomStringBuilder.append(tempChar);
-
-        }
-        return randomStringBuilder.toString();
-
-    }
+//    public String generateRandomString()
+//    {
+//        Random generator = new Random();
+//        StringBuilder randomStringBuilder = new StringBuilder();
+//
+//        int randLength = generator.nextInt(MAX_LEGTH);
+//
+//        char tempChar;
+//
+//        for(int i =0; i< randLength;i++)
+//        {
+//            tempChar =(char) (generator.nextInt(96) + 32);
+//
+//            randomStringBuilder.append(tempChar);
+//
+//        }
+//        return randomStringBuilder.toString();
+//
+//    }
 }

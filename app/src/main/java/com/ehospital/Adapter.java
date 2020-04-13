@@ -55,19 +55,19 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder>{
         holder.tvSource.setText(a.getSource().getName());
         holder.tvDate.setText("\u2022"+dateTime(a.getPublishedAt()));
 
-        holder.cardView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(context, Detailed.class);
-                intent.putExtra("title",a.getTitle());
-                intent.putExtra("source",a.getSource().getName());
-                intent.putExtra("time",dateTime(a.getPublishedAt()));
-                intent.putExtra("desc",a.getDescription());
-                intent.putExtra("imageUrl",a.getUrlToImage());
-                intent.putExtra("url",a.getUrl());
-                context.startActivity(intent);
-            }
-        });
+//        holder.cardView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(context, Detailed.class);
+//                intent.putExtra("title",a.getTitle());
+//                intent.putExtra("source",a.getSource().getName());
+//                intent.putExtra("time",dateTime(a.getPublishedAt()));
+//                intent.putExtra("desc",a.getDescription());
+//                intent.putExtra("imageUrl",a.getUrlToImage());
+//                intent.putExtra("url",a.getUrl());
+//                context.startActivity(intent);
+//            }
+//        });
 
     }
 

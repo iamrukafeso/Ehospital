@@ -72,7 +72,7 @@ public class MessageAdopter extends RecyclerView.Adapter<MessageAdopter.MessageV
 
         private TextView mReceiverText,mSenderText,mTimeViewSender,mTimeViewReceiver,mAudioText;
         private CircleImageView mProifleImageSender,mProifleImageReceiver;
-        private ImageView mPlayAudioSenderBtn,mPauseSenderBtn,mPlayAudioReceiverBtn,mPauseReceiverBtn;
+        //private ImageView mPlayAudioSenderBtn,mPauseSenderBtn,mPlayAudioReceiverBtn,mPauseReceiverBtn;
 
 
 
@@ -89,8 +89,8 @@ public class MessageAdopter extends RecyclerView.Adapter<MessageAdopter.MessageV
             mTimeViewReceiver = view.findViewById(R.id.timeViewReceiver);
             mProifleImageReceiver = view.findViewById(R.id.messageProfileImageReceiver);
             mProifleImageSender = view.findViewById(R.id.messageProfileImageSender);
-            mPlayAudioSenderBtn = view.findViewById(R.id.playAudioSenderBtn);
-            mPlayAudioReceiverBtn = view.findViewById(R.id.playAudioReceiverBtn);
+           // mPlayAudioSenderBtn = view.findViewById(R.id.playAudioSenderBtn);
+            //mPlayAudioReceiverBtn = view.findViewById(R.id.playAudioReceiverBtn);
 
            // mPauseReceiverBtn = view.findViewById(R.id.pauseAudioReceiverBtn);
            // mPauseSenderBtn = view.findViewById(R.id.pauseAudioSenderBtn);
@@ -147,7 +147,7 @@ public class MessageAdopter extends RecyclerView.Adapter<MessageAdopter.MessageV
         {
             if (message_from.equals(currentUserId)) {
 
-                if(ms.getType().equals("text")) {
+//                if(ms.getType().equals("text")) {
 
                     //mPauseReceiverBtn.setVisibility(View.INVISIBLE);
 //                    holder.mPlayAudioSenderBtn.setVisibility(View.INVISIBLE);
@@ -163,20 +163,20 @@ public class MessageAdopter extends RecyclerView.Adapter<MessageAdopter.MessageV
 
 
                     holder.mProifleImageSender.setVisibility(View.VISIBLE);
-                }
-                else if(ms.getType().equals("audio")){
-                   // holder.mSenderText.setVisibility(View.VISIBLE);
-                    holder.mSenderText.setText(ms.getMessage());
-                    holder.mTimeViewSender.setText(ms.getTime());
-                    holder.mTimeViewSender.setVisibility(View.VISIBLE);
-                    holder.mProifleImageSender.setVisibility(View.VISIBLE);
-//                    holder.mAudioText.setVisibility(View.VISIBLE);
-                   // holder.mAudioText.setText("Audio");
-                   // mPauseSenderBtn.setVisibility(View.VISIBLE);
-                    holder.mPlayAudioSenderBtn.setVisibility(View.VISIBLE);
-
-
-                }
+               // }
+//                else if(ms.getType().equals("audio")){
+//                   // holder.mSenderText.setVisibility(View.VISIBLE);
+//                    holder.mSenderText.setText(ms.getMessage());
+//                    holder.mTimeViewSender.setText(ms.getTime());
+//                    holder.mTimeViewSender.setVisibility(View.VISIBLE);
+//                    holder.mProifleImageSender.setVisibility(View.VISIBLE);
+////                    holder.mAudioText.setVisibility(View.VISIBLE);
+//                   // holder.mAudioText.setText("Audio");
+//                   // mPauseSenderBtn.setVisibility(View.VISIBLE);
+//                    holder.mPlayAudioSenderBtn.setVisibility(View.VISIBLE);
+//
+//
+//                }
 
 
             }
@@ -184,7 +184,7 @@ public class MessageAdopter extends RecyclerView.Adapter<MessageAdopter.MessageV
         else{
 
 
-                if(ms.getType().equals("text")) {
+//                if(ms.getType().equals("text")) {
 
 
 //
@@ -196,83 +196,83 @@ public class MessageAdopter extends RecyclerView.Adapter<MessageAdopter.MessageV
 //                    holder.mSenderText.setVisibility(View.INVISIBLE);
 //                    holder.mTimeViewSender.setVisibility(View.INVISIBLE);
 //                    holder.mProifleImageSender.setVisibility(View.INVISIBLE);
-                }
-                else if(ms.getType().equals("audio")){
+//                }
+//                else if(ms.getType().equals("audio")){
+////
+//                      holder.mTimeViewSender.setText(ms.getTime());
+//                      holder.mTimeViewReceiver.setVisibility(View.VISIBLE);
+////                    holder.mTimeViewReceiver.setVisibility(View.INVISIBLE);
+////                    holder.mReceiverText.setVisibility(View.INVISIBLE);
+//                      holder.mProifleImageReceiver.setVisibility(View.VISIBLE);
+////
+//                    holder.mPlayAudioReceiverBtn.setVisibility(View.VISIBLE);
+////                    holder.mPlayAudioSenderBtn.setVisibility(View.INVISIBLE);
 //
-                      holder.mTimeViewSender.setText(ms.getTime());
-                      holder.mTimeViewReceiver.setVisibility(View.VISIBLE);
-//                    holder.mTimeViewReceiver.setVisibility(View.INVISIBLE);
-//                    holder.mReceiverText.setVisibility(View.INVISIBLE);
-                      holder.mProifleImageReceiver.setVisibility(View.VISIBLE);
+//                }
+
+
+                }
+
+            }
+
+//        holder.mPlayAudioSenderBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                recycleViewListener.onPlay(position);
 //
-                    holder.mPlayAudioReceiverBtn.setVisibility(View.VISIBLE);
-//                    holder.mPlayAudioSenderBtn.setVisibility(View.INVISIBLE);
-
-                }
-
-
-                }
-
-            }
-
-        holder.mPlayAudioSenderBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                recycleViewListener.onPlay(position);
-
-                if(mPlayer.isPlaying())
-                {
-                    mPlayer.stop();
-                    holder.mPlayAudioSenderBtn.setImageResource(R.drawable.ic_play_arrow_black_24dp);
-                }
-                else {
-
-                    holder.mPlayAudioSenderBtn.setImageResource(R.drawable.ic_pause_black_24dp);
-                }
-
-            }
-        });
-        holder.mPlayAudioReceiverBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                recycleViewListener.onPlay(position);
-
-                if(mPlayer.isPlaying())
-                {
-                    mPlayer.stop();
-                    holder.mPlayAudioReceiverBtn.setImageResource(R.drawable.ic_play_arrow_black_24dp);
-                }
-                else {
-
-                    holder.mPlayAudioReceiverBtn.setImageResource(R.drawable.ic_pause_black_24dp);
-                }
-
-            }
-        });
+//                if(mPlayer.isPlaying())
+//                {
+//                    mPlayer.stop();
+//                    holder.mPlayAudioSenderBtn.setImageResource(R.drawable.ic_play_arrow_black_24dp);
+//                }
+//                else {
+//
+//                    holder.mPlayAudioSenderBtn.setImageResource(R.drawable.ic_pause_black_24dp);
+//                }
+//
+//            }
+//        });
+//        holder.mPlayAudioReceiverBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                recycleViewListener.onPlay(position);
+//
+//                if(mPlayer.isPlaying())
+//                {
+//                    mPlayer.stop();
+//                    holder.mPlayAudioReceiverBtn.setImageResource(R.drawable.ic_play_arrow_black_24dp);
+//                }
+//                else {
+//
+//                    holder.mPlayAudioReceiverBtn.setImageResource(R.drawable.ic_pause_black_24dp);
+//                }
+//
+//            }
+//        });
 
 
 
     }
 
-    public void play_audio(String audio)
-    {
-
-
-        mPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-
-        try{
-            mPlayer.reset();
-            mPlayer.setDataSource(audio);
-            mPlayer.prepareAsync();
-            mPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-                @Override
-                public void onPrepared(MediaPlayer mp) {
-                   // seekBar.setMax(mPlayer.getDuration());
-                    mp.start();
-                   //  changeToSeekBar();
-
-                }
-            });
+//    public void play_audio(String audio)
+//    {
+//
+//
+//        mPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+//
+//        try{
+//            mPlayer.reset();
+//            mPlayer.setDataSource(audio);
+//            mPlayer.prepareAsync();
+//            mPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+//                @Override
+//                public void onPrepared(MediaPlayer mp) {
+//                   // seekBar.setMax(mPlayer.getDuration());
+//                    mp.start();
+//                   //  changeToSeekBar();
+//
+//                }
+//            });
 //               seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
 //                @Override
 //                public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
@@ -293,12 +293,12 @@ public class MessageAdopter extends RecyclerView.Adapter<MessageAdopter.MessageV
 //            });
 
             // mPlayer.prepare();
-        }catch (IOException e)
-        {
-            e.printStackTrace();
-        }
-
-    }
+//        }catch (IOException e)
+//        {
+//            e.printStackTrace();
+//        }
+//
+//    }
 
 //    private void changeToSeekBar() {
 //

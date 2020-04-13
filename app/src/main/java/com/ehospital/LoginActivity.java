@@ -8,11 +8,13 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -35,6 +37,7 @@ public class LoginActivity extends AppCompatActivity {
     private Button loginBt;
     private FirebaseAuth mAuth;
 
+    private TextView forgotPasswordTextView;
     private DatabaseReference mRef, mUserRef, mDoctRef;
     private String patientUserId, doctUserId;
 
@@ -55,6 +58,16 @@ public class LoginActivity extends AppCompatActivity {
         mPassEdit = findViewById(R.id.passTextEdit);
         loginBt = findViewById(R.id.loginBtn);
 
+        forgotPasswordTextView = findViewById(R.id.forgetPasswordText);
+
+        forgotPasswordTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent passwordIntent = new Intent(LoginActivity.this,ForgotPasswordActivity.class);
+
+                startActivity(passwordIntent);
+            }
+        });
 
         loginBt.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -96,13 +109,14 @@ public class LoginActivity extends AppCompatActivity {
         if (eml.isEmpty()) {
             mProgDialog.hide();
             mEmailEdit.setError("Please enter email");
-        } else if (pass.isEmpty()) {
+        }
+
+        else if (pass.isEmpty()) {
             mProgDialog.hide();
             mPassEdit.setError("Please enter password");
-        } else {
+        }
+        else {
 
-//
-//
 
             mAuth.signInWithEmailAndPassword(eml,pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                 @Override
@@ -112,25 +126,49 @@ public class LoginActivity extends AppCompatActivity {
                         FirebaseUser mCurrentUser = FirebaseAuth.getInstance().getCurrentUser();
                         String userId = mCurrentUser.getUid();
 
-                        mUserRef = mRef.child(userId).child("accounttype");
+                        mUserRef = mRef.child(userId);
 
                         mUserRef.addValueEventListener(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                                String accountType = dataSnapshot.getValue().toString();
+                                String accountType = dataSnapshot.child("accounttype").getValue().toString();
+                                String fillForm = dataSnapshot.child("fillForm").getValue().toString();
 
                                 if (accountType.equals("Patient"))
                                 {
-                                    mProgDialog.dismiss();
-                                    Intent patientIntent = new Intent(LoginActivity.this, PatientMainActivity.class);
-                                    startActivity(patientIntent);
-                                    finish();
+                                    if(fillForm.equals("false")) {
+                                        mProgDialog.dismiss();
+                                        Intent patientFormIntent = new Intent(LoginActivity.this, PatientFormActivity.class);
+                                        startActivity(patientFormIntent);
+                                        finish();
+                                    }
+                                    else
+                                    {
+                                        mProgDialog.dismiss();
+                                        Intent patientIntent = new Intent(LoginActivity.this, PatientMainActivity.class);
+                                        startActivity(patientIntent);
+                                        finish();
+
+                                    }
+                                }
+                                else if(accountType.equals("Doctor")) {
+                                    if(fillForm.equals("false")) {
+                                        mProgDialog.dismiss();
+                                        Intent doctFormIntent = new Intent(LoginActivity.this, DoctorFormActivity.class);
+                                        startActivity(doctFormIntent);
+                                        finish();
+                                    }
+                                    else{
+                                        Intent doctMainIntent = new Intent(LoginActivity.this, DoctorMainActivity.class);
+                                        startActivity(doctMainIntent);
+                                        finish();
+                                    }
                                 }
                                 else {
                                     mProgDialog.dismiss();
-                                    Intent patientIntent = new Intent(LoginActivity.this, DoctorMainActivity.class);
-                                    startActivity(patientIntent);
+                                    Intent mainIntent = new Intent(LoginActivity.this, MainActivity.class);
+                                    startActivity(mainIntent);
                                     finish();
                                 }
 
@@ -143,6 +181,7 @@ public class LoginActivity extends AppCompatActivity {
                         });
                     }
                     else {
+                        mProgDialog.dismiss();
                         Toast.makeText(LoginActivity.this, "Please enter valid details", Toast.LENGTH_SHORT).show();
                     }
 
