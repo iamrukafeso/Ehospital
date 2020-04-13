@@ -90,6 +90,14 @@ public class PatientMainActivity extends AppCompatActivity implements Navigation
 
         switch (menuItem.getItemId())
         {
+            case R.id.covid19_nav:
+
+//
+                Intent covidIntent = new Intent(getApplicationContext(), MobileNavigation.class);
+                startActivity(covidIntent);
+                finish();
+                break;
+
             case R.id.profile_nav:
 
 //

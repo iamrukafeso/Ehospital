@@ -5,5 +5,7 @@
         <item>@font/antic</item>
         <item>@font/baloo</item>
         <item>@font/bangers</item>
+        <item>@font/poppins_bold</item>
+        <item>@font/poppins_light</item>
     </array>
 </resources>

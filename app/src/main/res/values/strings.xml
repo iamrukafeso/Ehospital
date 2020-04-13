@@ -35,6 +35,9 @@
 
     <string name="title_home">Covid-19</string>
     <string name="title_country">Country</string>
+    <string name="title_activity_mobile_navigation">MobileNavigation</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
 
 
 </resources>
