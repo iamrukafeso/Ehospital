@@ -5,9 +5,8 @@
 
     <group android:checkableBehavior="single">
         <item android:id="@+id/covid19_nav"
-            android:icon="@drawable/ic_profile"
+            android:icon="@drawable/virus"
             android:title="Covid-19 Tracker"/>
-
         <item android:id="@+id/profile_nav"
             android:icon="@drawable/ic_profile"
             android:title="Profile"/>

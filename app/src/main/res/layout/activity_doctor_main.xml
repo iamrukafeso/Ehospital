@@ -20,11 +20,12 @@
             android:id="@+id/toolBar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="@color/colorPrimary"
+            android:background="#63FFB1"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"/>
 
             <com.google.android.material.tabs.TabLayout
                 android:id="@+id/mainTabLayout"
+                android:background="#63FFB1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
         </com.google.android.material.appbar.AppBarLayout>
