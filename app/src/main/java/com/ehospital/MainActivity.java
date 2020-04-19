@@ -159,12 +159,7 @@ public class MainActivity extends AppCompatActivity {
 //
 //    }
 
-    public void onClick(View view)
-    {
-        Intent intent = new Intent(MainActivity.this, Registratrion.class);
-        startActivity(intent);
 
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

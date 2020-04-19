@@ -31,14 +31,14 @@ public class NewsFragment extends Fragment {
 
     private View mView;
 
-    RecyclerView recyclerView;
-    SwipeRefreshLayout swipeRefreshLayout;
-    EditText etQuery;
-    Button btnSearch,btnAboutUs;
-    Dialog dialog;
-    final String API_KEY = "18d114beca1741729dde87ede4469f28";
-    Adapter adapter;
-    List<Articles> articles = new ArrayList<>();
+    private RecyclerView mRecyleView;
+    private SwipeRefreshLayout mRefresh;
+   // private  EditText etQuery;
+   // private  Button btnSearch,btnAboutUs;
+    private  Dialog dialog;
+    private final String API_KEY = "18d114beca1741729dde87ede4469f28";
+    private  Adapter adapter;
+    private List<Articles> articles = new ArrayList<>();
 
     public NewsFragment() {
         // Required empty public constructor
@@ -50,19 +50,19 @@ public class NewsFragment extends Fragment {
         // Inflate the layout for this fragment
         mView =  inflater.inflate(R.layout.fragment_news, container, false);
 
-        swipeRefreshLayout = mView.findViewById(R.id.swipeRefresh);
-        recyclerView = mView.findViewById(R.id.recyclerView);
+        mRefresh = mView.findViewById(R.id.swipeRefresh);
+        mRecyleView = mView.findViewById(R.id.recyclerView);
 
-        etQuery = mView.findViewById(R.id.etQuery);
-        btnSearch = mView.findViewById(R.id.btnSearch);
-        btnAboutUs = mView.findViewById(R.id.aboutUs);
+      //  etQuery = mView.findViewById(R.id.etQuery);
+      //  btnSearch = mView.findViewById(R.id.btnSearch);
+      //  btnAboutUs = mView.findViewById(R.id.aboutUs);
         dialog = new Dialog(getActivity());
 
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        mRecyleView.setLayoutManager(new LinearLayoutManager(getContext()));
         final String country = getCountry();
 
 
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+        mRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 retrieveJson("",country,API_KEY);
@@ -70,35 +70,35 @@ public class NewsFragment extends Fragment {
         });
         retrieveJson("",country,API_KEY);
 
-        btnSearch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (!etQuery.getText().toString().equals("")){
-                    swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-                        @Override
-                        public void onRefresh() {
-                            retrieveJson(etQuery.getText().toString(),country,API_KEY);
-                        }
-                    });
-                    retrieveJson(etQuery.getText().toString(),country,API_KEY);
-                }else{
-                    swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-                        @Override
-                        public void onRefresh() {
-                            retrieveJson("",country,API_KEY);
-                        }
-                    });
-                    retrieveJson("",country,API_KEY);
-                }
-            }
-        });
-
-        btnAboutUs.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showDialog();
-            }
-        });
+//        btnSearch.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if (!etQuery.getText().toString().equals("")){
+//                    swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+//                        @Override
+//                        public void onRefresh() {
+//                            retrieveJson(etQuery.getText().toString(),country,API_KEY);
+//                        }
+//                    });
+//                    retrieveJson(etQuery.getText().toString(),country,API_KEY);
+//                }else{
+//                    swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+//                        @Override
+//                        public void onRefresh() {
+//                            retrieveJson("",country,API_KEY);
+//                        }
+//                    });
+//                    retrieveJson("",country,API_KEY);
+//                }
+//            }
+//        });
+//
+//        btnAboutUs.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                showDialog();
+//            }
+//        });
 
 
 
@@ -111,29 +111,27 @@ public class NewsFragment extends Fragment {
     public void retrieveJson(String query ,String country, String apiKey){
 
 
-        swipeRefreshLayout.setRefreshing(true);
-        Call<Headlines> call;
-        if (!etQuery.getText().toString().equals("")){
-            call= ApiClient.getInstance().getApi().getSpecificData(query,apiKey);
-        }else{
+        mRefresh.setRefreshing(true);
+            Call<Headlines> call;
+
             call= ApiClient.getInstance().getApi().getHeadlines(country,apiKey);
-        }
+
 
         call.enqueue(new Callback<Headlines>() {
             @Override
             public void onResponse(Call<Headlines> call, Response<Headlines> response) {
                 if (response.isSuccessful() && response.body().getArticles() != null){
-                    swipeRefreshLayout.setRefreshing(false);
+                    mRefresh.setRefreshing(false);
                     articles.clear();
                     articles = response.body().getArticles();
                     adapter = new Adapter(getContext(),articles);
-                    recyclerView.setAdapter(adapter);
+                    mRecyleView.setAdapter(adapter);
                 }
             }
 
             @Override
             public void onFailure(Call<Headlines> call, Throwable t) {
-                swipeRefreshLayout.setRefreshing(false);
+                mRefresh.setRefreshing(false);
                 Toast.makeText(getContext(), t.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
             }
         });
@@ -154,17 +152,5 @@ public class NewsFragment extends Fragment {
         return country.toLowerCase();
     }
 
-    public void showDialog(){
-        Button btnClose;
-        dialog.setContentView(R.layout.about_us_pop_up);
-        dialog.show();
-        btnClose = dialog.findViewById(R.id.close);
 
-        btnClose.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-            }
-        });
-    }
 }

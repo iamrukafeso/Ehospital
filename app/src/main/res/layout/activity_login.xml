@@ -110,6 +110,7 @@
         android:id="@+id/regTextView"
         android:layout_width="337dp"
         android:layout_height="29dp"
+        android:onClick="onClick"
         android:text="NOT A MEMBER? REGISTER NOW"
         android:textColor="#534DFF"
         android:textSize="50px"

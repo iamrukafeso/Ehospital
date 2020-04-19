@@ -273,4 +273,11 @@ public class Registratrion extends AppCompatActivity {
 
         datePickerDialog.show();
     }
+
+    public void onClickTo(View view)
+    {
+        Intent intent = new Intent(Registratrion.this, LoginActivity.class);
+        startActivity(intent);
+
+    }
 }

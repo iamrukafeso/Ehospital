@@ -107,7 +107,7 @@ public class PatientMainActivity extends AppCompatActivity implements Navigation
                             break;
             case R.id.logout_nav:
                 mAuth.signOut();
-                Intent homeIntent = new Intent(getApplicationContext(),MainActivity.class);
+                Intent homeIntent = new Intent(getApplicationContext(),LoginActivity.class);
                 startActivity(homeIntent);
                 finish();
 

@@ -138,10 +138,18 @@ public class LoginActivity extends AppCompatActivity {
                                 if (accountType.equals("Patient"))
                                 {
                                     if(fillForm.equals("false")) {
-                                        mProgDialog.dismiss();
-                                        Intent patientFormIntent = new Intent(LoginActivity.this, PatientFormActivity.class);
-                                        startActivity(patientFormIntent);
-                                        finish();
+                                        if(mAuth.getCurrentUser().isEmailVerified())
+                                        {
+                                            mProgDialog.dismiss();
+                                            Intent patientFormIntent = new Intent(LoginActivity.this, PatientFormActivity.class);
+                                            startActivity(patientFormIntent);
+                                            finish();
+                                        }
+                                        else{
+                                            mProgDialog.hide();
+                                            Toast.makeText(LoginActivity.this, "Please verify your email", Toast.LENGTH_SHORT).show();
+                                        }
+
                                     }
                                     else
                                     {
@@ -154,10 +162,18 @@ public class LoginActivity extends AppCompatActivity {
                                 }
                                 else if(accountType.equals("Doctor")) {
                                     if(fillForm.equals("false")) {
-                                        mProgDialog.dismiss();
-                                        Intent doctFormIntent = new Intent(LoginActivity.this, DoctorFormActivity.class);
-                                        startActivity(doctFormIntent);
-                                        finish();
+                                        if(mAuth.getCurrentUser().isEmailVerified()) {
+                                            mProgDialog.dismiss();
+                                            Intent doctFormIntent = new Intent(LoginActivity.this, DoctorFormActivity.class);
+                                            startActivity(doctFormIntent);
+                                            finish();
+                                        }
+                                        else{
+                                            mProgDialog.hide();
+                                            Toast.makeText(LoginActivity.this, "Please verify your email", Toast.LENGTH_SHORT).show();
+
+                                        }
+
                                     }
                                     else{
                                         Intent doctMainIntent = new Intent(LoginActivity.this, DoctorMainActivity.class);
@@ -167,7 +183,7 @@ public class LoginActivity extends AppCompatActivity {
                                 }
                                 else {
                                     mProgDialog.dismiss();
-                                    Intent mainIntent = new Intent(LoginActivity.this, MainActivity.class);
+                                    Intent mainIntent = new Intent(LoginActivity.this, LoginActivity.class);
                                     startActivity(mainIntent);
                                     finish();
                                 }
@@ -193,6 +209,13 @@ public class LoginActivity extends AppCompatActivity {
 
 
    }
+
+    public void onClick(View view)
+    {
+        Intent intent = new Intent(LoginActivity.this, Registratrion.class);
+        startActivity(intent);
+
+    }
 }
 
 

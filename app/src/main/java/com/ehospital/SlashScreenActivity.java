@@ -65,7 +65,7 @@ public class SlashScreenActivity extends AppCompatActivity {
 
 
          if(mCurrentUser == null) {
-            Intent intent = new Intent(SlashScreenActivity.this, MainActivity.class);
+            Intent intent = new Intent(SlashScreenActivity.this, LoginActivity.class);
             startActivity(intent);
             finish();
         }

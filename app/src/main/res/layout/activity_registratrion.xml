@@ -140,6 +140,7 @@
         android:text="ALREADY A MEMBER? LOGIN"
         android:textColor="#534DFF"
         android:textSize="50px"
+        android:onClick="onClickTo"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.04"
