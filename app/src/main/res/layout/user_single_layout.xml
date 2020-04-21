@@ -20,13 +20,13 @@
 
     <TextView
         android:id="@+id/doctName"
-        android:layout_width="172dp"
-        android:layout_height="34dp"
+        android:layout_width="275dp"
+        android:layout_height="51dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_marginLeft="150dp"
         android:layout_marginTop="13dp"
-        android:layout_marginEnd="103dp"
+        android:layout_marginEnd="0dp"
         android:text="Display Name"
         android:textSize="18sp"
         android:textStyle="bold" />
@@ -38,8 +38,8 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_marginLeft="150dp"
-        android:layout_marginTop="65dp"
-        android:layout_marginEnd="94dp"
+        android:layout_marginTop="74dp"
+        android:layout_marginEnd="109dp"
         android:text="None" />
 
 

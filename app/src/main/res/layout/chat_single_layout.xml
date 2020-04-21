@@ -7,32 +7,32 @@
     android:layout_height="wrap_content"
     android:padding="10dp">
 
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/messageProfileImageReceiver"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:src="@drawable/ic_profile"
-        android:visibility="invisible" />
+<!--    <de.hdodenhof.circleimageview.CircleImageView-->
+<!--        android:id="@+id/messageProfileImageReceiver"-->
+<!--        android:layout_width="40dp"-->
+<!--        android:layout_height="40dp"-->
+<!--        android:src="@drawable/ic_profile"-->
+<!--        android:visibility="invisible" />-->
 
     <RelativeLayout
-        android:layout_width="231dp"
+        android:layout_width="173dp"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
-        android:layout_marginStart="41dp"
+        android:layout_marginStart="12dp"
         tools:visibility="visible">
 
-<!--        <ImageView-->
-<!--            android:id="@+id/playAudioReceiverBtn"-->
-<!--            android:layout_width="65dp"-->
-<!--            android:layout_height="40dp"-->
-<!--            android:layout_alignParentStart="true"-->
-<!--            android:layout_alignParentTop="true"-->
-<!--            android:layout_marginStart="27dp"-->
-<!--            android:layout_marginTop="5dp"-->
-<!--            android:background="@color/colorPrimaryDark"-->
-<!--            android:text=">>"-->
-<!--            android:visibility="invisible"-->
-<!--            app:srcCompat="@android:drawable/ic_media_play" />-->
+        <!--        <ImageView-->
+        <!--            android:id="@+id/playAudioReceiverBtn"-->
+        <!--            android:layout_width="65dp"-->
+        <!--            android:layout_height="40dp"-->
+        <!--            android:layout_alignParentStart="true"-->
+        <!--            android:layout_alignParentTop="true"-->
+        <!--            android:layout_marginStart="27dp"-->
+        <!--            android:layout_marginTop="5dp"-->
+        <!--            android:background="@color/colorPrimaryDark"-->
+        <!--            android:text=">>"-->
+        <!--            android:visibility="invisible"-->
+        <!--            app:srcCompat="@android:drawable/ic_media_play" />-->
 
         <TextView
             android:id="@+id/receiverText"
@@ -60,33 +60,24 @@
 
     </RelativeLayout>
 
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/messageProfileImageSender"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_alignParentEnd="true"
-        android:layout_marginEnd="10dp"
-        android:src="@drawable/ic_profile"
-        android:visibility="invisible" />
-
     <RelativeLayout
-        android:layout_width="209dp"
+        android:layout_width="154dp"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
-        android:layout_marginEnd="49dp">
+        android:layout_marginEnd="33dp">
 
 
-<!--        <ImageView-->
-<!--            android:id="@+id/playAudioSenderBtn"-->
-<!--            android:layout_width="61dp"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_alignParentStart="true"-->
-<!--            android:layout_marginStart="11dp"-->
-<!--            android:layout_marginTop="8dp"-->
-<!--            android:background="@color/colorPrimaryDark"-->
-<!--            android:text=">>"-->
-<!--            android:visibility="invisible"-->
-<!--            app:srcCompat="@android:drawable/ic_media_play" />-->
+        <!--        <ImageView-->
+        <!--            android:id="@+id/playAudioSenderBtn"-->
+        <!--            android:layout_width="61dp"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_alignParentStart="true"-->
+        <!--            android:layout_marginStart="11dp"-->
+        <!--            android:layout_marginTop="8dp"-->
+        <!--            android:background="@color/colorPrimaryDark"-->
+        <!--            android:text=">>"-->
+        <!--            android:visibility="invisible"-->
+        <!--            app:srcCompat="@android:drawable/ic_media_play" />-->
 
         <TextView
             android:id="@+id/senderText"
@@ -102,15 +93,14 @@
             app:autoSizeTextType="uniform" />
 
 
-
         <TextView
             android:id="@+id/timeViewSender"
-            android:layout_width="wrap_content"
+            android:layout_width="34dp"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_marginLeft="130dp"
             android:layout_marginTop="35dp"
-            android:layout_marginEnd="2dp"
+            android:layout_marginEnd="0dp"
             android:text="hello"
             android:textSize="12sp"
             android:visibility="invisible" />

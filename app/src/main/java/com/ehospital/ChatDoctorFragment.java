@@ -106,7 +106,7 @@ public class ChatDoctorFragment extends Fragment {
 
 
 
-                               holder.setName("Dr" + firstName.substring(0, 1).toUpperCase() + firstName.substring(1).toLowerCase() + " " + surname.substring(0, 1).toUpperCase() + surname.substring(1).toLowerCase());
+                               holder.setName("DR. " + firstName.substring(0, 1).toUpperCase() + firstName.substring(1).toLowerCase() + " " + surname.substring(0, 1).toUpperCase() + surname.substring(1).toLowerCase());
                               if(messageType.equals("text")) {
                                   holder.setMessage(data, model.isSeen());
                               }

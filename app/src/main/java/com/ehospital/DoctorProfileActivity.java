@@ -81,152 +81,138 @@ public class DoctorProfileActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         mUser = mAuth.getCurrentUser();
         final String userId = mUser.getUid();
-        mDoctorId = getIntent().getStringExtra("user_id");
+      //  mDoctorId = getIntent().getStringExtra("user_id");
 
-        mUserRef = FirebaseDatabase.getInstance().getReference().child("Users");
+        mUserRef = FirebaseDatabase.getInstance().getReference().child("Users").child(userId);
         mDoctFormRef = FirebaseDatabase.getInstance().getReference().child("DoctorForm");
         mStorageRef = FirebaseStorage.getInstance().getReference();
         mPatientRef = FirebaseDatabase.getInstance().getReference().child("Users").child(userId);
 
 
 
-        mPatientRef.addValueEventListener(new ValueEventListener() {
+//        mPatientRef.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//
+//                String accounttype = dataSnapshot.child("accounttype").getValue().toString();
+//
+//                if(accounttype.equals("Patient")) {
+//
+//                    if (!mDoctorId.equals(userId)) {
+                     //   mUserRef.child(mDoctorId).addValueEventListener(new ValueEventListener() {
+                           // @Override
+                          //  public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+
+//                                String firstName = dataSnapshot.child("firstname").getValue().toString();
+//                                String surname = dataSnapshot.child("surname").getValue().toString();
+//                                String image = dataSnapshot.child("image").getValue().toString();
+//
+//                                mFirstName.setEnabled(false);
+//                                mSurname.setEnabled(false);
+//                                mEmail.setEnabled(false);
+//                                mYearOfExp.setEnabled(false);
+//                                mSpecialist.setEnabled(false);
+//                                mDesc.setEnabled(false);
+//                                mUpdateBtn.setVisibility(View.INVISIBLE);
+//                                mChangeProfileImgBtn.setVisibility(View.INVISIBLE);
+//
+//
+//                                final String email = mUser.getEmail();
+//
+//                                mFirstName.setText(firstName.substring(0, 1).toUpperCase() + firstName.substring(1).toLowerCase());
+//                                mSurname.setText(surname.substring(0, 1).toUpperCase() + surname.substring(1).toLowerCase());
+//                                mEmail.setText(email.substring(0, 1).toUpperCase() + email.substring(1).toLowerCase());
+//                                mEmail.setEnabled(false);
+//                                mUpdateBtn.setEnabled(false);
+//
+//                                if (!mProfileImage.equals("default")) {
+//                                    Picasso.with(getApplicationContext()).load(image).placeholder(R.drawable.defaultimage).into(mProfileImage);
+//                                }
+//
+//                                mDoctFormRef.child(mDoctorId).addValueEventListener(new ValueEventListener() {
+//                                    @Override
+//                                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//
+//
+//                                        String yearExp = dataSnapshot.child("yearExperience").getValue().toString();
+//                                        String specField = dataSnapshot.child("specialistfield").getValue().toString();
+//                                        if (dataSnapshot.hasChild("description")) {
+//                                            String desc = dataSnapshot.child("description").getValue().toString();
+//                                            mDesc.setText(desc.substring(0, 1).toUpperCase() + desc.substring(1).toLowerCase());
+//                                        }
+//
+//                                        mYearOfExp.setText(yearExp.substring(0, 1).toUpperCase() + yearExp.substring(1).toLowerCase());
+//                                        mSpecialist.setText(specField.substring(0, 1).toUpperCase() + specField.substring(1).toLowerCase());
+//
+//
+//                                    }
+//
+//                                    @Override
+//                                    public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//                                    }
+//                                });
+//
+//                            }
+//
+//
+//                            @Override
+//                            public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//                            }
+//                        });
+//                    }
+//                }
+//
+//                else{
+
+
+        mUserRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                String accounttype = dataSnapshot.child("accounttype").getValue().toString();
-
-                if(accounttype.equals("Patient")) {
-
-                    if (!mDoctorId.equals(userId)) {
-                        mUserRef.child(mDoctorId).addValueEventListener(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                String firstName = dataSnapshot.child("firstname").getValue().toString();
+                String surname = dataSnapshot.child("surname").getValue().toString();
+                String image = dataSnapshot.child("image").getValue().toString();
 
 
-                                String firstName = dataSnapshot.child("firstname").getValue().toString();
-                                String surname = dataSnapshot.child("surname").getValue().toString();
-                                String image = dataSnapshot.child("image").getValue().toString();
 
-                                mFirstName.setEnabled(false);
-                                mSurname.setEnabled(false);
-                                mEmail.setEnabled(false);
-                                mYearOfExp.setEnabled(false);
-                                mSpecialist.setEnabled(false);
-                                mDesc.setEnabled(false);
-                                mUpdateBtn.setVisibility(View.INVISIBLE);
-                                mChangeProfileImgBtn.setVisibility(View.INVISIBLE);
+                final String email = mUser.getEmail();
 
+                mFirstName.setText(firstName.substring(0, 1).toUpperCase() + firstName.substring(1).toLowerCase());
+                mSurname.setText(surname.substring(0, 1).toUpperCase() + surname.substring(1).toLowerCase());
+                mEmail.setText(email.substring(0, 1).toUpperCase() + email.substring(1).toLowerCase());
+                mEmail.setEnabled(false);
+                mUpdateBtn.setEnabled(false);
 
-                                final String email = mUser.getEmail();
+                if (!mProfileImage.equals("default")) {
+                    Picasso.with(getApplicationContext()).load(image).placeholder(R.drawable.defaultimage).into(mProfileImage);
+                }
 
-                                mFirstName.setText(firstName.substring(0, 1).toUpperCase() + firstName.substring(1).toLowerCase());
-                                mSurname.setText(surname.substring(0, 1).toUpperCase() + surname.substring(1).toLowerCase());
-                                mEmail.setText(email.substring(0, 1).toUpperCase() + email.substring(1).toLowerCase());
-                                mEmail.setEnabled(false);
-                                mUpdateBtn.setEnabled(false);
-
-                                if (!mProfileImage.equals("default")) {
-                                    Picasso.with(getApplicationContext()).load(image).placeholder(R.drawable.defaultimage).into(mProfileImage);
-                                }
-
-                                mDoctFormRef.child(mDoctorId).addValueEventListener(new ValueEventListener() {
-                                    @Override
-                                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                mDoctFormRef.child(userId).addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
 
-                                        String yearExp = dataSnapshot.child("yearExperience").getValue().toString();
-                                        String specField = dataSnapshot.child("specialistfield").getValue().toString();
-                                        if (dataSnapshot.hasChild("description")) {
-                                            String desc = dataSnapshot.child("description").getValue().toString();
-                                            mDesc.setText(desc.substring(0, 1).toUpperCase() + desc.substring(1).toLowerCase());
-                                        }
+                        String yearExp = dataSnapshot.child("yearExperience").getValue().toString();
+                        String specField = dataSnapshot.child("specialistfield").getValue().toString();
+                        if (dataSnapshot.hasChild("description")) {
+                            String desc = dataSnapshot.child("description").getValue().toString();
+                            mDesc.setText(desc.substring(0, 1).toUpperCase() + desc.substring(1).toLowerCase());
+                        }
 
-                                        mYearOfExp.setText(yearExp.substring(0, 1).toUpperCase() + yearExp.substring(1).toLowerCase());
-                                        mSpecialist.setText(specField.substring(0, 1).toUpperCase() + specField.substring(1).toLowerCase());
-
-
-                                    }
-
-                                    @Override
-                                    public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                                    }
-                                });
-
-                            }
+                        mYearOfExp.setText(yearExp.substring(0, 1).toUpperCase() + yearExp.substring(1).toLowerCase());
+                        mSpecialist.setText(specField.substring(0, 1).toUpperCase() + specField.substring(1).toLowerCase());
 
 
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                            }
-                        });
                     }
-                }
 
-                else{
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
 
-                    mUserRef.child(userId).addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-
-
-                            String firstName = dataSnapshot.child("firstname").getValue().toString();
-                            String surname = dataSnapshot.child("surname").getValue().toString();
-                            String image = dataSnapshot.child("image").getValue().toString();
-
-
-
-                            final String email = mUser.getEmail();
-
-                            mFirstName.setText(firstName.substring(0, 1).toUpperCase() + firstName.substring(1).toLowerCase());
-                            mSurname.setText(surname.substring(0, 1).toUpperCase() + surname.substring(1).toLowerCase());
-                            mEmail.setText(email.substring(0, 1).toUpperCase() + email.substring(1).toLowerCase());
-                            mEmail.setEnabled(false);
-                            mUpdateBtn.setEnabled(false);
-
-                            if (!mProfileImage.equals("default")) {
-                                Picasso.with(getApplicationContext()).load(image).placeholder(R.drawable.defaultimage).into(mProfileImage);
-                            }
-
-                            mDoctFormRef.child(userId).addValueEventListener(new ValueEventListener() {
-                                @Override
-                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-
-                                    String yearExp = dataSnapshot.child("yearExperience").getValue().toString();
-                                    String specField = dataSnapshot.child("specialistfield").getValue().toString();
-                                    if (dataSnapshot.hasChild("description")) {
-                                        String desc = dataSnapshot.child("description").getValue().toString();
-                                        mDesc.setText(desc.substring(0, 1).toUpperCase() + desc.substring(1).toLowerCase());
-                                    }
-
-                                    mYearOfExp.setText(yearExp.substring(0, 1).toUpperCase() + yearExp.substring(1).toLowerCase());
-                                    mSpecialist.setText(specField.substring(0, 1).toUpperCase() + specField.substring(1).toLowerCase());
-
-
-                                }
-
-                                @Override
-                                public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                                }
-                            });
-
-                        }
-
-
-
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                        }
-                    });
-
-                }
+                    }
+                });
 
 
             }
@@ -236,6 +222,77 @@ public class DoctorProfileActivity extends AppCompatActivity {
 
             }
         });
+
+
+//        mUserRef.child(userId).addValueEventListener(new ValueEventListener() {
+//                        @Override
+//                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//
+//
+//
+//                            String firstName = dataSnapshot.child("firstname").getValue().toString();
+//                            String surname = dataSnapshot.child("surname").getValue().toString();
+//                            String image = dataSnapshot.child("image").getValue().toString();
+//
+//
+//
+//                            final String email = mUser.getEmail();
+//
+//                            mFirstName.setText(firstName.substring(0, 1).toUpperCase() + firstName.substring(1).toLowerCase());
+//                            mSurname.setText(surname.substring(0, 1).toUpperCase() + surname.substring(1).toLowerCase());
+//                            mEmail.setText(email.substring(0, 1).toUpperCase() + email.substring(1).toLowerCase());
+//                            mEmail.setEnabled(false);
+//                            mUpdateBtn.setEnabled(false);
+//
+//                            if (!mProfileImage.equals("default")) {
+//                                Picasso.with(getApplicationContext()).load(image).placeholder(R.drawable.defaultimage).into(mProfileImage);
+//                            }
+//
+//                            mDoctFormRef.child(userId).addValueEventListener(new ValueEventListener() {
+//                                @Override
+//                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//
+//
+//                                    String yearExp = dataSnapshot.child("yearExperience").getValue().toString();
+//                                    String specField = dataSnapshot.child("specialistfield").getValue().toString();
+//                                    if (dataSnapshot.hasChild("description")) {
+//                                        String desc = dataSnapshot.child("description").getValue().toString();
+//                                        mDesc.setText(desc.substring(0, 1).toUpperCase() + desc.substring(1).toLowerCase());
+//                                    }
+//
+//                                    mYearOfExp.setText(yearExp.substring(0, 1).toUpperCase() + yearExp.substring(1).toLowerCase());
+//                                    mSpecialist.setText(specField.substring(0, 1).toUpperCase() + specField.substring(1).toLowerCase());
+//
+//
+//                                }
+//
+//                                @Override
+//                                public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//                                }
+//                            });
+//
+//                        }
+//
+//
+//
+//
+//                        @Override
+//                        public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//                        }
+//                    });
+//
+//                }
+//
+//
+//            }
+//
+////            @Override
+////            public void onCancelled(@NonNull DatabaseError databaseError) {
+////
+////            }
+////        });
 
 
 

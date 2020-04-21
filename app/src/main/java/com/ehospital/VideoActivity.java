@@ -47,17 +47,19 @@ public class VideoActivity extends AppCompatActivity implements Session.SessionL
     private DatabaseReference userRef;
 
     private String userId = "";
+    private String mUserIdReceiver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_video);
 
-        closeBtn = findViewById(R.id.close_video_chat_btn);
+        closeBtn = findViewById(R.id.endVideoChat);
 
 
+        mUserIdReceiver = getIntent().getStringExtra("user_id");
         userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        userRef = FirebaseDatabase.getInstance().getReference().child("Users");
+        userRef = FirebaseDatabase.getInstance().getReference().child("Call");
 
         closeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -78,7 +80,11 @@ public class VideoActivity extends AppCompatActivity implements Session.SessionL
                             {
                                 mSubscriber.destroy();
                             }
-                            startActivity(new Intent(VideoActivity.this,SlashScreenActivity.class));
+                            Intent chatIntent = new Intent(VideoActivity.this,ChatAcitivity.class);
+                            chatIntent.putExtra("user_id",userId);
+                            chatIntent.putExtra("name",mUserIdReceiver);
+
+                            startActivity(chatIntent);
                             finish();
                         }
 
@@ -142,8 +148,8 @@ public class VideoActivity extends AppCompatActivity implements Session.SessionL
 
         if(EasyPermissions.hasPermissions(this,perm))
         {
-            mPublisherView = findViewById(R.id.publisherContainer);
-            mSubscriberContainerView = findViewById(R.id.subContain);
+            mPublisherView = findViewById(R.id.publisherContainerVideo);
+            mSubscriberContainerView = findViewById(R.id.subscriberVideo);
 
             // connect to the Session
 

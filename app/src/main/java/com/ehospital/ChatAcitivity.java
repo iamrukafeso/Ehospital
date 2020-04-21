@@ -48,6 +48,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.squareup.picasso.Picasso;
 
 
 import java.io.File;
@@ -70,14 +71,6 @@ public class ChatAcitivity extends AppCompatActivity implements RecycleViewListe
     private TextView mName;
     private EditText mInputMessage;
     private ImageButton mSendBtn,mAudioBtn;
-
-
-
-    private String audio;
-    private Runnable runnable;
-    private Handler handler;
-
-    private CircleImageView mUserProfile;
 
     private DatabaseReference mUserRef,mDatabaseRef,mUserRoot,mCallingRef;
     private FirebaseAuth mAuth;
@@ -148,7 +141,7 @@ public class ChatAcitivity extends AppCompatActivity implements RecycleViewListe
         mCurrentId = mAuth.getCurrentUser().getUid();
         mUserRef = FirebaseDatabase.getInstance().getReference().child("Users").child(mCurrentId);
 
-        mCallingRef = FirebaseDatabase.getInstance().getReference().child("Users");
+        mCallingRef = FirebaseDatabase.getInstance().getReference().child("Call");
 
         mChatBar = findViewById(R.id.toolBar);
         setSupportActionBar(mChatBar);
@@ -161,7 +154,7 @@ public class ChatAcitivity extends AppCompatActivity implements RecycleViewListe
 
         // get the user details
         mMessager = getIntent().getStringExtra("user_id");
-        String name = getIntent().getStringExtra("name");
+        final String name = getIntent().getStringExtra("name");
         getSupportActionBar().setTitle(name);
 
         LayoutInflater mInflater = (LayoutInflater)this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -214,13 +207,28 @@ public class ChatAcitivity extends AppCompatActivity implements RecycleViewListe
 
 
 
-        mName.setText(name);
+
+
 
         loadMessage();
 
         mUserRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                //String image = dataSnapshot.child("image").getValue().toString();
+               // Toast.makeText(ChatAcitivity.this, image, Toast.LENGTH_SHORT).show();
+               // Picasso.with(getApplicationContext()).load(image).placeholder(R.drawable.defaultimage).into(mAdopter.mProifleImageSender);
+                String accountType = dataSnapshot.child("accounttype").getValue().toString();
+
+                if(accountType.equals("Doctor"))
+                {
+                    mName.setText(name.substring(0, 1).toUpperCase() +  name.substring(1).toLowerCase());
+                }
+                else{
+                    mName.setText("DR. " + name.substring(0, 1).toUpperCase() + name.substring(1).toLowerCase());
+
+                }
 
             }
 

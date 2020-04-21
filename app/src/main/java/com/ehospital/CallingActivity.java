@@ -59,7 +59,7 @@ public class CallingActivity extends AppCompatActivity {
         userIdReceiver = getIntent().getExtras().get("user_id").toString();
         mUserRef = FirebaseDatabase.getInstance().getReference().child("Users");
 
-        mCallingRef = FirebaseDatabase.getInstance().getReference().child("Users");
+        mCallingRef = FirebaseDatabase.getInstance().getReference().child("Call");
         userIdSender = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
         cancelBtn.setOnClickListener(new View.OnClickListener() {
@@ -91,6 +91,7 @@ public class CallingActivity extends AppCompatActivity {
                         if(task.isSuccessful())
                         {
                             Intent videoIntent = new Intent(CallingActivity.this,VideoActivity.class);
+                            videoIntent.putExtra("user_id",userIdReceiver);
                             startActivity(videoIntent);
                         }
                     }
@@ -173,7 +174,7 @@ public class CallingActivity extends AppCompatActivity {
                                     public void onComplete(@NonNull Task<Void> task) {
                                         if(task.isSuccessful())
                                         {
-                                            Toast.makeText(CallingActivity.this, "hello", Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(CallingActivity.this, "Video connected", Toast.LENGTH_SHORT).show();
                                         }
                                     }
                                 });
@@ -204,6 +205,7 @@ public class CallingActivity extends AppCompatActivity {
                 {
                     mMediaPlayer.stop();
                     Intent videoIntent = new Intent(CallingActivity.this,VideoActivity.class);
+                    videoIntent.putExtra("user_id",userIdReceiver);
                     startActivity(videoIntent);
                 }
             }
@@ -234,7 +236,12 @@ public class CallingActivity extends AppCompatActivity {
                                     @Override
                                     public void onComplete(@NonNull Task<Void> task) {
 
-                                        startActivity(new Intent(CallingActivity.this,SlashScreenActivity.class));
+                                        Intent chatIntent = new Intent(CallingActivity.this,ChatAcitivity.class);
+                                        chatIntent.putExtra("user_id",userIdReceiver);
+                                        chatIntent.putExtra("name",userName);
+
+                                        startActivity(chatIntent);
+
                                         finish();
                                     }
                                 });
@@ -243,7 +250,11 @@ public class CallingActivity extends AppCompatActivity {
                     });
                 }
                 else{
-                    startActivity(new Intent(CallingActivity.this,SlashScreenActivity.class));
+                    Intent chatIntent = new Intent(CallingActivity.this,ChatAcitivity.class);
+                    chatIntent.putExtra("user_id",userIdReceiver);
+                    chatIntent.putExtra("name",userName);
+
+                    startActivity(chatIntent);
                     finish();
                 }
             }
@@ -272,7 +283,10 @@ public class CallingActivity extends AppCompatActivity {
                                     @Override
                                     public void onComplete(@NonNull Task<Void> task) {
 
-                                        startActivity(new Intent(CallingActivity.this,SlashScreenActivity.class));
+                                        Intent chatIntent = new Intent(CallingActivity.this,ChatAcitivity.class);
+                                        chatIntent.putExtra("user_id",userIdReceiver);
+                                        chatIntent.putExtra("name",userName);
+                                        startActivity(chatIntent);
                                         finish();
                                     }
                                 });
@@ -281,7 +295,11 @@ public class CallingActivity extends AppCompatActivity {
                     });
                 }
                 else{
-                    startActivity(new Intent(CallingActivity.this,SlashScreenActivity.class));
+                    Intent chatIntent = new Intent(CallingActivity.this,ChatAcitivity.class);
+                    chatIntent.putExtra("user_id",userIdReceiver);
+                    chatIntent.putExtra("name",userName);
+
+                    startActivity(chatIntent);
                     finish();
                 }
             }

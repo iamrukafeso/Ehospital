@@ -1,5 +1,6 @@
 package com.ehospital;
 
+import android.content.Context;
 import android.graphics.Color;
 
 import android.icu.text.DateFormat;
@@ -20,10 +21,17 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.squareup.picasso.Picasso;
 
 
 import java.io.IOException;
@@ -52,6 +60,7 @@ public class MessageAdopter extends RecyclerView.Adapter<MessageAdopter.MessageV
 
     public MessageAdopter(List<Message> mMesList,RecycleViewListener recycleViewListener)
     {
+
         handler = new Handler();
         mPlayer = new MediaPlayer();
         this.mMesList = mMesList;
@@ -87,8 +96,9 @@ public class MessageAdopter extends RecyclerView.Adapter<MessageAdopter.MessageV
             mReceiverText = view.findViewById(R.id.receiverText);
             mTimeViewSender = view.findViewById(R.id.timeViewSender);
             mTimeViewReceiver = view.findViewById(R.id.timeViewReceiver);
-            mProifleImageReceiver = view.findViewById(R.id.messageProfileImageReceiver);
-            mProifleImageSender = view.findViewById(R.id.messageProfileImageSender);
+         //   mProifleImageReceiver = view.findViewById(R.id.messageProfileImageReceiver);
+          //  mProifleImageSender = view.findViewById(R.id.messageProfileImageSender);
+
            // mPlayAudioSenderBtn = view.findViewById(R.id.playAudioSenderBtn);
             //mPlayAudioReceiverBtn = view.findViewById(R.id.playAudioReceiverBtn);
 
@@ -135,13 +145,14 @@ public class MessageAdopter extends RecyclerView.Adapter<MessageAdopter.MessageV
     public void onBindViewHolder(@NonNull final MessageViewHolder holder, final int position) {
 
         mAuth = FirebaseAuth.getInstance();
-        String currentUserId = mAuth.getCurrentUser().getUid();
+        final String currentUserId = mAuth.getCurrentUser().getUid();
         Message ms = mMesList.get(position);
         String message_from = ms.getFrom();
 
 
 
-       // String time = String.valueOf(ms.getTime());
+
+        // String time = String.valueOf(ms.getTime());
 
         if(message_from != null)
         {
@@ -162,7 +173,39 @@ public class MessageAdopter extends RecyclerView.Adapter<MessageAdopter.MessageV
                     holder.mTimeViewSender.setText(ms.getTime());
 
 
-                    holder.mProifleImageSender.setVisibility(View.VISIBLE);
+                    //holder.mProifleImageSender.setVisibility(View.VISIBLE);
+
+//                DatabaseReference db;
+//
+//                db = FirebaseDatabase.getInstance().getReference().child("User");
+//
+//                db.addChildEventListener(new ChildEventListener() {
+//                    @Override
+//                    public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+//                        String currentUserImg = dataSnapshot.child(currentUserId).child("image").getValue().toString();
+//                        Picasso.with(context).load(R.drawable.ic_call_end_black_24dp).placeholder(R.drawable.ic_call_end_black_24dp).into(holder.mProifleImageSender);
+//                    }
+//
+//                    @Override
+//                    public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+//
+//                    }
+//
+//                    @Override
+//                    public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+//
+//                    }
+//
+//                    @Override
+//                    public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+//
+//                    }
+//
+//                    @Override
+//                    public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//                    }
+//                });
                // }
 //                else if(ms.getType().equals("audio")){
 //                   // holder.mSenderText.setVisibility(View.VISIBLE);
@@ -192,7 +235,7 @@ public class MessageAdopter extends RecyclerView.Adapter<MessageAdopter.MessageV
                     holder.mTimeViewReceiver.setVisibility(View.VISIBLE);
                     holder.mReceiverText.setText(ms.getMessage());
                     holder.mTimeViewReceiver.setText(ms.getTime());
-                    holder.mProifleImageReceiver.setVisibility(View.VISIBLE);
+                 //   holder.mProifleImageReceiver.setVisibility(View.VISIBLE);
 //                    holder.mSenderText.setVisibility(View.INVISIBLE);
 //                    holder.mTimeViewSender.setVisibility(View.INVISIBLE);
 //                    holder.mProifleImageSender.setVisibility(View.INVISIBLE);
@@ -324,6 +367,13 @@ public class MessageAdopter extends RecyclerView.Adapter<MessageAdopter.MessageV
     {
         return mMesList.size();
     }
+
+
+
+
+
+
+
 
 
 
