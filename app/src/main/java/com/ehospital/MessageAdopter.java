@@ -40,8 +40,8 @@ public class MessageAdopter extends RecyclerView.Adapter<MessageAdopter.MessageV
     private Handler handler;
     private Runnable runnable;
     private String audio;
-    private static final int MSG_TYPE_RIGHT = 0;
-    private static final int MSG_TYPE_LEFT = 0;
+    private static final int MSG_TYPE_RIGHT = 1;
+    private static final int MSG_TYPE_LEFT = 2;
     private FirebaseUser mUser;
     // public ImageView mPlayAudioSenderBtn,mPauseSenderBtn,mPlayAudioReceiverBtn,mPauseReceiverBtn;
 
@@ -67,7 +67,6 @@ public class MessageAdopter extends RecyclerView.Adapter<MessageAdopter.MessageV
             return new MessageAdopter.MessageViewHolder(view);
         }
     }
-
 
 
     public static class MessageViewHolder extends RecyclerView.ViewHolder {
@@ -350,22 +349,26 @@ public class MessageAdopter extends RecyclerView.Adapter<MessageAdopter.MessageV
     @Override
     public int getItemViewType(int position) {
 
-        mUser =  FirebaseAuth.getInstance().getCurrentUser();
+        mUser = FirebaseAuth.getInstance().getCurrentUser();
         mAuth = FirebaseAuth.getInstance();
         final String currentUserId = mAuth.getCurrentUser().getUid();
         Message ms = mMesList.get(position);
         String message_from = ms.getFrom();
 
-        if (mMesList.get(position).getFrom().equals(mUser.getUid())) {
-            return MSG_TYPE_LEFT;
-        } else {
+        if (message_from != null) {
+            if (message_from.equals(currentUserId)) {
+                return MSG_TYPE_RIGHT;
+            } else {
 
-            return MSG_TYPE_RIGHT;
+                return MSG_TYPE_LEFT;
+            }
         }
 
 
-//
+        return 0;
     }
+
+
         @Override
     public  int getItemCount()
     {
