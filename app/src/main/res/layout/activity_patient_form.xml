@@ -6,124 +6,131 @@
     android:layout_height="match_parent"
     tools:context=".PatientFormActivity">
 
+    <TextView
+        android:id="@+id/textView18"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/poppins_bold"
+        android:text="Complete Patient's Form"
+        android:textColor="@color/black"
+        android:textSize="70px"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <Spinner
         android:id="@+id/cardTypeSpinner"
         android:layout_width="271dp"
         android:layout_height="42dp"
-        android:background="@drawable/input_field"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/blank_text"
         android:ems="10"
         android:entries="@array/cardTypes"
         android:fontFamily="sans-serif-light"
+        android:paddingLeft="24dp"
         android:textColorHint="@color/black"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.364"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.23" />
+        app:layout_constraintTop_toBottomOf="@+id/textView18" />
 
     <EditText
         android:id="@+id/cardHoldername"
         android:layout_width="271dp"
         android:layout_height="42dp"
-        android:background="@drawable/input_field"
+        android:background="@drawable/blank_text"
         android:ems="10"
         android:fontFamily="sans-serif-light"
         android:hint="card holder name"
+        android:paddingLeft="50dp"
         android:selectAllOnFocus="true"
         android:textColorHint="@color/black"
+        android:textSize="50px"
         android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.364"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.313" />
+        app:layout_constraintTop_toBottomOf="@+id/cardTypeSpinner" />
 
     <EditText
         android:id="@+id/expireDate"
         android:layout_width="271dp"
         android:layout_height="42dp"
-        android:background="@drawable/input_field"
+        android:background="@drawable/blank_text"
         android:ems="10"
         android:fontFamily="sans-serif-light"
         android:hint="Enter expire date"
         android:inputType="date"
+        android:paddingLeft="50dp"
         android:selectAllOnFocus="true"
         android:textColorHint="@color/black"
+        android:textSize="50px"
         android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.364"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.478" />
+        app:layout_constraintTop_toBottomOf="@+id/cardNumber" />
 
     <EditText
         android:id="@+id/cardNumber"
         android:layout_width="271dp"
         android:layout_height="42dp"
-        android:background="@drawable/input_field"
+        android:background="@drawable/blank_text"
         android:ems="10"
         android:fontFamily="sans-serif-light"
         android:hint="Enter card Number"
         android:inputType="number"
         android:maxLength="16"
+        android:paddingLeft="50dp"
         android:selectAllOnFocus="true"
         android:textColorHint="@color/black"
+        android:textSize="50px"
         android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.364"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.394" />
+        app:layout_constraintTop_toBottomOf="@+id/cardHoldername" />
 
     <EditText
         android:id="@+id/ccvNumber"
         android:layout_width="271dp"
         android:layout_height="42dp"
-        android:background="@drawable/input_field"
+        android:background="@drawable/blank_text"
         android:ems="10"
         android:fontFamily="sans-serif-light"
         android:hint="Enter your cvv number"
         android:inputType="number"
         android:maxLength="3"
+        android:paddingLeft="50dp"
         android:selectAllOnFocus="true"
         android:textColorHint="@color/black"
+        android:textSize="50px"
         android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.364"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.567" />
-
-
-    <TextView
-        android:id="@+id/selectOption"
-        android:layout_width="172dp"
-        android:layout_height="38dp"
-        android:text="Complete Patient Form."
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.384"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.125" />
+        app:layout_constraintTop_toBottomOf="@+id/expireDate" />
 
     <Button
         android:id="@+id/completeRegBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Complete Registration"
+        android:layout_width="187dp"
+        android:layout_height="52dp"
+        android:background="@drawable/doc"
+        android:fontFamily="sans-serif-black"
+        android:text="Complete Register"
+        android:textAllCaps="false"
+        android:textColor="@color/black"
         android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.431"
+        app:layout_constraintHorizontal_bias="0.866"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.7" />
+        app:layout_constraintTop_toBottomOf="@+id/ccvNumber" />
+
+    <ImageView
+        android:id="@+id/imageView6"
+        android:layout_width="309dp"
+        android:layout_height="197dp"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/fill_form"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/completeRegBtn" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
