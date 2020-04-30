@@ -6,88 +6,95 @@
     android:layout_height="match_parent"
     tools:context=".DoctorFormActivity">
 
-
-    <ImageView
-        android:id="@+id/imageView9"
-        android:layout_width="467dp"
-        android:layout_height="738dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.265"
-        app:srcCompat="@drawable/docbackground" />
-
-    <Button
-        android:id="@+id/docCompleteBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Complete Registration"
-        android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.347"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.513" />
-
     <TextView
         android:id="@+id/textView18"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="44dp"
-        android:text="Doctor's form"
+        android:fontFamily="@font/poppins_bold"
+        android:text="Doctor's Form"
         android:textColor="@color/black"
-        android:textSize="25dp"
+        android:textSize="96px"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.492"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
+        android:id="@+id/specialistFieldEdit"
+        android:layout_width="910px"
+        android:layout_height="200px"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/login_user"
+        android:fontFamily="sans-serif-light"
+        android:hint="Doctor Specification"
+        android:inputType="textPersonName"
+        android:paddingLeft="54dp"
+        android:textColorHint="@color/black"
+        android:textSize="50px"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView18" />
+
+    <EditText
         android:id="@+id/regNumberEdit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
+        android:layout_width="910px"
+        android:layout_height="200px"
+        android:background="@drawable/bg_text_pass"
+        android:fontFamily="sans-serif-light"
         android:hint="Unique ID Number"
         android:inputType="number"
         android:maxLength="6"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:paddingLeft="54dp"
+        android:textColorHint="@color/black"
+        android:textSize="50px"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.262"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.275" />
-
-    <EditText
-        android:id="@+id/specialistFieldEdit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="512dp"
-        android:ems="10"
-        android:hint="Doctor Specification"
-        android:inputType="textPersonName"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.262"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toBottomOf="@+id/specialistFieldEdit" />
 
     <EditText
         android:id="@+id/yearOfExpEdit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
+        android:layout_width="910px"
+        android:layout_height="200px"
+        android:background="@drawable/bg_text_dob"
+        android:fontFamily="sans-serif-light"
         android:hint="Years Of Experience"
         android:inputType="number"
         android:maxLength="2"
+        android:paddingLeft="54dp"
+        android:textColorHint="@color/black"
+        android:textSize="50px"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/regNumberEdit" />
+
+    <Button
+        android:id="@+id/docCompleteBtn"
+        android:layout_width="187dp"
+        android:layout_height="52dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/doc"
+        android:fontFamily="sans-serif-black"
+        android:text="Complete Register"
+        android:textAllCaps="false"
+        android:textColor="@color/black"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.892"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/yearOfExpEdit" />
+
+    <ImageView
+        android:id="@+id/imageView6"
+        android:layout_width="354dp"
+        android:layout_height="239dp"
+        android:layout_marginTop="76dp"
+        android:background="@drawable/doctor_reg"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.262"
+        app:layout_constraintHorizontal_bias="0.561"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.387" />
+        app:layout_constraintTop_toBottomOf="@+id/docCompleteBtn"
+        app:layout_constraintVertical_bias="0.0" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
