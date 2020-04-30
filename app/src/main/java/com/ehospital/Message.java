@@ -3,6 +3,7 @@ package com.ehospital;
 public class Message {
     private String message,type,from;
     private String time;
+
     public Boolean seen;
 
     public Message() {

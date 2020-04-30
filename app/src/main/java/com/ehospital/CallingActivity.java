@@ -92,7 +92,9 @@ public class CallingActivity extends AppCompatActivity {
                         {
                             Intent videoIntent = new Intent(CallingActivity.this,VideoActivity.class);
                             videoIntent.putExtra("user_id",userIdReceiver);
+                            videoIntent.putExtra("name",userName);
                             startActivity(videoIntent);
+                            finish();
                         }
                     }
                 });
@@ -206,7 +208,9 @@ public class CallingActivity extends AppCompatActivity {
                     mMediaPlayer.stop();
                     Intent videoIntent = new Intent(CallingActivity.this,VideoActivity.class);
                     videoIntent.putExtra("user_id",userIdReceiver);
+                    videoIntent.putExtra("name",userName);
                     startActivity(videoIntent);
+                    finish();
                 }
             }
 
@@ -241,7 +245,6 @@ public class CallingActivity extends AppCompatActivity {
                                         chatIntent.putExtra("name",userName);
 
                                         startActivity(chatIntent);
-
                                         finish();
                                     }
                                 });

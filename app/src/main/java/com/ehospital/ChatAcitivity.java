@@ -110,10 +110,10 @@ public class ChatAcitivity extends AppCompatActivity implements RecycleViewListe
         mFileName = getExternalCacheDir().getAbsolutePath();
 
 
-      // mAudioBtn = findViewById(R.id.audioBtn);
+        // mAudioBtn = findViewById(R.id.audioBtn);
 
 
-       // mFileName += "/recorded_audio" + generateRandomString() +".3gp";
+        // mFileName += "/recorded_audio" + generateRandomString() +".3gp";
 
 
 
@@ -169,7 +169,7 @@ public class ChatAcitivity extends AppCompatActivity implements RecycleViewListe
 
         mName = findViewById(R.id.chatter_name);
 
-       // mUserProfile = findViewById(R.id.chatter_image);
+        // mUserProfile = findViewById(R.id.chatter_image);
 
 
 
@@ -217,8 +217,8 @@ public class ChatAcitivity extends AppCompatActivity implements RecycleViewListe
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
                 //String image = dataSnapshot.child("image").getValue().toString();
-               // Toast.makeText(ChatAcitivity.this, image, Toast.LENGTH_SHORT).show();
-               // Picasso.with(getApplicationContext()).load(image).placeholder(R.drawable.defaultimage).into(mAdopter.mProifleImageSender);
+                // Toast.makeText(ChatAcitivity.this, image, Toast.LENGTH_SHORT).show();
+                // Picasso.with(getApplicationContext()).load(image).placeholder(R.drawable.defaultimage).into(mAdopter.mProifleImageSender);
                 String accountType = dataSnapshot.child("accounttype").getValue().toString();
 
                 if(accountType.equals("Doctor"))

@@ -47,7 +47,7 @@ public class VideoActivity extends AppCompatActivity implements Session.SessionL
     private DatabaseReference userRef;
 
     private String userId = "";
-    private String mUserIdReceiver;
+    private String mUserIdReceiver,mUserName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +58,7 @@ public class VideoActivity extends AppCompatActivity implements Session.SessionL
 
 
         mUserIdReceiver = getIntent().getStringExtra("user_id");
+        mUserName =  getIntent().getStringExtra("name");
         userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
         userRef = FirebaseDatabase.getInstance().getReference().child("Call");
 
@@ -81,9 +82,8 @@ public class VideoActivity extends AppCompatActivity implements Session.SessionL
                                 mSubscriber.destroy();
                             }
                             Intent chatIntent = new Intent(VideoActivity.this,ChatAcitivity.class);
-                            chatIntent.putExtra("user_id",userId);
-                            chatIntent.putExtra("name",mUserIdReceiver);
-
+                            chatIntent.putExtra("user_id",mUserIdReceiver);
+                            chatIntent.putExtra("name",mUserName);
                             startActivity(chatIntent);
                             finish();
                         }
@@ -101,7 +101,11 @@ public class VideoActivity extends AppCompatActivity implements Session.SessionL
                                 mSubscriber.destroy();
                             }
 
-                            startActivity(new Intent(VideoActivity.this,SlashScreenActivity.class));
+                            Intent chatIntent = new Intent(VideoActivity.this,ChatAcitivity.class);
+                            chatIntent.putExtra("user_id",mUserIdReceiver);
+                            chatIntent.putExtra("name",mUserName);
+
+                            startActivity(chatIntent);
                             finish();
                         }
                         else{
@@ -113,7 +117,11 @@ public class VideoActivity extends AppCompatActivity implements Session.SessionL
                             {
                                 mSubscriber.destroy();
                             }
-                            startActivity(new Intent(VideoActivity.this,SlashScreenActivity.class));
+                            Intent chatIntent = new Intent(VideoActivity.this,ChatAcitivity.class);
+                            chatIntent.putExtra("user_id",mUserIdReceiver);
+                            chatIntent.putExtra("name",mUserName);
+
+                            startActivity(chatIntent);
                             finish();
                         }
                     }
