@@ -6,16 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".PatientFormActivity">
 
-    <ImageView
-        android:id="@+id/imageView8"
-        android:layout_width="467dp"
-        android:layout_height="738dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/docbackground" />
-
     <Spinner
         android:id="@+id/cardTypeSpinner"
         android:layout_width="271dp"
