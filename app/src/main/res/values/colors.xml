@@ -11,14 +11,16 @@
     <!--    <color name="red">#FF069B</color>-->
     <!--    <color name="white">#FFFFFF </color>-->
 
-    <color name="colorTotalConfirmed">#e60000</color>
-    <color name="colorTotalDeaths">#999999</color>
-    <color name="colorTotalRecovered">#7bb974</color>
+    <color name="colorTotalConfirmed">#001995</color>
+    <color name="colorTotalDeaths">#D60000</color>
+    <color name="colorTotalRecovered">#77EC6A</color>
 
     <color name="grey">#eeefee</color>
     <color name="red">#CE0700</color>
     <color name="black">#191819</color>
     <color name="white">#f7f6f9</color>
+    <color name="darkGrey">#323232</color>
+
 
 
 </resources>
