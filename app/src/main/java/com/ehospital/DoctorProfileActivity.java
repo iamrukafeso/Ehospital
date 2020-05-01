@@ -14,6 +14,7 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -39,6 +40,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class DoctorProfileActivity extends AppCompatActivity {
 
+    private TextView mEmailText;
     private Toolbar mProfileBar;
     private EditText mFirstName,mSurname,mEmail,mYearOfExp,mSpecialist,mDesc;
     private Button mUpdateBtn,mChangeProfileImgBtn;
@@ -60,7 +62,7 @@ public class DoctorProfileActivity extends AppCompatActivity {
 
         mProfileBar = findViewById(R.id.profileBar);
         setSupportActionBar(mProfileBar);
-        getSupportActionBar().setTitle("Profile");
+        getSupportActionBar().setTitle("Doctor Profile");
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
@@ -68,11 +70,12 @@ public class DoctorProfileActivity extends AppCompatActivity {
 
         mFirstName = findViewById(R.id.doct_FirstNameEdit);
         mSurname = findViewById(R.id.doct_SurnameEdit);
-        mEmail = findViewById(R.id.doct_EmailEdit);
+//        mEmail = findViewById(R.id.doct_EmailEdit);
         mYearOfExp = findViewById(R.id.doctYearOfExpEdit);
         mSpecialist = findViewById(R.id.doctSpecialiTextEdit);
         mDesc = findViewById(R.id.doctDescriptionEdit);
 
+//        mEmailText = findViewById(R.id.doct_Email);
         mUpdateBtn =findViewById(R.id.doctupdateBtn);
         mProfileImage =findViewById(R.id.doct_profile_image);
         mChangeProfileImgBtn = findViewById(R.id.doct_ChangeImage);
@@ -80,6 +83,7 @@ public class DoctorProfileActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
         mUser = mAuth.getCurrentUser();
+
         final String userId = mUser.getUid();
         mDoctorId = getIntent().getStringExtra("user_id");
 
@@ -110,20 +114,22 @@ public class DoctorProfileActivity extends AppCompatActivity {
 
                                 mFirstName.setEnabled(false);
                                 mSurname.setEnabled(false);
-                                mEmail.setEnabled(false);
+//                                mEmail.setEnabled(false);
                                 mYearOfExp.setEnabled(false);
                                 mSpecialist.setEnabled(false);
                                 mDesc.setEnabled(false);
                                 mUpdateBtn.setVisibility(View.INVISIBLE);
                                 mChangeProfileImgBtn.setVisibility(View.INVISIBLE);
 
+//                                mEmail.setVisibility(View.INVISIBLE);
+//                                mEmailText.setVisibility(View.INVISIBLE);
 
-                                final String email = mUser.getEmail();
+                               // final String email = dataSnapshot.child("email").getValue().toString();
 
                                 mFirstName.setText(firstName.substring(0, 1).toUpperCase() + firstName.substring(1).toLowerCase());
                                 mSurname.setText(surname.substring(0, 1).toUpperCase() + surname.substring(1).toLowerCase());
-                                mEmail.setText(email.substring(0, 1).toUpperCase() + email.substring(1).toLowerCase());
-                                mEmail.setEnabled(false);
+                              //  mEmail.setText(email.substring(0, 1).toUpperCase() + email.substring(1).toLowerCase());
+//                                mEmail.setEnabled(false);
                                 mUpdateBtn.setEnabled(false);
 
                                 if (!mProfileImage.equals("default")) {
@@ -183,8 +189,8 @@ public class DoctorProfileActivity extends AppCompatActivity {
 
                             mFirstName.setText(firstName.substring(0, 1).toUpperCase() + firstName.substring(1).toLowerCase());
                             mSurname.setText(surname.substring(0, 1).toUpperCase() + surname.substring(1).toLowerCase());
-                            mEmail.setText(email.substring(0, 1).toUpperCase() + email.substring(1).toLowerCase());
-                            mEmail.setEnabled(false);
+//                            mEmail.setText(email.substring(0, 1).toUpperCase() + email.substring(1).toLowerCase());
+//                            mEmail.setEnabled(false);
                             mUpdateBtn.setEnabled(false);
 
                             if (!mProfileImage.equals("default")) {
@@ -279,25 +285,25 @@ public class DoctorProfileActivity extends AppCompatActivity {
             }
         });
 
-        mEmail.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-
-                mUpdateBtn.setEnabled(true);
-
-            }
-        });
+//        mEmail.addTextChangedListener(new TextWatcher() {
+//            @Override
+//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+//
+//            }
+//
+//            @Override
+//            public void onTextChanged(CharSequence s, int start, int before, int count) {
+//
+//            }
+//
+//            @Override
+//            public void afterTextChanged(Editable s) {
+//
+//
+//                mUpdateBtn.setEnabled(true);
+//
+//            }
+//        });
 
         mYearOfExp.addTextChangedListener(new TextWatcher() {
             @Override
@@ -518,7 +524,7 @@ public class DoctorProfileActivity extends AppCompatActivity {
                                     final String downloadUrl = uri.toString();
 
 
-                                    mUserRef.child("image").setValue(downloadUrl).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    mPatientRef.child("image").setValue(downloadUrl).addOnCompleteListener(new OnCompleteListener<Void>() {
                                         @Override
                                         public void onComplete(@NonNull Task<Void> task) {
                                             if (task.isSuccessful()) {

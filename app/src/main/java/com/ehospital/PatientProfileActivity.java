@@ -1,8 +1,11 @@
 package com.ehospital;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
@@ -13,6 +16,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -37,6 +41,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class PatientProfileActivity extends AppCompatActivity {
 
+    private Toolbar mBar;
     private EditText mFirstName,mSurname,mEmail;
     private Button mUpdateBtn,mChangeProfileImgBtn;
 
@@ -49,11 +54,19 @@ public class PatientProfileActivity extends AppCompatActivity {
     private ProgressDialog mProgDialog;
     private static final int IMAGE_PICK = 1;
 
+    @SuppressLint("RestrictedApi")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_patient_profile);
 
+
+        mBar = findViewById(R.id.profilePatientBar);
+        setSupportActionBar(mBar);
+        getSupportActionBar().setTitle("Patient Profile");
+
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
 
         mFirstName = findViewById(R.id.patientFirstNameEdit);
         mSurname = findViewById(R.id.patientSurnameEdit);
@@ -197,6 +210,7 @@ public class PatientProfileActivity extends AppCompatActivity {
         });
 
     }
+
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, final Intent data) {

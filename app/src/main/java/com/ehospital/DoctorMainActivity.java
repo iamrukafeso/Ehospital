@@ -36,12 +36,14 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 
 public class DoctorMainActivity extends AppCompatActivity  implements NavigationView.OnNavigationItemSelectedListener{
 
     private Toolbar mNavBar;
     private DrawerLayout mDrawer;
-    private ImageView mProfileImage;
+    private CircleImageView mProfileImage;
 
     private RecyclerView mChatList;
 

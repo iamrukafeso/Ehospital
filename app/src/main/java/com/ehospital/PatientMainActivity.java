@@ -22,14 +22,17 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class PatientMainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
     private Toolbar mNavBar;
     private DrawerLayout mDrawer;
     private FirebaseAuth mAuth;
-
-    private DatabaseReference mUserRef;
+    private CircleImageView mProfileImage;
+    private DatabaseReference mUserRef,mUserDatabase;
     private String mCurrentUserId;
     private ViewPager mPager;
     private TabLayout mTabLayout;
@@ -59,6 +62,8 @@ public class PatientMainActivity extends AppCompatActivity implements Navigation
         mAuth = FirebaseAuth.getInstance();
         mCurrentUserId = mAuth.getCurrentUser().getUid();
 
+        mUserDatabase = FirebaseDatabase.getInstance().getReference().child("Users");
+
         mUserRef = FirebaseDatabase.getInstance().getReference().child("Users").child(mCurrentUserId);
         // to tie DrawerLayout
 
@@ -69,7 +74,7 @@ public class PatientMainActivity extends AppCompatActivity implements Navigation
         mBarToggle.syncState();
 
         NavigationView mNavView = findViewById(R.id.nav_view);
-
+        mProfileImage = mNavView.getHeaderView(0).findViewById(R.id.user_proifle_image);
         mNavView.setNavigationItemSelectedListener(this);
     }
 
@@ -103,7 +108,7 @@ public class PatientMainActivity extends AppCompatActivity implements Navigation
 //
                             Intent profileIntent = new Intent(getApplicationContext(), PatientProfileActivity.class);
                             startActivity(profileIntent);
-                            finish();
+
                             break;
             case R.id.logout_nav:
                 mAuth.signOut();
@@ -118,5 +123,27 @@ public class PatientMainActivity extends AppCompatActivity implements Navigation
         mDrawer.closeDrawer(GravityCompat.START);
 
         return true;
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        mUserDatabase.child(mCurrentUserId).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                String image = dataSnapshot.child("image").getValue().toString();
+
+
+
+                Picasso.with(getApplicationContext()).load(image).placeholder(R.drawable.ic_profile).into(mProfileImage);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
     }
 }

@@ -109,7 +109,7 @@ public class Registratrion extends AppCompatActivity {
         //get input field and store as String
         mFirstName = firstNameEdit.getText().toString();
         mSurname = surnameEdit.getText().toString();
-        String eml = email.getText().toString();
+        final String eml = email.getText().toString();
         String pwd = pwdEdit.getText().toString();
         mDob = dobTextEdit.getText().toString();
         mAccountType= spinner.getSelectedItem().toString();
@@ -175,6 +175,7 @@ public class Registratrion extends AppCompatActivity {
                     userMap.put("image", "default-image");
 
                     if(mAccountType.equals("Doctor")) {
+
 
                         mUserRef = mRef.child(userId);
                         mUserRef.setValue(userMap).addOnCompleteListener(new OnCompleteListener<Void>() {
