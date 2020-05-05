@@ -7,6 +7,7 @@
     android:background="@color/darkGrey"
     tools:context=".ui.home.HomeFragment">
 
+
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
@@ -18,16 +19,18 @@
         android:textSize="24dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/profileBar" />
 
     <TextView
         android:id="@+id/tvLabelTotalConfirmed"
         style="@style/LabelFontStyle"
         android:layout_width="93dp"
         android:layout_height="0dp"
+        android:layout_marginTop="8dp"
         android:text="Total Confirmed"
         android:textColor="#fff"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.528"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 

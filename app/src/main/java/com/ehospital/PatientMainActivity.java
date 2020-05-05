@@ -100,7 +100,7 @@ public class PatientMainActivity extends AppCompatActivity implements Navigation
 //
                 Intent covidIntent = new Intent(getApplicationContext(), MobileNavigation.class);
                 startActivity(covidIntent);
-                finish();
+               
                 break;
 
             case R.id.profile_nav:

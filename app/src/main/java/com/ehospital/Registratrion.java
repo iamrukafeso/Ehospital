@@ -20,6 +20,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.SignInMethodQueryResult;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -72,6 +73,7 @@ public class Registratrion extends AppCompatActivity {
         day =  calendar.get(Calendar.DAY_OF_MONTH);
 
 
+
         mRef = FirebaseDatabase.getInstance().getReference().child("Users");
 
         mAuth = FirebaseAuth.getInstance();
@@ -92,6 +94,8 @@ public class Registratrion extends AppCompatActivity {
                 //show the Calender when Date of Birth clicked
                 showCalenderDialog();
 
+
+
             }
         });
 
@@ -110,10 +114,13 @@ public class Registratrion extends AppCompatActivity {
         mFirstName = firstNameEdit.getText().toString();
         mSurname = surnameEdit.getText().toString();
         final String eml = email.getText().toString();
-        String pwd = pwdEdit.getText().toString();
+        final String pwd = pwdEdit.getText().toString();
         mDob = dobTextEdit.getText().toString();
         mAccountType= spinner.getSelectedItem().toString();
         // textView = (TextView)spinner.getSelectedItem();
+        String[] age = mDob.split("/");
+        String ageNumber = age[2];
+
 
         //check if the fields are empty
         if(mFirstName.isEmpty())
@@ -139,6 +146,12 @@ public class Registratrion extends AppCompatActivity {
             mProgDialog.hide();
             pwdEdit.setError("Please enter password");
         }
+        else if(pwd.length() < 7)
+        {
+            mProgDialog.hide();
+            pwdEdit.setError("Password must be 7 or more characters");
+        }
+
 
         else if(mDob.isEmpty())
         {
@@ -146,112 +159,124 @@ public class Registratrion extends AppCompatActivity {
             dobTextEdit.setError("Please enter date of birth");
         }
 
+
         else if(mAccountType.equals("Select"))
         {
             mProgDialog.hide();
             Toast.makeText(this,"Please select account type",Toast.LENGTH_LONG).show();
         }
 
-
         //if its not  empty insert data into database
         else {
 
-            mAuth.createUserWithEmailAndPassword(eml, pwd).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                @Override
-                public void onComplete(@NonNull Task<AuthResult> task) {
 
-                    //get userId and store as string
-                    FirebaseUser mCurrentUser = FirebaseAuth.getInstance().getCurrentUser();
-                    String userId = mCurrentUser.getUid();
+                mAuth.fetchSignInMethodsForEmail(eml).addOnCompleteListener(new OnCompleteListener<SignInMethodQueryResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<SignInMethodQueryResult> task) {
+                        boolean check = !task.getResult().getSignInMethods().isEmpty();
 
-                    //Used hashmap for string key and value pairs
+                        if (!check) {
+                            mAuth.createUserWithEmailAndPassword(eml, pwd).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                                @Override
+                                public void onComplete(@NonNull Task<AuthResult> task) {
 
-                    HashMap<String, String> userMap = new HashMap<>();
-                    userMap.put("firstname", mFirstName);
-                    userMap.put("surname", mSurname);
-                    userMap.put("dateofbirth", mDob);
-                    userMap.put("accounttype", mAccountType);
-                    userMap.put("fillForm", "false");
-                    userMap.put("image", "default-image");
+                                    //get userId and store as string
+                                    FirebaseUser mCurrentUser = FirebaseAuth.getInstance().getCurrentUser();
+                                    String userId = mCurrentUser.getUid();
 
-                    if(mAccountType.equals("Doctor")) {
+                                    //Used hashmap for string key and value pairs
+
+                                    HashMap<String, String> userMap = new HashMap<>();
+                                    userMap.put("firstname", mFirstName);
+                                    userMap.put("surname", mSurname);
+                                    userMap.put("dateofbirth", mDob);
+                                    userMap.put("accounttype", mAccountType);
+                                    userMap.put("fillForm", "false");
+                                    userMap.put("image", "default-image");
+
+                                    if (mAccountType.equals("Doctor")) {
 
 
-                        mUserRef = mRef.child(userId);
-                        mUserRef.setValue(userMap).addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                if (task.isSuccessful()) {
+                                        mUserRef = mRef.child(userId);
+                                        mUserRef.setValue(userMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<Void> task) {
+                                                if (task.isSuccessful()) {
 
-                                    final FirebaseUser user = mAuth.getCurrentUser();
-                                    user.sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
-                                        @Override
-                                        public void onComplete(@NonNull Task<Void> task) {
-                                            if (task.isSuccessful()) {
-                                                mProgDialog.dismiss();
-                                                Toast.makeText(Registratrion.this,
-                                                        "Verification email sent to " + user.getEmail(),
-                                                        Toast.LENGTH_SHORT).show();
-                                                //Toast.makeText(Registratrion.this, "Your registration was successful", Toast.LENGTH_LONG).show();
-                                                Toast.makeText(Registratrion.this, "Your registration was successful", Toast.LENGTH_LONG).show();
-                                                Intent intent = new Intent(Registratrion.this, LoginActivity.class);
-                                                startActivity(intent);
-                                            } else {
-                                                mProgDialog.dismiss();
-                                                // Log.e(TAG, "sendEmailVerification", task.getException());
-                                                Toast.makeText(Registratrion.this,
-                                                        "Failed to send verification email.",
-                                                        Toast.LENGTH_SHORT).show();
+                                                    final FirebaseUser user = mAuth.getCurrentUser();
+                                                    user.sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                        @Override
+                                                        public void onComplete(@NonNull Task<Void> task) {
+                                                            if (task.isSuccessful()) {
+                                                                mProgDialog.dismiss();
+                                                                Toast.makeText(Registratrion.this,
+                                                                        "Verification email sent to " + user.getEmail(),
+                                                                        Toast.LENGTH_SHORT).show();
+                                                                //Toast.makeText(Registratrion.this, "Your registration was successful", Toast.LENGTH_LONG).show();
+                                                                Toast.makeText(Registratrion.this, "Your registration was successful", Toast.LENGTH_LONG).show();
+                                                                Intent intent = new Intent(Registratrion.this, LoginActivity.class);
+                                                                startActivity(intent);
+                                                            } else {
+                                                                mProgDialog.dismiss();
+                                                                // Log.e(TAG, "sendEmailVerification", task.getException());
+                                                                Toast.makeText(Registratrion.this,
+                                                                        "Failed to send verification email.",
+                                                                        Toast.LENGTH_SHORT).show();
+                                                            }
+                                                        }
+                                                    });
+
+
+                                                }
+
                                             }
-                                        }
-                                    });
-
-
-                                }
-
-                            }
-                        });
-                    }
-                    else if(mAccountType.equals("Patient"))
-                    {
-                        mUserRef = mRef.child(userId);
-                        mUserRef.setValue(userMap).addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                if (task.isSuccessful()) {
+                                        });
+                                    } else if (mAccountType.equals("Patient")) {
+                                        mUserRef = mRef.child(userId);
+                                        mUserRef.setValue(userMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<Void> task) {
+                                                if (task.isSuccessful()) {
 
 //
-                                    final FirebaseUser user = mAuth.getCurrentUser();
-                                    user.sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
-                                        @Override
-                                        public void onComplete(@NonNull Task<Void> task) {
-                                            if (task.isSuccessful()) {
-                                                mProgDialog.dismiss();
-                                                Toast.makeText(Registratrion.this,
-                                                        "Verification email sent to " + user.getEmail(),
-                                                        Toast.LENGTH_SHORT).show();
-                                                //Toast.makeText(Registratrion.this, "Your registration was successful", Toast.LENGTH_LONG).show();
-                                                Intent formIntent = new Intent(Registratrion.this, LoginActivity.class);
-                                                startActivity(formIntent);
-                                            } else {
-                                                mProgDialog.dismiss();
-                                               // Log.e(TAG, "sendEmailVerification", task.getException());
-                                                Toast.makeText(Registratrion.this,
-                                                        "Failed to send verification email.",
-                                                        Toast.LENGTH_SHORT).show();
-                                            }
-                                        }
-                                    });
+                                                    final FirebaseUser user = mAuth.getCurrentUser();
+                                                    user.sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                        @Override
+                                                        public void onComplete(@NonNull Task<Void> task) {
+                                                            if (task.isSuccessful()) {
+                                                                mProgDialog.dismiss();
+                                                                Toast.makeText(Registratrion.this,
+                                                                        "Verification email sent to " + user.getEmail(),
+                                                                        Toast.LENGTH_SHORT).show();
+                                                                //Toast.makeText(Registratrion.this, "Your registration was successful", Toast.LENGTH_LONG).show();
+                                                                Intent formIntent = new Intent(Registratrion.this, LoginActivity.class);
+                                                                startActivity(formIntent);
+                                                            } else {
+                                                                mProgDialog.dismiss();
+                                                                // Log.e(TAG, "sendEmailVerification", task.getException());
+                                                                Toast.makeText(Registratrion.this,
+                                                                        "Failed to send verification email.",
+                                                                        Toast.LENGTH_SHORT).show();
+                                                            }
+                                                        }
+                                                    });
 
+                                                }
+
+                                            }
+                                        });
+
+                                    }
                                 }
 
-                            }
-                        });
-
+                            });
+                        } else {
+                            mProgDialog.hide();
+                            Toast.makeText(Registratrion.this, "Email already exist, Please sign in ", Toast.LENGTH_SHORT).show();
+                        }
                     }
-                }
+                });
 
-            });
 
 
         }
@@ -274,6 +299,8 @@ public class Registratrion extends AppCompatActivity {
 
         datePickerDialog.show();
     }
+
+
 
     public void onClickTo(View view)
     {
