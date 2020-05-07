@@ -24,5 +24,6 @@ public class ExampleInstrumentedTest {
     }
 
     private void onView() {
+
     }
 }

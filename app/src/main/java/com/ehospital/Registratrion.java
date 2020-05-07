@@ -118,8 +118,8 @@ public class Registratrion extends AppCompatActivity {
         mDob = dobTextEdit.getText().toString();
         mAccountType= spinner.getSelectedItem().toString();
         // textView = (TextView)spinner.getSelectedItem();
-        String[] age = mDob.split("/");
-        String ageNumber = age[2];
+       // String[] age = mDob.split("/");
+      //  String ageNumber = age[2];
 
 
         //check if the fields are empty
@@ -272,7 +272,7 @@ public class Registratrion extends AppCompatActivity {
                             });
                         } else {
                             mProgDialog.hide();
-                            Toast.makeText(Registratrion.this, "Email already exist, Please sign in ", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(Registratrion.this, R.string.toast, Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
@@ -307,5 +307,10 @@ public class Registratrion extends AppCompatActivity {
         Intent intent = new Intent(Registratrion.this, LoginActivity.class);
         startActivity(intent);
 
+    }
+
+    public String buildToastDisplay(String toastName)
+    {
+        return toastName;
     }
 }
