@@ -241,34 +241,7 @@ public class ChatAcitivity extends AppCompatActivity implements RecycleViewListe
         mPlayer = new MediaPlayer();
 
         mDatabaseRef = FirebaseDatabase.getInstance().getReference();
-        mDatabaseRef.child("Conversion").child(mCurrentId).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                if(!dataSnapshot.hasChild(mMessager)) {
-                    Map convMap = new HashMap();
-                    convMap.put("seen",false);
-                    convMap.put("timestamp",ServerValue.TIMESTAMP);
-
-                    Map convUserMap = new HashMap();
-                    convUserMap.put("Conversion/" + mCurrentId + "/" + mMessager,convMap);
-                    convUserMap.put("Conversion/" + mMessager + "/" + mCurrentId,convMap);
-
-
-                    mDatabaseRef.updateChildren(convUserMap, new DatabaseReference.CompletionListener() {
-                        @Override
-                        public void onComplete(@Nullable DatabaseError databaseError, @NonNull DatabaseReference databaseReference) {
-
-                        }
-                    });
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
 //        mAudioRef = FirebaseDatabase.getInstance().getReference().child("messages").child(mCurrentId).child(mMessager);
 //
 //
@@ -302,6 +275,34 @@ public class ChatAcitivity extends AppCompatActivity implements RecycleViewListe
             public void onClick(View v) {
                 sendMessage();
                 mInputMessage.getText().clear();
+                mDatabaseRef.child("Conversion").child(mCurrentId).addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                        if(!dataSnapshot.hasChild(mMessager)) {
+                            Map convMap = new HashMap();
+                            convMap.put("seen",false);
+                            convMap.put("timestamp",ServerValue.TIMESTAMP);
+
+                            Map convUserMap = new HashMap();
+                            convUserMap.put("Conversion/" + mCurrentId + "/" + mMessager,convMap);
+                            convUserMap.put("Conversion/" + mMessager + "/" + mCurrentId,convMap);
+
+
+                            mDatabaseRef.updateChildren(convUserMap, new DatabaseReference.CompletionListener() {
+                                @Override
+                                public void onComplete(@Nullable DatabaseError databaseError, @NonNull DatabaseReference databaseReference) {
+
+                                }
+                            });
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
             }
         });
 
@@ -374,6 +375,7 @@ public class ChatAcitivity extends AppCompatActivity implements RecycleViewListe
 
                     if(databaseError != null)
                     {
+
                         Log.d("Chat", databaseError.getMessage().toString());
                     }
                 }

@@ -213,7 +213,7 @@ public class Registratrion extends AppCompatActivity {
                                                                         "Verification email sent to " + user.getEmail(),
                                                                         Toast.LENGTH_SHORT).show();
                                                                 //Toast.makeText(Registratrion.this, "Your registration was successful", Toast.LENGTH_LONG).show();
-                                                                Toast.makeText(Registratrion.this, "Your registration was successful", Toast.LENGTH_LONG).show();
+
                                                                 Intent intent = new Intent(Registratrion.this, LoginActivity.class);
                                                                 startActivity(intent);
                                                             } else {

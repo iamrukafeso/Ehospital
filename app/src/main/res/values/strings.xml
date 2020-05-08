@@ -5,6 +5,10 @@
     <string name="no_login">ALREADY A MEMBER?</string>
     <string name="login">LOGIN</string>
     <string name="toast">Email already exist, Please sign in </string>
+    <string name="inValidDetails">Please enter valid details</string>
+    <string name="patientPage">Patient Page</string>
+    <string name="unVerifiedEmail">Please verify your email</string>
+    <string name="doctorProfile">Doctor Profile</string>
 
 
     <string name="wel">WELCOME!</string>

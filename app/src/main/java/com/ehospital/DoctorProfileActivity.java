@@ -62,7 +62,7 @@ public class DoctorProfileActivity extends AppCompatActivity {
 
         mProfileBar = findViewById(R.id.profileBar);
         setSupportActionBar(mProfileBar);
-        getSupportActionBar().setTitle("Doctor Profile");
+        getSupportActionBar().setTitle(R.string.doctorProfile);
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);

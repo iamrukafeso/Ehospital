@@ -97,7 +97,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void loginProcess() {
-        mProgDialog.setTitle("Registration Process ");
+        mProgDialog.setTitle("Login Process ");
         mProgDialog.setMessage("Please wait for a moment");
         mProgDialog.setCanceledOnTouchOutside(false);
         mProgDialog.show();
@@ -147,7 +147,7 @@ public class LoginActivity extends AppCompatActivity {
                                         }
                                         else{
                                             mProgDialog.hide();
-                                            Toast.makeText(LoginActivity.this, "Please verify your email", Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(LoginActivity.this, R.string.unVerifiedEmail, Toast.LENGTH_SHORT).show();
                                         }
 
                                     }
@@ -170,7 +170,7 @@ public class LoginActivity extends AppCompatActivity {
                                         }
                                         else{
                                             mProgDialog.hide();
-                                            Toast.makeText(LoginActivity.this, "Please verify your email", Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(LoginActivity.this, R.string.unVerifiedEmail, Toast.LENGTH_SHORT).show();
 
                                         }
 
@@ -198,7 +198,7 @@ public class LoginActivity extends AppCompatActivity {
                     }
                     else {
                         mProgDialog.dismiss();
-                        Toast.makeText(LoginActivity.this, "Please enter valid details", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(LoginActivity.this, R.string.inValidDetails, Toast.LENGTH_SHORT).show();
                     }
 
 

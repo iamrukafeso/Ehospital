@@ -46,7 +46,7 @@ public class PatientMainActivity extends AppCompatActivity implements Navigation
         mAuth = FirebaseAuth.getInstance();
         mNavBar = findViewById(R.id.toolBar);
         setSupportActionBar(mNavBar);
-        getSupportActionBar().setTitle("Patient page");
+        getSupportActionBar().setTitle(R.string.patientPage);
 
         mDrawer = findViewById(R.id.doctor_layout);
 
