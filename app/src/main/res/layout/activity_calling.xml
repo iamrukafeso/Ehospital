@@ -58,16 +58,14 @@
             android:layout_width="120dp"
             android:layout_height="120dp"
             android:layout_marginRight="80dp"
-            android:background="#46CA4A"
-            android:src="@drawable/ic_call_black_24dp"
+            android:src="@drawable/call"
             android:visibility="gone" />
 
         <ImageView
             android:id="@+id/cancel_call"
             android:layout_width="110dp"
             android:layout_height="105dp"
-            android:background="#F70000"
-            android:src="@drawable/ic_call_end_black_24dp" />
+            android:src="@drawable/end" />
     </LinearLayout>
 
 
